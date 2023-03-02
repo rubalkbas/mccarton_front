@@ -1,21 +1,21 @@
 { 
     "id": 2,
-    "name": "PC All-in-One",
+    "name": "Caja para oficina",
     "images": [
         {
-            "small": "assets/images/products/pc/1-small.png",
-            "medium": "assets/images/products/pc/1-medium.png",
-            "big": "assets/images/products/pc/1-big.png"
+            "small": "assets/images/carousel/caja4.jpg",
+            "medium": "assets/images/carousel/caja4.jpg",
+            "big": "assets/images/carousel/caja4.jpg"
         },
         {
-            "small": "assets/images/products/pc/2-small.png",
-            "medium": "assets/images/products/pc/2-medium.png",
-            "big": "assets/images/products/pc/2-big.png"
+            "small": "assets/images/carousel/caja4.jpg",
+            "medium": "assets/images/carousel/caja4.jpg",
+            "big": "assets/images/carousel/caja4.jpg"
         },
         {
-            "small": "assets/images/products/pc/3-small.png",
-            "medium": "assets/images/products/pc/3-medium.png",
-            "big": "assets/images/products/pc/3-big.png"
+            "small": "assets/images/carousel/caja4.jpg",
+            "medium": "assets/images/carousel/caja4.jpg",
+            "big": "assets/images/carousel/caja4.jpg"
         },
         {
             "small": "assets/images/products/pc/4-small.png",

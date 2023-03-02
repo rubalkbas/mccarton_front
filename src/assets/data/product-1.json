@@ -3,19 +3,19 @@
     "name": "Keyboard",
     "images": [
         {
-            "small": "assets/images/products/keyboard/1-small.png",
-            "medium": "assets/images/products/keyboard/1-medium.png",
-            "big": "assets/images/products/keyboard/1-big.png"
+            "small": "assets/images/carousel/caja2.jpg",
+            "medium": "assets/images/carousel/caja2.jpg",
+            "big": "assets/images/carousel/caja2.jpg"
         },
         {
-            "small": "assets/images/products/keyboard/2-small.png",
-            "medium": "assets/images/products/keyboard/2-medium.png",
-            "big": "assets/images/products/keyboard/2-big.png"
+            "small": "assets/images/carousel/caja2.jpg",
+            "medium": "assets/images/carousel/caja2.jpg",
+            "big": "assets/images/carousel/caja2.jpg"
         },
         {
-            "small": "assets/images/products/keyboard/3-small.png",
-            "medium": "assets/images/products/keyboard/3-medium.png",
-            "big": "assets/images/products/keyboard/3-big.png"
+            "small": "assets/images/carousel/caja2.jpg",
+            "medium": "assets/images/carousel/caja2.jpg",
+            "big": "assets/images/carousel/caja2.jpg"
         }
     ],
     "oldPrice": null,

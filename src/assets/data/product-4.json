@@ -1,21 +1,21 @@
 { 
     "id": 4,
-    "name": "ProBook",
+    "name": "Caja de Cartón",
     "images": [
         {
-            "small": "assets/images/products/probook/1-small.png",
-            "medium": "assets/images/products/probook/1-medium.png",
-            "big": "assets/images/products/probook/1-big.png"
+            "small": "assets/images/carousel/caja3.jpg",
+            "medium": "assets/images/carousel/caja3.jpg",
+            "big": "assets/images/carousel/caja3.jpg"
         },
         {
-            "small": "assets/images/products/probook/2-small.png",
-            "medium": "assets/images/products/probook/2-medium.png",
-            "big": "assets/images/products/probook/2-big.png"
+            "small": "assets/images/carousel/caja3.jpg",
+            "medium": "assets/images/carousel/caja3.jpg",
+            "big": "assets/images/carousel/caja3.jpg"
         },
         {
-            "small": "assets/images/products/probook/3-small.png",
-            "medium": "assets/images/products/probook/3-medium.png",
-            "big": "assets/images/products/probook/3-big.png"
+            "small": "assets/images/carousel/caja3.jpg",
+            "medium": "aassets/images/carousel/caja3.jpg",
+            "big": "assets/images/carousel/caja3.jpg"
         },
         {
             "small": "assets/images/products/probook/4-small.png",

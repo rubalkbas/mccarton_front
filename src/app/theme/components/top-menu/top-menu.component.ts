@@ -8,7 +8,7 @@ import { Settings, AppSettings } from '../../../app.settings';
   templateUrl: './top-menu.component.html'
 })
 export class TopMenuComponent implements OnInit {
-  public currencies = ['USD', 'EUR'];
+  public currencies = ['MX', 'USD'];
   public currency:any; 
 
   public settings: Settings;

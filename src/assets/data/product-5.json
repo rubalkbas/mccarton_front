@@ -1,16 +1,16 @@
 { 
     "id": 5,
-    "name": "Phone",
+    "name": "Caja a medida",
     "images": [
         {
-            "small": "assets/images/products/phone/1-small.png",
-            "medium": "assets/images/products/phone/1-medium.png",
-            "big": "assets/images/products/phone/1-big.png"
+            "small": "assets/images/carousel/caja7.png",
+            "medium": "assets/images/carousel/caja7.png",
+            "big": "assets/images/carousel/caja7.png"
         },
         {
-            "small": "assets/images/products/phone/2-small.png",
-            "medium": "assets/images/products/phone/2-medium.png",
-            "big": "assets/images/products/phone/2-big.png"
+            "small": "aassets/images/carousel/caja7.png",
+            "medium": "assets/images/carousel/caja7.png",
+            "big": "assets/images/carousel/caja7.png"
         }
     ],
     "oldPrice": null,

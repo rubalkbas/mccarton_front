@@ -11,7 +11,7 @@
         </span>
     </mat-menu> 
 
-    <a mat-button [matMenuTriggerFor]="langMenu" #langMenuTrigger="matMenuTrigger"> 
+    <!-- <a mat-button [matMenuTriggerFor]="langMenu" #langMenuTrigger="matMenuTrigger"> 
         <img [src]="'assets/images/flags/'+translateService.currentLang+'.svg'" width="18" [alt]="translateService.currentLang">   
         <span fxShow="false" fxShow.gt-sm class="flag-menu-title">{{getLangText(translateService.currentLang)}}</span>
         <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
@@ -23,7 +23,7 @@
                 <span class="px-1">{{getLangText(lang)}}</span>   
             </button> 
         </span>
-    </mat-menu>
+    </mat-menu> -->
 
     <span fxShow="false" fxShow.gt-sm>
         <a mat-button routerLink="/compare">{{ 'COMPARE' | translate }} <span *ngIf="settings.rtl">&rlm;</span>({{appService.Data.compareList.length}})</a>

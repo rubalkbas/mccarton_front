@@ -10,11 +10,11 @@ import { Product } from "../../app.models";
 export class HomeComponent implements OnInit {
 
   public slides = [
-    { title: 'The biggest sale', subtitle: 'Special for today', image: 'assets/images/carousel/caja2.jpg' },
-    { title: 'Summer collection', subtitle: 'New Arrivals On Sale', image: 'assets/images/carousel/caja5.jpg' },
-    { title: 'The biggest sale', subtitle: 'Special for today', image: 'assets/images/carousel/caja4.jpg' },
-    { title: 'Summer collection', subtitle: 'New Arrivals On Sale', image: 'assets/images/carousel/caja1.png' },
-    { title: 'The biggest sale', subtitle: 'Special for today', image: 'assets/images/carousel/caja6.jpg' }
+    { title: 'LA MAYOR VENTA DEL AÑO', subtitle: 'Ofertas especiales HOY', image: 'assets/images/carousel/caja2.jpg' },
+    { title: 'Colección de Verano', subtitle: 'Nuevos productos en venta', image: 'assets/images/carousel/caja5.jpg' },
+    { title: 'LA MAYOR VENTA DEL AÑO', subtitle: 'Ofertas especiales HOY', image: 'assets/images/carousel/caja4.jpg' },
+    { title: 'Colección de Verano', subtitle: 'Nuevos productos en venta', image: 'assets/images/carousel/caja1.png' },
+    { title: 'LA MAYOR VENTA DEL AÑO', subtitle: 'Ofertas especiales HOY', image: 'assets/images/carousel/caja6.jpg' }
   ];
 
   public brands = [];

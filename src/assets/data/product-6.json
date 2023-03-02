@@ -1,31 +1,31 @@
 { 
     "id": 6,
-    "name": "All-in-One Printer",
+    "name": "Caja para fiestas",
     "images": [
         {
-            "small": "assets/images/products/printer/1-small.png",
-            "medium": "assets/images/products/printer/1-medium.png",
-            "big": "assets/images/products/printer/1-big.png"
+            "small": "assets/images/carousel/caja8.jpg",
+            "medium": "assets/images/carousel/caja8.jpg",
+            "big": "assets/images/carousel/caja8.jpg"
         },
         {
-            "small": "assets/images/products/printer/2-small.png",
-            "medium": "assets/images/products/printer/2-medium.png",
-            "big": "assets/images/products/printer/2-big.png"
+            "small": "assets/images/carousel/caja8.jpg",
+            "medium": "assets/images/carousel/caja8.jpg",
+            "big": "assets/images/carousel/caja8.jpg"
         },
         {
-            "small": "assets/images/products/printer/3-small.png",
-            "medium": "assets/images/products/printer/3-medium.png",
-            "big": "assets/images/products/printer/3-big.png"
+            "small": "aassets/images/carousel/caja8.jpg",
+            "medium": "assets/images/carousel/caja8.jpg",
+            "big": "assets/images/carousel/caja8.jpg"
         },
         {
-            "small": "assets/images/products/printer/4-small.png",
-            "medium": "assets/images/products/printer/4-medium.png",
-            "big": "assets/images/products/printer/4-big.png"
+            "small": "assets/images/carousel/caja8.jpg",
+            "medium": "assets/images/carousel/caja8.jpg",
+            "big": "assets/images/carousel/caja8.jpg"
         },
         {
-            "small": "assets/images/products/printer/5-small.png",
-            "medium": "assets/images/products/printer/5-medium.png",
-            "big": "assets/images/products/printer/5-big.png"
+            "small": "assets/images/carousel/caja8.jpg",
+            "medium": "assets/images/carousel/caja8.jpg",
+            "big": "assets/images/carousel/caja8.jpg"
         }
     ],
     "oldPrice": null,

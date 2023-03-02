@@ -4,19 +4,19 @@
         "name": "Keyboard",
         "images": [
             {
-                "small": "assets/images/products/keyboard/1-small.png",
-                "medium": "assets/images/products/keyboard/1-medium.png",
-                "big": "assets/images/products/keyboard/1-big.png"
+                "small": "assets/images/carousel/caja1.png",
+                "medium": "assets/images/carousel/caja2.jpg",
+                "big": "assets/images/carousel/caja3.jpg"
             },
             {
-                "small": "assets/images/products/keyboard/2-small.png",
-                "medium": "assets/images/products/keyboard/2-medium.png",
-                "big": "assets/images/products/keyboard/2-big.png"
+                "small": "assets/images/carousel/caja1.png",
+                "medium": "assets/images/carousel/caja2.jpg",
+                "big": "assets/images/carousel/caja3.jpg"
             },
             {
-                "small": "assets/images/products/keyboard/3-small.png",
-                "medium": "assets/images/products/keyboard/3-medium.png",
-                "big": "assets/images/products/keyboard/3-big.png"
+                "small": "assets/images/carousel/caja1.png",
+                "medium": "assets/images/carousel/caja2.jpg",
+                "big": "assets/images/carousel/caja3.jpg"
             }
         ],
         "oldPrice": null,
@@ -162,7 +162,7 @@
         "images": [
             {
                 "small": "assets/images/products/phone/1-small.png",
-                "medium": "assets/images/products/phone/1-medium.png",
+                "medium": "assets/images/carousel/caja1.png",
                 "big": "assets/images/products/phone/1-big.png"
             },
             {

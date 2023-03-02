@@ -1,11 +1,11 @@
 [    
     { 
         "id": 1,
-        "name": "Keyboard",
+        "name": "Caja de Mudanza",
         "images": [
             {
                 "small": "assets/images/products/keyboard/1-small.png",
-                "medium": "assets/images/products/keyboard/1-medium.png",
+                "medium": "assets/images/carousel/caja6.jpg",
                 "big": "assets/images/products/keyboard/1-big.png"
             },
             {
@@ -34,11 +34,11 @@
     },
     { 
         "id": 2,
-        "name": "PC All-in-One",
+        "name": "Caja para oficina",
         "images": [
             {
                 "small": "assets/images/products/pc/1-small.png",
-                "medium": "assets/images/products/pc/1-medium.png",
+                "medium": "assets/images/carousel/caja4.jpg",
                 "big": "assets/images/products/pc/1-big.png"
             },
             {
@@ -82,17 +82,17 @@
     },    
     { 
         "id": 3,
-        "name": "Headset",
+        "name": "Caja para regalo",
         "images": [
             {
-                "small": "assets/images/products/headset/1-small.png",
-                "medium": "assets/images/products/headset/1-medium.png",
-                "big": "assets/images/products/headset/1-big.png"
+                "small": "assets/images/carousel/caja5.jpg",
+                "medium": "assets/images/carousel/caja5.jpg",
+                "big": "assets/images/carousel/caja5.jpg"
             },
             {
-                "small": "assets/images/products/headset/2-small.png",
-                "medium": "assets/images/products/headset/2-medium.png",
-                "big": "assets/images/products/headset/2-big.png"
+                "small": "assets/images/carousel/caja5.jpg",
+                "medium": "assets/images/carousel/caja5.jpg",
+                "big": "assets/images/carousel/caja5.jpg"
             },
             {
                 "small": "assets/images/products/headset/3-small.png",
@@ -115,11 +115,11 @@
     },   
     { 
         "id": 4,
-        "name": "ProBook",
+        "name": "Caja de Cartón",
         "images": [
             {
                 "small": "assets/images/products/probook/1-small.png",
-                "medium": "assets/images/products/probook/1-medium.png",
+                "medium": "assets/images/carousel/caja3.jpg",
                 "big": "assets/images/products/probook/1-big.png"
             },
             {
@@ -158,11 +158,11 @@
     },
     { 
         "id": 5,
-        "name": "Phone",
+        "name": "Caja a medida",
         "images": [
             {
                 "small": "assets/images/products/phone/1-small.png",
-                "medium": "assets/images/products/phone/1-medium.png",
+                "medium": "assets/images/carousel/caja7.png",
                 "big": "assets/images/products/phone/1-big.png"
             },
             {
@@ -186,11 +186,11 @@
     },
     { 
         "id": 6,
-        "name": "All-in-One Printer",
+        "name": "Caja para fiestas",
         "images": [
             {
                 "small": "assets/images/products/printer/1-small.png",
-                "medium": "assets/images/products/printer/1-medium.png",
+                "medium": "assets/images/carousel/caja8.jpg",
                 "big": "assets/images/products/printer/1-big.png"
             },
             {

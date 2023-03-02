@@ -1,21 +1,21 @@
 { 
     "id": 3,
-    "name": "Headset",
+    "name": "Caja para Regalo",
     "images": [
         {
-            "small": "assets/images/products/headset/1-small.png",
-            "medium": "assets/images/products/headset/1-medium.png",
-            "big": "assets/images/products/headset/1-big.png"
+            "small": "assets/images/carousel/caja5.jpg",
+            "medium": "assets/images/carousel/caja5.jpg",
+            "big": "assets/images/carousel/caja5.jpg"
         },
         {
-            "small": "assets/images/products/headset/2-small.png",
-            "medium": "assets/images/products/headset/2-medium.png",
-            "big": "assets/images/products/headset/2-big.png"
+            "small": "assets/images/carousel/caja5.jpg",
+            "medium": "assets/images/carousel/caja5.jpg",
+            "big": "assets/images/carousel/caja5.jpg"
         },
         {
-            "small": "assets/images/products/headset/3-small.png",
-            "medium": "assets/images/products/headset/3-medium.png",
-            "big": "assets/images/products/headset/3-big.png"
+            "small": "assets/images/carousel/caja5.jpg",
+            "medium": "assets/images/carousel/caja5.jpg",
+            "big": "assets/images/carousel/caja5.jpg"
         }
     ],
     "oldPrice": null,
