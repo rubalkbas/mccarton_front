@@ -1,0 +1,64 @@
+<div class="p-1">
+    <mat-card class="p-0">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
+            <h2>Lista de materiales</h2>
+            <button mat-raised-button color="primary" (click)="openCategoryDialog(null)">Agregar material</button>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="table-responsive">
+            <div class="example-container mat-elevation-z8 mat-table admin-table">
+                <table mat-table [dataSource]="dataSource" class="table">
+                    <caption hidden>Materiales</caption>
+
+                    <ng-container id="nombre-material" matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                        <td mat-cell *matCellDef="let element" class="mat-column-align-center">
+                            {{element.nombreMaterial}} </td>
+                    </ng-container>
+
+                    <ng-container id="descripcion-material" matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                        <td mat-cell *matCellDef="let element"> {{element.descripcionMaterial}} </td>
+                    </ng-container>
+
+                    <ng-container id="estatus-material" matColumnDef="estatus">
+                        <th mat-header-cell *matHeaderCellDef> Estatus </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.estatus === 0 ? 'Inactivo' : 'Activo' }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container id="acciones-material" matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="p-1 actions">
+                                <button mat-mini-fab color="primary" matTooltip="Editar"
+                                    (click)="openCategoryDialog(element)">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button mat-mini-fab color="warn" matTooltip="Eliminar" class="mx-1"
+                                    (click)="remove(element)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                </table>
+            </div>
+        </div>
+
+    </mat-card>
+
+    <div *ngIf="categories.length > 0" fxLayout="row wrap">
+        <div fxFlex="100">
+            <mat-card class="p-0 text-center">
+                <pagination-controls class="product-pagination" autoHide="true" maxSize="5"
+                    (pageChange)="onPageChanged($event)"></pagination-controls>
+            </mat-card>
+        </div>
+    </div>
+</div>

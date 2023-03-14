@@ -28,6 +28,7 @@
   },
   "ADMIN_NAV": {  
     "DASHBOARD": "Dashboard",  
+    "MATERIALS": "Materials",
     "PRODUCTS": "Products", 
     "CATEGORIES": "Categories",
     "PRODUCT_LIST": "Products List", 

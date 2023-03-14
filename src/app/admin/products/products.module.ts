@@ -12,6 +12,8 @@ import { ProductZoomComponent } from './product-detail/product-zoom/product-zoom
 import { AddProductComponent } from './add-product/add-product.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryDialogComponent } from './categories/category-dialog/category-dialog.component';
+import { MaterialComponent } from './materials/materials.component';
+import { MaterialDialogComponent } from './materials/material-dialog/material-dialog.component';
 
 export const routes: Routes = [ 
   { path: '', redirectTo: 'product-list', pathMatch: 'full'},
@@ -21,6 +23,7 @@ export const routes: Routes = [
   { path: 'product-detail/:id', component: ProductDetailComponent, data: { breadcrumb: 'Product Detail' } }, 
   { path: 'add-product', component: AddProductComponent, data: { breadcrumb: 'Add Product' } },
   { path: 'add-product/:id', component: AddProductComponent, data: { breadcrumb: 'Edit Product' } }, 
+  { path: 'materials', component: MaterialComponent, data: { breadcrumb: 'Materials' } },
 ];
 
 @NgModule({
@@ -30,7 +33,9 @@ export const routes: Routes = [
     ProductZoomComponent,
     AddProductComponent,
     CategoriesComponent,
-    CategoryDialogComponent
+    CategoryDialogComponent,
+    MaterialComponent,
+    MaterialDialogComponent
   ],
   imports: [
     CommonModule,

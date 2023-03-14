@@ -1,0 +1,7 @@
+{
+    "app": {
+        "applicationName": "McCarton",
+        "urlAdmin" : "http://localhost:8090",
+        "version": "1.0.0"
+    }
+}
