@@ -1,11 +1,15 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { Colores } from "../admin/products/colors/colors.component";
 
 @Injectable({
   providedIn: "root",
 })
 export class AdminService {
+
+
+
   private urlAdmin = "http://localhost:8090";
   private httpOptions = {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -25,16 +29,29 @@ export class AdminService {
     );
   }
 
-  public eliminarMaterial(id: number): Observable<any> {
-    return this.http.delete(
-      `${this.urlAdmin}/Materiales/eliminar/${id}`,
+  public actualizarMaterial(material: any): Observable<any> {
+    return this.http.put(
+      `${this.urlAdmin}/Materiales/actualizarMaterial`,
+      material,
       this.httpOptions
     );
   }
 
-  public actualizarMaterial(material: any): Observable<any> {
+  public listarColores(): Observable<any> {
+    return this.http.get(`${this.urlAdmin}/colores/todos`, this.httpOptions);
+  }
+
+  public crearColor(material: any): Observable<any> {
+    return this.http.post(
+      `${this.urlAdmin}/colores/nuevoColor`,
+      material,
+      this.httpOptions
+    );
+  }
+
+  public actualizarColor(material: any): Observable<any> {
     return this.http.put(
-      `${this.urlAdmin}/Materiales/actualizarMaterial`,
+      `${this.urlAdmin}/colores/actualizarEstatusColor`,
       material,
       this.httpOptions
     );

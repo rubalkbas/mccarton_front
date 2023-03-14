@@ -8,12 +8,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from 'src/app/_services/admins.service';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MaterialDialogComponent } from './material-dialog/material-dialog.component';
+import { ColorDialogComponent } from './color-dialog/color-dialog.component';
 
-export class Materiales {
-  idMaterial: number;
-  nombreMaterial: string;
-  descripcionMaterial: string;
+export class Colores {
+  idColor: number;
+  nombreColor: string;
+  descripcionColor: string;
   estatus: number;
 }
 
@@ -36,11 +36,11 @@ const dutchRangeLabel = (page: number, pageSize: number, length: number) => {
 };
 
 @Component({
-  selector: 'app-materials',
-  templateUrl: './materials.component.html',
-  styleUrls: ['./materials.component.scss']
+  selector: 'app-colors',
+  templateUrl: './colors.component.html',
+  styleUrls: ['./colors.component.scss']
 })
-export class MaterialComponent implements OnInit {
+export class ColorComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -49,15 +49,24 @@ export class MaterialComponent implements OnInit {
   public page: any;
   public count = 6;
   public settings:Settings;
-  constructor(public appService: AppService, public dialog: MatDialog, public appSettings:AppSettings, private adminService: AdminService, private paginator1: MatPaginatorIntl) {
-    this.settings = this.appSettings.settings;
-    this.paginator1.itemsPerPageLabel = "Registros por página";
-    paginator1.getRangeLabel = dutchRangeLabel;
+
+  constructor(
+      public appService: AppService, 
+      public dialog: MatDialog, 
+      public appSettings:AppSettings, 
+      private adminService: AdminService, 
+      private paginator1: MatPaginatorIntl
+    ) {
+
+      this.settings = this.appSettings.settings;
+      this.paginator1.itemsPerPageLabel = "Registros por página";
+      paginator1.getRangeLabel = dutchRangeLabel;
+
   }
 
-  listaMateriales: Materiales[] = [];
+  listaColores: Colores[] = [];
   displayedColumns: string[] = ['nombre', 'descripcion', 'estatus'];
-  dataSource = new MatTableDataSource<Materiales>(this.listaMateriales);
+  dataSource = new MatTableDataSource<Colores>(this.listaColores);
 
   ngOnInit(): void {
     this.loadGrid();
@@ -83,15 +92,15 @@ export class MaterialComponent implements OnInit {
   }
 
   public loadGrid() {
-    this.adminService.listarMateriales().subscribe({
+    this.adminService.listarColores().subscribe({
       next: response => {
-        this.listaMateriales = response.response;
-        this.dataSource = new MatTableDataSource<Materiales>(this.listaMateriales);
+        this.listaColores = response.response;
+        this.dataSource = new MatTableDataSource<Colores>(this.listaColores);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       error: error => {
-        util.errorMessage(error);
+        util.errorMessage(error.error.mensaje);
       }
     });
   }
@@ -102,9 +111,9 @@ export class MaterialComponent implements OnInit {
   }
 
   public openCategoryDialog(data:any){
-    const dialogRef = this.dialog.open(MaterialDialogComponent, {
+    const dialogRef = this.dialog.open(ColorDialogComponent, {
       data: {
-        material: data,
+        color: data,
         categories: this.categories
       },
       panelClass: ['theme-dialog'],

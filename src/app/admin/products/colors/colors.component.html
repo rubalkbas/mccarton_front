@@ -1,0 +1,47 @@
+<div class="p-1">
+    <mat-card class="p-0">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
+            <h2>Lista de colores</h2>
+            <button mat-raised-button color="primary" (click)="openCategoryDialog(null)">Agregar color</button>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="table-responsive">
+            <div class="form-group">
+                <mat-form-field class="w-25">
+                    <mat-label>Buscar</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Rojo" #input>
+                </mat-form-field>
+            </div>
+            <div class="example-container mat-elevation-z8 mat-table admin-table">
+                <table mat-table [dataSource]="dataSource" class="table">
+                    <caption hidden>Colores</caption>
+
+                    <ng-container id="nombre-color" matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                        <td mat-cell *matCellDef="let element" class="mat-column-align-center">
+                            {{element.nombreColor}} </td>
+                    </ng-container>
+
+                    <ng-container id="descripcion-color" matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                        <td mat-cell *matCellDef="let element"> {{element.descripcionColor}} </td>
+                    </ng-container>
+
+                    <ng-container id="estatus-color" matColumnDef="estatus">
+                        <th mat-header-cell *matHeaderCellDef> Estatus </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.estatus === 0 ? 'Inactivo' : 'Activo' }}
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="openCategoryDialog(row)"></tr>
+
+                </table>
+                <mat-paginator class="paginator" showFirstLastButtons [pageIndex]="0"
+                                            [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"
+                                            aria-label="Select page"></mat-paginator>
+            </div>
+        </div>
+
+    </mat-card>
+</div>

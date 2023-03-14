@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Material</h1>
+<h1 mat-dialog-title>Color</h1>
 <form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
     <div mat-dialog-content>
         <div fxLayout="row wrap">
@@ -11,7 +11,8 @@
             <div fxFlex="100">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Descripción</mat-label>
-                    <textarea matInput formControlName="descripcion" cols="30" rows="10" required></textarea>
+                    <textarea matInput formControlName="descripcion" maxlength="100" cols="30" rows="10" (input)="updateCharsCount($event.target.value)" required></textarea>
+                    <p class="text-right">{{ charsWritten }}/{{ maxChars }}</p>
                 </mat-form-field>
             </div> 
             <div fxFlex="100">   

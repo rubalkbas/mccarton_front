@@ -47,6 +47,23 @@ td.mat-footer-cell {
   align-items: center;
 }
 
+.no-shadow{
+  box-shadow: none !important;
+}
+
+table tr {
+  cursor: pointer;
+}
+
+.form-group{
+  margin:15px;
+  width: 100%;
+  background-color: white !important;
+}
+
+.input-buscar{
+  background-color: #fff !important;
+}
 // .mat-mini-fab {
 //   width: 28px;
 //   height: 28px;

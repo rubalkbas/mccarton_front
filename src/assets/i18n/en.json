@@ -29,6 +29,7 @@
   "ADMIN_NAV": {  
     "DASHBOARD": "Dashboard",  
     "MATERIALS": "Materials",
+    "COLORS": "Colors",
     "PRODUCTS": "Products", 
     "CATEGORIES": "Categories",
     "PRODUCT_LIST": "Products List", 
