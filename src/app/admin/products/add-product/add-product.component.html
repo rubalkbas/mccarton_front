@@ -1,104 +1,166 @@
 <div class="p-1">
     <mat-card>
         <mat-card-header>
-            <mat-card-title>{{(id) ? 'Edit' : 'Add New'}} Product</mat-card-title>
+            <mat-card-title>{{(id) ? 'Editar' : 'Agregar'}} Producto</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off" fxLayout="row wrap">
                 <div fxFlex="40" class="px-2"> 
-                    <p class="mt-1"><span class="uppercase fw-500">Gallery</span><span class="text-muted px-1">(max 8 images)</span></p>  
+                    <p class="mt-1"><span class="uppercase fw-500">Fotos</span><span class="text-muted px-1">(máximo 8 imágenes)</span></p>  
                     <input-file formControlName="images" fileLimit="8" fileAccept="image/*"></input-file>  
                 </div>
                 <div fxFlex="60" class="px-2">
                     <div fxLayout="row wrap">
                         <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Name</mat-label>
+                                <mat-label>Nombre</mat-label>
                                 <input matInput formControlName="name" required>
-                                <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
-                                <mat-error *ngIf="form.controls.name.hasError('minlength')">Name isn't long enough, minimum of 4 characters</mat-error>
+                                <mat-error *ngIf="form.controls.name.errors?.required">El nombre es requerido</mat-error>
+                                <mat-error *ngIf="form.controls.name.hasError('minlength')">El nombre no es lo suficientemente largo, mínimo 4 caracteres</mat-error>
                             </mat-form-field>
                         </div> 
                         <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Category</mat-label>
+                                <mat-label>Categoría</mat-label>
                                 <mat-select formControlName="categoryId" required>
-                                    <mat-option *ngFor="let cat of categories" [value]="cat.id">
-                                        <span>{{cat.name}}</span>
+                                    <mat-option *ngFor="let cat of categorias" [value]="cat.idCategorias">
+                                        <span>{{cat.nombreCategoria}}</span>
                                     </mat-option>
                                 </mat-select>
-                                <mat-error *ngIf="form.controls.categoryId.errors?.required">Category is required</mat-error>
+                                <mat-error *ngIf="form.controls.categoryId.errors?.required">La categoría es requerida</mat-error>
                             </mat-form-field>
                         </div> 
                         <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Old Price</mat-label>
-                                <input matInput formControlName="oldPrice">
-                                <mat-error *ngIf="form.controls.oldPrice.errors?.required">Old Price is required</mat-error>
+                                <mat-label>Precio de compra</mat-label>
+                                <input matInput formControlName="precio_compra" type="number">
+                                <mat-error *ngIf="form.controls.precio_compra.errors?.required">El precio de compra ese requerido</mat-error>
                             </mat-form-field>
                         </div> 
                         <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>New Price</mat-label>
-                                <input matInput formControlName="newPrice" required>
-                                <mat-error *ngIf="form.controls.newPrice.errors?.required">New Price is required</mat-error>
+                                <mat-label>Precio de venta</mat-label>
+                                <input matInput formControlName="precio_venta" type="number">
+                                <mat-error *ngIf="form.controls.precio_venta.errors?.required">El precio de venta es requerido</mat-error>
                             </mat-form-field>
                         </div> 
                         <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Discount</mat-label>
-                                <input matInput formControlName="discount" type="number"> 
+                                <mat-label>Código de referencia</mat-label>
+                                <input matInput formControlName="referencia" type="text"> 
+                                <mat-error *ngIf="form.controls.referencia.errors?.required">El código de referencia es requerido</mat-error>
                             </mat-form-field>
                         </div> 
                         <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Availibility Count</mat-label>
-                                <input matInput formControlName="availibilityCount" type="number"> 
+                                <mat-label>Stock</mat-label>
+                                <input matInput formControlName="stock" type="number"> 
                             </mat-form-field>
                         </div> 
 
                         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>Color</mat-label>
-                                <mat-select formControlName="color" multiple  (selectionChange)="onColorSelectionChange($event)">
-                                    <mat-select-trigger>{{selectedColors}}</mat-select-trigger>
-                                    <mat-option *ngFor="let color of colors" [value]="color">
+                                <mat-select formControlName="color">
+                                    <!-- <mat-select-trigger>{{selectedColors}}</mat-select-trigger> -->
+                                    <mat-option *ngFor="let color of colores" [value]="color.idColor">
                                         <div fxLayout="row" fxLayoutAlign="space-between center">
-                                            <span>{{color}}</span>
-                                            <mat-icon [style.color]="color">fiber_manual_record</mat-icon>
+                                            <span>{{color.nombreColor}}</span>
+                                            <!-- <mat-icon [style.color]="color">fiber_manual_record</mat-icon> -->
                                         </div> 
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div> 
+
                         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Size</mat-label>
-                                <mat-select formControlName="size" multiple>
-                                    <mat-option *ngFor="let size of sizes" [value]="size">
-                                        <span>{{size}}</span>
+                                <mat-label>Material</mat-label>
+                                <mat-select formControlName="material">
+                                    <!-- <mat-select-trigger>{{selectedColors}}</mat-select-trigger> -->
+                                    <mat-option *ngFor="let material of materiales" [value]="material.idMaterial">
+                                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                                            <span>{{material.nombreMaterial}}</span>
+                                            <!-- <mat-icon [style.color]="color">fiber_manual_record</mat-icon> -->
+                                        </div> 
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div> 
+
                         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Weight</mat-label>
+                                <mat-label>Peso</mat-label>
                                 <input matInput formControlName="weight" type="number"> 
                             </mat-form-field>
                         </div> 
 
+                        <!-- Agregamos un input para alto exterior -->
+
+                        <div fxFlex="100" fxFlex.gt-sm="16.6" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Alto exterior</mat-label>
+                                <input matInput formControlName="alto_exterior" type="number"> 
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Agregamos un input para alto interior -->
+
+                        <div fxFlex="100" fxFlex.gt-sm="16.6" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Alto interior</mat-label>
+                                <input matInput formControlName="alto_interior" type="number"> 
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Agregamos un input para ancho exterior -->
+
+                        <div fxFlex="100" fxFlex.gt-sm="16.6" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Ancho exterior</mat-label>
+                                <input matInput formControlName="ancho_exterior" type="number"> 
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Agregamos un input para ancho interior -->
+
+                        <div fxFlex="100" fxFlex.gt-sm="16.6" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Ancho interior</mat-label>
+                                <input matInput formControlName="ancho_interior" type="number"> 
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Agregamos un input para largo exterior -->
+
+                        <div fxFlex="100" fxFlex.gt-sm="16.6" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Largo exterior</mat-label>
+                                <input matInput formControlName="largo_exterior" type="number"> 
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Agregamos un input para largo interior -->
+
+                        <div fxFlex="100" fxFlex.gt-sm="16.6" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Largo interior</mat-label>
+                                <input matInput formControlName="largo_interior" type="number"> 
+                            </mat-form-field>
+                        </div>
+
                         <div fxFlex="100" class="px-1">
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Description</mat-label> 
-                                <textarea matInput formControlName="description" rows="7"></textarea> 
+                                <mat-label>Descripción</mat-label> 
+                                <textarea matInput formControlName="description" rows="7" maxlength="150" (input)="updateCharsCount($event.target.value)"></textarea> 
+                                <p class="text-right">{{ charsWritten }}/{{ maxChars }}</p>
                             </mat-form-field> 
                         </div> 
                        
 
 
                         <div fxFlex="100" class="mt-2 text-center w-100">
-                            <button mat-raised-button color="primary" type="submit">SUBMIT</button>
+                            <button mat-raised-button color="primary" type="submit" [disabled] = "form.invalid">Guardar</button>
                         </div>
                     </div>
                 </div>

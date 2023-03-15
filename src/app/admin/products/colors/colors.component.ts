@@ -9,13 +9,9 @@ import { AdminService } from 'src/app/_services/admins.service';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ColorDialogComponent } from './color-dialog/color-dialog.component';
+import { Colores } from 'src/app/models/color.model';
 
-export class Colores {
-  idColor: number;
-  nombreColor: string;
-  descripcionColor: string;
-  estatus: number;
-}
+
 
 const dutchRangeLabel = (page: number, pageSize: number, length: number) => {
   if (length == 0 || pageSize == 0) {

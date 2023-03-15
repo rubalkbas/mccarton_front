@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Colores } from "../admin/products/colors/colors.component";
+import { Colores } from "../models/color.model";
+import { Materiales } from "../models/material.model";
+import { Producto } from "../models/producto.model";
 
 @Injectable({
   providedIn: "root",
 })
 export class AdminService {
-
-
 
   private urlAdmin = "http://localhost:8090";
   private httpOptions = {
@@ -21,7 +21,11 @@ export class AdminService {
     return this.http.get(`${this.urlAdmin}/Materiales/todos`, this.httpOptions);
   }
 
-  public crearMaterial(material: any): Observable<any> {
+  public listarMaterialesActivos(): Observable<any> {
+    return this.http.get(`${this.urlAdmin}/Materiales/todosActivos`, this.httpOptions);
+  }
+
+  public crearMaterial(material: Materiales): Observable<any> {
     return this.http.post(
       `${this.urlAdmin}/Materiales/nuevoMaterial`,
       material,
@@ -29,7 +33,7 @@ export class AdminService {
     );
   }
 
-  public actualizarMaterial(material: any): Observable<any> {
+  public actualizarMaterial(material: Materiales): Observable<any> {
     return this.http.put(
       `${this.urlAdmin}/Materiales/actualizarMaterial`,
       material,
@@ -41,20 +45,28 @@ export class AdminService {
     return this.http.get(`${this.urlAdmin}/colores/todos`, this.httpOptions);
   }
 
-  public crearColor(material: any): Observable<any> {
+  public listarColoresActivos(): Observable<any> {
+    return this.http.get(`${this.urlAdmin}/colores/todosActivos`, this.httpOptions);
+  }
+
+  public crearColor(color: Colores): Observable<any> {
     return this.http.post(
       `${this.urlAdmin}/colores/nuevoColor`,
-      material,
+      color,
       this.httpOptions
     );
   }
 
-  public actualizarColor(material: any): Observable<any> {
+  public actualizarColor(color: Colores): Observable<any> {
     return this.http.put(
       `${this.urlAdmin}/colores/actualizarEstatusColor`,
-      material,
+      color,
       this.httpOptions
     );
+  }
+
+  public crearProducto (producto: Producto): Observable<any> {
+    return this.http.post(`${this.urlAdmin}/Productos/nuevoProducto`, producto, this.httpOptions);
   }
 
 }

@@ -9,13 +9,7 @@ import { AdminService } from 'src/app/_services/admins.service';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MaterialDialogComponent } from './material-dialog/material-dialog.component';
-
-export class Materiales {
-  idMaterial: number;
-  nombreMaterial: string;
-  descripcionMaterial: string;
-  estatus: number;
-}
+import { Materiales } from 'src/app/models/material.model';
 
 const dutchRangeLabel = (page: number, pageSize: number, length: number) => {
   if (length == 0 || pageSize == 0) {

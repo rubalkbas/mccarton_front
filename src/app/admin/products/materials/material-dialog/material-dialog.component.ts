@@ -9,9 +9,8 @@ import {
   UntypedFormGroup,
   Validators,
 } from "@angular/forms";
-import { Materiales } from "../materials.component";
-import Swal from "sweetalert2";
 import { Util as util } from "src/app/util/util";
+import { Materiales } from "src/app/models/material.model";
 
 @Component({
   selector: "app-material-dialog",

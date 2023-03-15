@@ -6,12 +6,10 @@ import {
   FormControl,
   FormGroup,
   UntypedFormBuilder,
-  UntypedFormGroup,
   Validators,
 } from "@angular/forms";
-import { Colores } from "../colors.component";
-import Swal from "sweetalert2";
 import { Util as util } from "src/app/util/util";
+import { Colores } from "src/app/models/color.model";
 
 @Component({
   selector: "app-color-dialog",
