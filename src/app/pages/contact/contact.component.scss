@@ -1,5 +1,116 @@
-// p::before { 
-//     font-family: "Material Icons"; 
-//     content: "\E87C";
-//     font-size: 20px;
-// }
+.header-faqs{
+
+}
+.img-faqs{
+    position: relative;
+    width: 100%; 
+}
+
+.titulo-acordeon{
+    margin-top: -1000px;
+    position: relative;
+    font-family: Calistoga;
+    font-size: 50px;
+    font-weight: bold;
+    font-weight: 400;
+    line-height: 50px;
+    letter-spacing: 0px;
+    text-align: center;
+ 
+}
+
+.acordeon{
+    width: 95%;
+    margin-left: 2.5%;
+    position: relative;
+    margin-top: -650px;
+    border-radius: 40px;
+
+}
+.info-acordeon{
+    width: 90%;
+    background-color: transparent;
+    align-items: center;
+    
+}
+mat-panel-title{
+    //styleName: Subtitle 3- Subtitle text;
+font-family: IBM Plex Sans;
+font-size: 18px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.001em;
+text-align: left;
+margin-left: 2.5%;
+}
+mat-expansion-panel p{
+//styleName: Body 3;
+font-family: IBM Plex Sans;
+font-size: 16px;
+font-weight: 400;
+line-height: 30px;
+letter-spacing: 0.10000000149011612px;
+text-align: left;
+margin-left: 2.5%;
+width: 90%;
+}
+
+.fondo-info {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    margin-top: -10px;
+    background: #CBE6D2;
+}
+
+.division{
+    margin-top: 150px;
+}
+.contacto{
+font-family: Calistoga;
+font-size: 40px;
+font-weight: 400;
+line-height: 50px;
+letter-spacing: 0px;
+text-align: left;
+color: #1AD079;
+margin-left: 30%;
+}
+
+.info-contacto{
+text-align: justify;
+font-family: IBM Plex Sans;
+font-size: 18px;
+font-weight: 400;
+line-height: 30px;
+letter-spacing: 0.10000000149011612px;
+width: 70%;
+
+}
+.contacto-div{
+    margin-top: -30px;
+    margin-bottom: 150px;
+}
+.form-div{
+    border-left: 1px solid #1AD079;
+    margin-bottom: 150px;
+    padding-left: 50px; 
+}
+.contacto-btn {
+    width: 30%;
+    height: 40px;
+    margin-left: -67%;
+    background-color: #1AD079;
+    border-radius: 10px;
+    color: #fff;
+    border-color: white;
+    font-family: IBM Plex Sans;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.001em;
+    text-align: center;
+    border: none;
+
+
+}
