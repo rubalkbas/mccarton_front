@@ -33,7 +33,7 @@ export class AddProductComponent implements OnInit {
   public selectedColors:string;
   public categories:Category[];
   private sub: any;
-  public id:any;
+  public id = 0;
   charsWritten = 0;
   maxChars = 150;
 
@@ -66,7 +66,7 @@ export class AddProductComponent implements OnInit {
     this.getCategories();
     this.sub = this.activatedRoute.params.subscribe(params => {  
       if(params['id']){
-        this.id = params['id'];
+        this.id = Number(params['id']);
         this.getProductById(); 
       }  
     }); 
@@ -106,19 +106,69 @@ export class AddProductComponent implements OnInit {
   }
 
   public getProductById(){
-    this.appService.getProductById(this.id).subscribe((data:any)=>{ 
-      this.form.patchValue(data); 
-      this.selectedColors = data.color; 
-      const images: any[] = [];
-      data.images.forEach(item=>{
-        let image = {
-          link: item.medium,
-          preview: item.medium
-        }
-        images.push(image);
-      })
-      this.form.controls.images.setValue(images); 
+
+    const detalleProducto: Producto = {
+      idProducto: this.id,
+      codigoReferencia: '',
+      nombreProducto: '',
+      descripcionBreve: '',
+      largoInterior: 0,
+      largoExterior: 0,
+      anchoInterior: 0,
+      anchoExterior: 0,
+      altoInterior: 0,
+      altoExterior: 0,
+      stock: 0,
+      precioCompra: 0,
+      precioVenta: 0,
+      fechaAlta: undefined,
+      fechaModificacion: undefined,
+      peso: 0,
+      material: new Materiales,
+      color: new Colores,
+      categoria: new Categorias
+    };
+
+    this.adminService.obtenerProducto(detalleProducto).subscribe({
+      next: response => {
+        this.form.patchValue({
+          name: response.response.nombreProducto,
+          precio_compra: response.response.precioCompra,
+          precio_venta: response.response.precioVenta,
+          referencia: response.response.codigoReferencia,
+          description: response.response.descripcionBreve,
+          stock: response.response.stock,
+          color: response.response.color.idColor,
+          material: response.response.material.idMaterial,
+          weight: response.response.peso,
+          categoryId: response.response.categoria.idCategorias,
+          alto_exterior: response.response.altoExterior,
+          alto_interior: response.response.altoInterior,
+          ancho_exterior: response.response.anchoExterior,
+          ancho_interior: response.response.anchoInterior,
+          largo_exterior: response.response.largoExterior,
+          largo_interior: response.response.largoInterior
+        });
+      },
+      error: error => {
+        util.errorMessage(error.error.mensaje);
+      }
     });
+
+    // }(data:any)=>{ 
+    //   this.form.patchValue(data); 
+    //   this.selectedColors = data.color; 
+    //   const images: any[] = [];
+    //   data.images.forEach(item=>{
+    //     let image = {
+    //       link: item.medium,
+    //       preview: item.medium
+    //     }
+    //     images.push(image);
+    //   })
+    //   this.form.controls.images.setValue(images); 
+    // });
+
   }
 
   public onSubmit(){
@@ -130,7 +180,7 @@ export class AddProductComponent implements OnInit {
     if(this.form.valid){
 
       const producto: Producto = {
-        idProducto: 0,
+        idProducto: this.id,
         codigoReferencia: this.form.value.referencia,
         nombreProducto: this.form.value.name,
         descripcionBreve: this.form.value.description,
@@ -151,16 +201,27 @@ export class AddProductComponent implements OnInit {
         categoria: categoria
       }
 
-      this.adminService.crearProducto(producto).subscribe({
-        next: response => {
-          util.successMessage(response.mensaje);
-          this.form.reset();
-        },
-        error: error => {
-          util.errorMessage(error.error.mensaje);
-        }
-      });
-
+      if(this.id !== 0){
+        this.adminService.actualizarProducto(producto).subscribe({
+          next: response => {
+            util.successMessage(response.mensaje);
+            //this.form.reset();
+          },
+          error: error => {
+            util.errorMessage(error.error.mensaje);
+          }
+        });
+      } else {
+        this.adminService.crearProducto(producto).subscribe({
+          next: response => {
+            util.successMessage(response.mensaje);
+            this.form.reset();
+          },
+          error: error => {
+            util.errorMessage(error.error.mensaje);
+          }
+        });
+      }
     }
 
   }

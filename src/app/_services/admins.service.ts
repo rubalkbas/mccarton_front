@@ -69,4 +69,20 @@ export class AdminService {
     return this.http.post(`${this.urlAdmin}/Productos/nuevoProducto`, producto, this.httpOptions);
   }
 
+  public listarProductos(): Observable<any> {
+    return this.http.get(`${this.urlAdmin}/Productos/todos`, this.httpOptions);
+  }
+
+  public actualizarProducto(producto: Producto): Observable<any> {
+    return this.http.put(
+      `${this.urlAdmin}/Productos/actualizaProducto`,
+      producto,
+      this.httpOptions
+    );
+  }
+
+  public obtenerProducto(producto: Producto): Observable<any> {
+    return this.http.post(`${this.urlAdmin}/Productos/detalle`, producto, this.httpOptions);
+  }
+
 }
