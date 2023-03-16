@@ -1,7 +1,10 @@
+import { emailValidator } from 'src/app/theme/utils/app-validators';
+import { Rol } from './../../roles/roles';
+import { RolesService } from './../../../_services/roles.service';
+import { Usuario } from './../user.model';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UntypedFormGroup, UntypedFormBuilder, Validators} from '@angular/forms';
-import { User, UserProfile, UserWork, UserContacts, UserSocial, UserSettings } from '../user.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-dialog',
@@ -9,62 +12,84 @@ import { User, UserProfile, UserWork, UserContacts, UserSocial, UserSettings } f
   styleUrls: ['./user-dialog.component.scss']
 })
 export class UserDialogComponent implements OnInit {
-  public form:UntypedFormGroup;
+
+  
+  public form:FormGroup;
   public passwordHide:boolean = true;
+
+  public password:string=null;
+
+  public _rol:number;
+  public _rolesLista:Rol[];
+
+
   constructor(public dialogRef: MatDialogRef<UserDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public user: User,
-              public fb: UntypedFormBuilder) {
+              @Inject(MAT_DIALOG_DATA) public user: Usuario,
+              public fb: FormBuilder,
+              private rolesService:RolesService) {
     this.form = this.fb.group({
-      id: null,
-      username: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
-      password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],       
-      profile: this.fb.group({
-        name: null,
-        surname: null,  
-        birthday: null,
-        gender: null,
-        image: null
-      }),
-      work: this.fb.group({
-        company: null,
-        position: null,
-        salary: null
-      }),
-      contacts: this.fb.group({
-        email: null,
-        phone: null,
-        address: null          
-      }),
-      social: this.fb.group({
-        facebook: null,
-        twitter: null,
-        google: null
-      }),
-      settings: this.fb.group({
-        isActive: null,
-        isDeleted: null,
-        registrationDate: null,
-        joinedDate: null
-      })
-    });
+            idUsuario: null,
+            nombreUsuario: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
+            apellidoPaterno: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
+            apellidoMaterno: null,
+            correoElectronico: [null, Validators.compose([Validators.required, Validators.email])],
+            password:[null, Validators.compose([Validators.required, Validators.minLength(5)])],
+            foto: null,
+            estatus: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
+            rol: [null, Validators.compose([Validators.required, Validators.minLength(5)])]
+        });
   }
 
   ngOnInit() {
+    this.consoltarRoles();
+    this.iniciaValores();
+  }
+
+
+  iniciaValores(){
     if(this.user){
       this.form.setValue(this.user);
+      this._rol=this.user.rol.idRol;
     } 
     else{
-      this.user = new User();
-      this.user.profile = new UserProfile();
-      this.user.work = new UserWork();
-      this.user.contacts = new UserContacts();
-      this.user.social = new UserSocial();
-      this.user.settings = new UserSettings();
+      this.user = {
+        idUsuario: null,
+            nombreUsuario: null,
+            apellidoPaterno: null,
+            apellidoMaterno: null,
+            correoElectronico: null,
+            password:null,
+            foto: null,
+            estatus: null,
+            rol: null
+      };
     } 
   }
 
+  consoltarRoles(){
+    this.rolesService.getAllRoles().subscribe(data=>{
+        this._rolesLista=data.response;
+        console.log(this._rolesLista)
+    })
+}
+
   close(): void {
     this.dialogRef.close();
+  }
+
+  enviarDatos(data:Usuario){
+    console.log(data);
+    data.password=this.password;
+    data.rol={
+      idRol:this._rol,
+      descripcionRol:null,
+      estatus: null,
+      nombreRol:null
+    };
+    // return;
+    this.dialogRef.close(
+      data
+    )
   }
 
 }
