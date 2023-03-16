@@ -1,59 +1,40 @@
-<footer class="bg-primary footer">
+<footer class=" footer">
     <div fxLayout="column" fxLayout.gt-sm="row wrap" fxLayoutAlign="center center" class="border-bottom-mute subscribe-block theme-container">
-        <div fxFlex="100" fxFlex.gt-sm="40" fxLayout="column" fxLayoutAlign="center center"> 
-            <h1 class="fw-500">Subscribete a nuestro boletín</h1>
-            <h3 class="fw-300 secondary-color">Manténgase al día con nuestras últimas novedades y productos</h3>
+        <div class="contacto" fxFlex="100" fxFlex.gt-sm="30" fxLayout="column" fxLayoutAlign="center center"> 
+            <h3 class="fw-500">¿PREGUNTAS? POR FAVOR, PÓNGASE EN CONTACTO CON NUESTRO SERVICIO DE ATENCIÓN AL CLIENTE!</h3>
+            <div  fxFlex="100" fxFlex.gt-md="33" fxFlex.gt-xs="50">
+                <div class="contacto-info" fxLayout="row" fxLayoutAlign="start center">
+                    <span class="material-icons circle-icon" style="font-size: 30px; color: rgb(255, 255, 255);">call</span>
+                    <div class="content iconos-slide">
+                        <p>56 2 2617 XXXX</p>
+                        <p>Lunes / Viernes 8:30 -19:00</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <form method="get" class="subscribe-search-form" fxLayout="row" fxFlex="100" fxFlex.gt-sm="42.4" ngClass.sm="mt-2" ngClass.xs="mt-2">
-            <input type="text" placeholder="Tu dirección de correo electrónico..." fxFlex>
-            <button mat-raised-button color="accent" (click)="subscribe()" type="button" class="mat-elevation-z0 text-muted">Subscribe</button>
-        </form>
-    </div>
-    <div fxLayout="row wrap" fxLayoutAlign="space-between" class="py-3 border-bottom-mute theme-container">        
-        <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="40"> 
-            <h3 class="col-title">Links</h3>
-            <p class="mt-2"><a href="javascript:void(0);" class="link secondary-color">Mi cuenta</a></p>
-            <p class="mt-1"><a routerLink="/contact" class="link secondary-color">Contacto</a></p>
-            <!-- <p class="mt-1"><a routerLink="/compare" class="link secondary-color">Compare</a></p> -->
-            <p class="mt-1"><a routerLink="/wishlist" class="link secondary-color">Wishlist</a></p>
-            <!-- <p class="mt-1"><a routerLink="/checkout" class="link secondary-color">Checkout</a></p> -->
-            <p class="mt-1"><a href="javascript:void(0);" class="link secondary-color">FAQ</a></p>
+        <div class="contacto" fxFlex="100" fxFlex.gt-sm="30" fxLayout="column" fxLayoutAlign="center center"> 
+            <h3 class="servicios">Servicios</h3>
+            <div  fxFlex="100" fxFlex.gt-md="33" fxFlex.gt-xs="50">
+                <div class="contacto-info" fxLayout="row" fxLayoutAlign="start left">
+                    <ul>
+                        <li><a href="">Compra Tranquilo</a></li>
+                        <li><a href="">Cambios y Devoluciones</a></li>
+                        <li><a href="">Políticas de Privacidad</a></li>
+                        <li><a href="">Términos y Condiciones</a></li>
+                        <li><a href="">Políticas de Despacho</a></li>
+                        <li><a href="">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="60" ngClass.xs="mt-2" class="contact-information"> 
-            <h3 class="col-title">INFORMACIÓN DE CONTACTO</h3>            
-            <p fxLayout="row" fxLayoutAlign="start center" class="mt-2 secondary-color">
-                <mat-icon>location_on</mat-icon>
-                <span>Micro Parque Tlacote II, Carretera Querétaro, Tlacote Km. 4.9 </span>
-            </p>
-            <p fxLayout="row" fxLayoutAlign="start center" class="mt-1 secondary-color">
-                <mat-icon>call</mat-icon>
-                <span>+40 762 321 762</span>
-            </p>
-            <p fxLayout="row" fxLayoutAlign="start center" class="mt-1 secondary-color">
-                <mat-icon>mail_outline</mat-icon>
-                <span>contacto@mccarton.mx</span>
-            </p>
-            <p fxLayout="row" fxLayoutAlign="start center" class="mt-1 secondary-color">
-                <mat-icon>schedule</mat-icon>
-                <span>Lun - Vie, 8:00-22:00 horas</span>
-            </p>
-            <!-- <p fxLayout="row" fxLayoutAlign="start center" class="mt-1 secondary-color">
-                <mat-icon>directions</mat-icon>
-                <a href="javascript:void(0);" class="link secondary-color">Get directions</a>
-            </p>
-            <p fxLayout="row" fxLayoutAlign="start center" class="mt-1 secondary-color">
-                <mat-icon>directions_bus</mat-icon>
-                <span>Routes to us</span>
-            </p> -->
-        </div>
-        <div fxFlex="100" fxFlex.gt-sm="50" ngClass.sm="mt-2" ngClass.xs="mt-2"> 
-            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeControl]="true">
-                <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true"></agm-marker>
-            </agm-map>
+        <div class="contacto" fxFlex="100" fxFlex.gt-sm="30" fxLayout="column" fxLayoutAlign="center center"> 
+            <h3 class="fw-500">Formas de Pago</h3>
+            <div  fxFlex="100" fxFlex.gt-md="33" fxFlex.gt-xs="50">
+                <div class="contacto-info" fxLayout="row" fxLayoutAlign="start center">
+                    <img src="../../../../assets/images/metodospago.png" class="metodospago" alt="">
+                </div>
+            </div>
         </div>
     </div>
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="copyright secondary-color theme-container">
-        <p ngClass.xs="mt-1">Copyright © 2023 All Rights Reserved</p>
-        <p>Designed & Developed by <a mat-button href="http://incottech.com/" target="_blank">INCOTTECH</a></p>
-    </div>
+
 </footer>

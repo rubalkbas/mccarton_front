@@ -1,65 +1,212 @@
-<app-main-carousel [slides]="slides"></app-main-carousel> 
+<app-main-carousel [slides]="slides"></app-main-carousel>
 
 <div fxLayout="row wrap" class="info-bar">
+    <div fxFlex="100" fxFlex.gt-md="33" fxFlex.gt-xs="50">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <span class="material-icons circle-icon" style="font-size: 40px; color: rgb(255, 255, 255);">call</span>
+            <div class="content iconos-slide">
+                <p>Servicio al cliente y asistencia</p>
+            </div>
+        </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-md="33" fxFlex.gt-xs="50">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <span class="material-icons  circle-icon" style="font-size: 40px; color: rgb(255, 255, 255);">shield</span>
+            <div class="content iconos-slide">
+                <p>Servicio seguro y de calidad garantizado </p>
+            </div>
+        </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-md="33" fxFlex.gt-xs="50">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <span class="material-icons circle-icon"
+                style="color: rgb(255, 255, 255); font-size: 40px;">local_shipping</span>
+            <div class="content iconos-slide">
+                <p>Envios gratis por compras sobre $00.00</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div fxLayout="row wrap" class="info">
+    <div fxFlex="400" fxFlex.gt-md="50" fxFlex.gt-xs="200">
+        <div class="card-info" fxLayout="row" fxLayoutAlign="start center">
+            <div class="content info-quienes">
+                <h3>¿Comó funciona?</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus venenatis ex, in congue sapien
+                    ultricies in. Maecenas sagittis placerat sagittis. Nunc varius magna lorem, ac dictum quam
+                    pellentesque ut. Duis ut nibh nec lacus tincidunt maximus. Nulla facilisi. Aenean eleifend vehicula
+                    arcu lacinia elementum.</p>
+                <button class="info-btn ">Ver producto</button>
+            </div>
+        </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-md="50" fxFlex.gt-xs="50">
+        <div class="card-info" fxLayout="row" fxLayoutAlign="start center">
+            <div class="content ">
+                <img class="img-quienes" src="../../../assets/images/carousel/caja5.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div fxLayout="row wrap" class="info-somos">
+    <div fxFlex="400" fxFlex.gt-md="50" fxFlex.gt-xs="200">
+        <div class="card-info" fxLayout="row" fxLayoutAlign="start center">
+            <div class="rectangulo1"></div>
+            <div class="rectangulo2"></div>
+            <div class="content info-quienes">
+                <h3>¿Quienes somos?</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus venenatis ex, in congue sapien
+                    ultricies in. Maecenas sagittis placerat sagittis. Nunc varius magna lorem, ac dictum quam
+                    pellentesque ut. Duis ut nibh nec lacus tincidunt maximus. Nulla facilisi. Aenean eleifend vehicula
+                    arcu lacinia elementum.
+                </p>
+                <button class="info-btn ">Contáctanos</button>
+            </div>
+        </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-md="50" fxFlex.gt-xs="50">
+        <div class="card-info" fxLayout="row" fxLayoutAlign="start center">
+            <div class="content ">
+                <img class="img-somos" src="../../../assets/images/carousel/caja5.jpg" alt="">
+            </div>
+            <div class="rectangulo3"></div>
+            <div class="rectangulo4"></div>
+        </div>
+    </div>
+</div>
+
+<h2 class="beneficios">Beneficios</h2>
+
+<div fxLayout="row wrap" class="info-beneficios">
     <div fxFlex="100" fxFlex.gt-md="25" fxFlex.gt-xs="50">
-        <mat-card class="light-block" fxLayout="row"  fxLayoutAlign="start center">
-            <mat-icon class="mat-icon-xlg text-muted m-0">card_giftcard</mat-icon>
-            <div class="content">
-                <p>RECOMPENSAS </p> 
-                <span class="text-muted m-0">Compra con nosotros y obtén recompensas</span>
-            </div> 
-        </mat-card> 
-    </div>
-    <div fxFlex="100" fxFlex.gt-md="25" fxFlex.gt-xs="50"> 
-        <mat-card class="light-block" fxLayout="row"  fxLayoutAlign="start center">
-            <mat-icon class="mat-icon-xlg text-muted m-0">local_shipping</mat-icon>
-            <div class="content">
-                <p>ENVÍOS GRATIS</p> 
-                <span class="text-muted m-0">Envíos gratis en pedidos mayores a $500 MX</span>
-            </div> 
+        <mat-card class="example-card">
+            <mat-card-header class="header-card">
+                <span class="material-icons  circle-icon"
+                    style="font-size: 40px; color: rgb(255, 255, 255);">view_in_ar</span>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-card-title class="title-card">Title Benefit</mat-card-title>
+                <p class="sub-card">
+                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                    A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                    bred for hunting.
+                </p>
+                <br>
+                <br>
+                <br>
+
+            </mat-card-content>
         </mat-card>
     </div>
-    <div fxFlex="100" fxFlex.gt-md="25" fxFlex.gt-xs="50"> 
-        <mat-card class="light-block" fxLayout="row"  fxLayoutAlign="start center">
-            <mat-icon class="mat-icon-xlg text-muted m-0">monetization_on</mat-icon>
-            <div class="content">
-                <p>GARANTÍA DE DEVOLUCIONES</p> 
-                <span class="text-muted m-0">30 Días de garantía en tus devoluciones</span>
-            </div> 
+    <div fxFlex="100" fxFlex.gt-md="25" fxFlex.gt-xs="50">
+        <mat-card class="example-card">
+            <mat-card-header class="header-card">
+                <span class="material-icons  circle-icon"
+                    style="font-size: 40px; color: rgb(255, 255, 255);">view_in_ar</span>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-card-title class="title-card">Title Benefit</mat-card-title>
+                <p class="sub-card">
+                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                    A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                    bred for hunting.
+                </p>
+                <br>
+                <br>
+                <br>
+
+            </mat-card-content>
         </mat-card>
     </div>
-    <div fxFlex="100" fxFlex.gt-md="25" fxFlex.gt-xs="50"> 
-        <mat-card class="light-block" fxLayout="row"  fxLayoutAlign="start center">
-            <mat-icon class="mat-icon-xlg text-muted m-0">history</mat-icon>
-            <div class="content">
-                <p>SOPORTE ONLINE 24/7</p> 
-                <span class="text-muted m-0">Llámanos (+40) 762 321 762</span>
-            </div> 
+    <div fxFlex="100" fxFlex.gt-md="25" fxFlex.gt-xs="50">
+        <mat-card class="example-card">
+            <mat-card-header class="header-card">
+                <span class="material-icons  circle-icon"
+                    style="font-size: 40px; color: rgb(255, 255, 255);">view_in_ar</span>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-card-title class="title-card">Title Benefit</mat-card-title>
+                <p class="sub-card">
+                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                    A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                    bred for hunting.
+                </p>
+                <br>
+                <br>
+                <br>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex="100" fxFlex.gt-md="25" fxFlex.gt-xs="50">
+        <mat-card class="example-card">
+            <mat-card-header class="header-card">
+                <span class="material-icons  circle-icon"
+                    style="font-size: 40px; color: rgb(255, 255, 255);">view_in_ar</span>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-card-title class="title-card">Title Benefit</mat-card-title>
+                <p class="sub-card">
+                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                    A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                    bred for hunting.
+                </p>
+                <br>
+                <br>
+                <br>
+
+            </mat-card-content>
         </mat-card>
     </div>
 </div>
 
-<app-banners [banners]="banners"></app-banners>
-
-<div class="products-tabs">  
-
-    <mat-tab-group mat-stretch-tabs (selectedTabChange)="onLinkClick($event)">
-       
-        <mat-tab label="Featured">           
-           <app-products-carousel [products]="featuredProducts"></app-products-carousel>
-        </mat-tab>
-        <mat-tab label="On Sale">
-           <app-products-carousel [products]="onSaleProducts"></app-products-carousel>
-        </mat-tab>
-        <mat-tab label="Top Rated">
-            <app-products-carousel [products]="topRatedProducts"></app-products-carousel>
-        </mat-tab>
-        <mat-tab label="New Arrivals">
-            <app-products-carousel [products]="newArrivalsProducts"></app-products-carousel>
-        </mat-tab>
-    </mat-tab-group> 
-
+<div class="fondo-info"></div>
+<h2 class="titulo-acordeon">FAQs</h2>
+<div fxLayout="row wrap" class="info-acordeon">
+    <mat-accordion class="acordeon">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    ¿Lorem ipsum dolor sit amet, consectetur adipiscing elit. ultricies in.?
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus venenatis ex, in congue sapien ultricies in. Maecenas sagittis placerat sagittis. Nunc varius magna lorem, ac dictum quam pellentesque ut. Duis ut nibh nec lacus tincidunt maximus. Nulla facilisi. Aenean eleifend vehicula arcu lacinia elementum. Donec efficitur orci urna, at bibendum nulla molestie quis. Nunc fringilla nibh a facilisis pharetra. Sed malesuada urna ut elementum ornare. Ut quis nisi semper, maximus augue at, vestibulum quam. Cras ac ipsum vel mauris sollicitudin tempus eget a felis.
+            </p>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    ¿Lorem ipsum dolor sit amet, consectetur adipiscing elit. ultricies in.?
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus venenatis ex, in congue sapien ultricies in. Maecenas sagittis placerat sagittis. Nunc varius magna lorem, ac dictum quam pellentesque ut. Duis ut nibh nec lacus tincidunt maximus. Nulla facilisi. Aenean eleifend vehicula arcu lacinia elementum. Donec efficitur orci urna, at bibendum nulla molestie quis. Nunc fringilla nibh a facilisis pharetra. Sed malesuada urna ut elementum ornare. Ut quis nisi semper, maximus augue at, vestibulum quam. Cras ac ipsum vel mauris sollicitudin tempus eget a felis.
+            </p>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    ¿Lorem ipsum dolor sit amet, consectetur adipiscing elit. ultricies in.?
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus venenatis ex, in congue sapien ultricies in. Maecenas sagittis placerat sagittis. Nunc varius magna lorem, ac dictum quam pellentesque ut. Duis ut nibh nec lacus tincidunt maximus. Nulla facilisi. Aenean eleifend vehicula arcu lacinia elementum. Donec efficitur orci urna, at bibendum nulla molestie quis. Nunc fringilla nibh a facilisis pharetra. Sed malesuada urna ut elementum ornare. Ut quis nisi semper, maximus augue at, vestibulum quam. Cras ac ipsum vel mauris sollicitudin tempus eget a felis.
+            </p>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    ¿Lorem ipsum dolor sit amet, consectetur adipiscing elit. ultricies in.?
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus venenatis ex, in congue sapien ultricies in. Maecenas sagittis placerat sagittis. Nunc varius magna lorem, ac dictum quam pellentesque ut. Duis ut nibh nec lacus tincidunt maximus. Nulla facilisi. Aenean eleifend vehicula arcu lacinia elementum. Donec efficitur orci urna, at bibendum nulla molestie quis. Nunc fringilla nibh a facilisis pharetra. Sed malesuada urna ut elementum ornare. Ut quis nisi semper, maximus augue at, vestibulum quam. Cras ac ipsum vel mauris sollicitudin tempus eget a felis.
+            </p>
+        </mat-expansion-panel>
+    </mat-accordion>
 
 </div>
-
-<!-- <app-brands-carousel [brands]="brands"></app-brands-carousel>  -->
