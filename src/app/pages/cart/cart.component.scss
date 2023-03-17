@@ -1,7 +1,10 @@
 .cart-table.mat-table {
     display: block;
-    overflow-x:auto;
-    .mat-row, .mat-header-row {
+    overflow-x: auto;
+    background-color: transparent;
+
+    .mat-row,
+    .mat-header-row {
         display: flex;
         border-bottom-width: 1px;
         border-bottom-style: solid;
@@ -10,38 +13,192 @@
         padding: 0 24px;
         min-width: 870px;
     }
-    .mat-row{
+
+    .mat-row {
         min-height: 100px;
     }
-    .mat-cell, .mat-header-cell {
+
+    .mat-cell,
+    .mat-header-cell {
         flex: 1;
         overflow: hidden;
         word-wrap: break-word;
     }
+
     .mat-header-cell {
         font-size: 14px;
     }
-    .mat-cell{
-        img{
-            width: 100px;
+
+    .mat-cell {
+        img {
+            width: 200px;
         }
-        .product-name{
+
+        .product-name {
             color: inherit;
             text-decoration: none;
             font-weight: 500;
         }
-        .grand-total{
+
+        .grand-total {
             font-weight: 500;
-            span:nth-child(3){
+
+            span:nth-child(3) {
                 font-size: 16px;
             }
         }
     }
 }
-.mat-icon.empty-cart-icon{
+
+.mat-icon.empty-cart-icon {
     font-size: 150px;
     line-height: 150px;
     height: 150px;
     width: 150px;
     vertical-align: middle;
-} 
+}
+
+.carrito {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #1AD079;
+}
+
+.titulo-carrito {
+    width: 100%;
+    font-family: Calistoga;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 50px;
+    letter-spacing: 0px;
+
+}
+
+.icono {
+    margin-top: -7px;
+    font-size: 40px;
+    margin-right: 20px;
+}
+
+#nombre-producto {
+    //styleName: Headline Text -H4;
+    font-family: Calistoga;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: 0px;
+    text-align: left;
+
+}
+
+#medidas {
+    //styleName: Body 4;
+    font-family: IBM Plex Sans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0.10000000149011612px;
+    text-align: left;
+}
+
+#producto {
+    margin-top: -20px;
+    padding: 40px;
+    margin-bottom: 50px;
+    border-bottom: 1px solid #1AD079;
+}
+
+
+#total {
+    //styleName: Headline Text -H4;
+    font-family: Calistoga;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: 0px;
+}
+
+
+
+.remover {
+    position: absolute;
+    margin-left: 120px;
+    margin-top: -35px;
+}
+
+#items {
+    margin-left: 10px;
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+
+#producto-detail {
+    margin-left: -90px;
+}
+
+.compra-btn {
+    position: relative;
+    margin-left: 72%;
+    width: 15%;
+    height: 40px;
+    background-color: #1AD079;
+    border-radius: 10px;
+    color: #fff;
+    border-color: white;
+    font-family: IBM Plex Sans;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.001em;
+    text-align: center;
+    border: none;
+}
+
+.finalizar span {
+    //styleName: Body 1;
+    font-family: IBM Plex Sans;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0.10000000149011612px;
+    text-align: right;
+
+}
+
+.nuevoprecio {
+    color: #000;
+    font-family: Calistoga;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: 0px;
+    text-align: left;
+
+}
+.btn-comprar{
+    position: relative;
+    align-items: end;
+}
+.productos-btn {
+    position: relative;
+    margin-top: 20px;
+    width: 15%;
+    height: 40px;
+    background-color: #1AD079;
+    border-radius: 10px;
+    color: #fff;
+    border-color: white;
+    font-family: IBM Plex Sans;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.001em;
+    text-align: center;
+    border: none;
+}
