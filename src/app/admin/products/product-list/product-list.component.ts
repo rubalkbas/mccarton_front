@@ -45,6 +45,7 @@ export class ProductListComponent implements OnInit {
     this.appService.getProducts("featured").subscribe(data=>{
       this.products = data; 
       this.imagen = this.products[0].images[0].medium;
+      console.log(this.imagen);
       //for show more product  
       for (var index = 0; index < 3; index++) {
         this.products = this.products.concat(this.products);        
