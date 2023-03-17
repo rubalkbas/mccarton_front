@@ -19,6 +19,15 @@ export class Util {
     });
   }
 
+  public static warningMessage(mensaje: string) {
+    Swal.close();
+    Swal.fire({
+      icon: "warning",
+      text: mensaje,
+      showConfirmButton: true,
+    });
+  }
+
   public static confirmMessage(mensaje: string, do_) {
     Swal.fire({
       title: mensaje,
