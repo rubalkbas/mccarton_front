@@ -4,13 +4,12 @@ import { Observable } from "rxjs";
 import { Colores } from "../models/color.model";
 import { Materiales } from "../models/material.model";
 import { Producto } from "../models/producto.model";
-import { Category } from '../app.models';
+import { Category } from "../app.models";
 
 @Injectable({
   providedIn: "root",
 })
 export class AdminService {
-
   private urlAdmin = "http://localhost:8090";
   private httpOptions = {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -23,7 +22,10 @@ export class AdminService {
   }
 
   public listarMaterialesActivos(): Observable<any> {
-    return this.http.get(`${this.urlAdmin}/Materiales/todosActivos`, this.httpOptions);
+    return this.http.get(
+      `${this.urlAdmin}/Materiales/todosActivos`,
+      this.httpOptions
+    );
   }
 
   public crearMaterial(material: Materiales): Observable<any> {
@@ -41,30 +43,63 @@ export class AdminService {
       this.httpOptions
     );
   }
-//Añadiendo el CRUD categorias
+  //Añadiendo el CRUD categorias
 
-public getAllCategorias(): Observable<any>{
-  const url=`${this.urlAdmin}/categorias/todos`;
-  return this.http.get(url);
-}
-  public crearCategoria(descripcionCategoria,nombreCategoria, detallesCategoria,codigoReferencia): Observable<any>{
-    const url=`${this.urlAdmin}/categorias/guardarCategoria`;
-    const body ={descripcionCategoria: descripcionCategoria,nombreCategoria:nombreCategoria, detallesCategoria:detallesCategoria,codigoReferencia:codigoReferencia};
+  public getAllCategorias(): Observable<any> {
+    const url = `${this.urlAdmin}/categorias/todos`;
+    return this.http.get(url);
+  }
+
+  public getCategoriasActivas(): Observable<any> {
+    const url = `${this.urlAdmin}/categorias/consultarCategoriasActivas`;
+    return this.http.get(url);
+  }
+
+  public crearCategoria(
+    descripcionCategoria,
+    nombreCategoria,
+    detallesCategoria,
+    codigoReferencia
+  ): Observable<any> {
+    const url = `${this.urlAdmin}/categorias/guardarCategoria`;
+    const body = {
+      descripcionCategoria: descripcionCategoria,
+      nombreCategoria: nombreCategoria,
+      detallesCategoria: detallesCategoria,
+      codigoReferencia: codigoReferencia,
+    };
     return this.http.post(url, body);
   }
-  public editarCategoria(idCategorias, estatus, descripcionCategoria,nombreCategoria,detallesCategoria,codigoReferencia): Observable<any>{
-    const url=`${this.urlAdmin}/categorias/actualizarCategoria`;
-    const body = { idCategorias, estatus,descripcionCategoria,nombreCategoria,detallesCategoria,codigoReferencia }; 
+  public editarCategoria(
+    idCategorias,
+    estatus,
+    descripcionCategoria,
+    nombreCategoria,
+    detallesCategoria,
+    codigoReferencia
+  ): Observable<any> {
+    const url = `${this.urlAdmin}/categorias/actualizarCategoria`;
+    const body = {
+      idCategorias,
+      estatus,
+      descripcionCategoria,
+      nombreCategoria,
+      detallesCategoria,
+      codigoReferencia,
+    };
     return this.http.put(url, body);
   }
 
-//Terminacion del CRUD categorias
+  //Terminacion del CRUD categorias
   public listarColores(): Observable<any> {
     return this.http.get(`${this.urlAdmin}/colores/todos`, this.httpOptions);
   }
 
   public listarColoresActivos(): Observable<any> {
-    return this.http.get(`${this.urlAdmin}/colores/todosActivos`, this.httpOptions);
+    return this.http.get(
+      `${this.urlAdmin}/colores/todosActivos`,
+      this.httpOptions
+    );
   }
 
   public crearColor(color: Colores): Observable<any> {
@@ -83,8 +118,12 @@ public getAllCategorias(): Observable<any>{
     );
   }
 
-  public crearProducto (producto: Producto): Observable<any> {
-    return this.http.post(`${this.urlAdmin}/Productos/nuevoProducto`, producto, this.httpOptions);
+  public crearProducto(producto: Producto): Observable<any> {
+    return this.http.post(
+      `${this.urlAdmin}/Productos/nuevoProducto`,
+      producto,
+      this.httpOptions
+    );
   }
 
   public listarProductos(): Observable<any> {
@@ -100,7 +139,10 @@ public getAllCategorias(): Observable<any>{
   }
 
   public obtenerProducto(producto: Producto): Observable<any> {
-    return this.http.post(`${this.urlAdmin}/Productos/detalle`, producto, this.httpOptions);
+    return this.http.post(
+      `${this.urlAdmin}/Productos/detalle`,
+      producto,
+      this.httpOptions
+    );
   }
-
 }

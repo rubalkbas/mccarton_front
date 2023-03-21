@@ -12,7 +12,7 @@
                     <app-category-list [categories]="categories" [categoryParentId]="0" (change)="onChangeCategory($event)"></app-category-list>
                 </div>
             </mat-expansion-panel> -->
-
+<!-- 
             <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -27,26 +27,26 @@
                     <mat-slider color="primary" max="2000" min="1" thumb-label="true" [(ngModel)]="priceFrom"></mat-slider>
                     <mat-slider color="warn" max="2000" min="1" thumb-label="true" [(ngModel)]="priceTo"></mat-slider>
                 </div>
-            </mat-expansion-panel>
-
-            <!-- <mat-expansion-panel expanded>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <h4>Color</h4>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="filter-buttons">
-                    <button mat-raised-button *ngFor="let color of colors" [style.background]="color.name" (click)="color.selected = !color.selected">
-                        <span *ngIf="!color.selected">&nbsp;</span>
-                        <mat-icon *ngIf="color.selected">check</mat-icon>
-                    </button>
-                </div>
             </mat-expansion-panel> -->
 
             <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        <h4>Size</h4>
+                        <h4>Categorías</h4>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div fxLayout="column">
+                    <mat-checkbox color="primary" *ngFor="let categoria of categorias">{{categoria.nombreCategoria}}</mat-checkbox>
+                    <!-- <button mat-raised-button *ngFor="let categoria of categorias">
+                        {{categoria.nombreCategoria}}
+                    </button> -->
+                </div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h4>Tamaño</h4>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="filter-buttons">
@@ -56,7 +56,7 @@
                 </div>
             </mat-expansion-panel>
 
-            <mat-expansion-panel expanded>
+            <!-- <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <h4>Condition</h4>
@@ -67,7 +67,7 @@
                     <mat-checkbox color="primary">Used</mat-checkbox>
                     <mat-checkbox color="primary">Not Specified</mat-checkbox>
                 </div>
-            </mat-expansion-panel>
+            </mat-expansion-panel> -->
 
             <!-- <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>

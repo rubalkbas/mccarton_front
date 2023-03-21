@@ -1,3 +1,4 @@
+import { Categorias } from 'src/app/models/categoria.model';
 import { Component, OnInit, ViewChild, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,6 +7,9 @@ import { AppService } from '../../app.service';
 import { Product, Category } from "../../app.models";
 import { Settings, AppSettings } from 'src/app/app.settings';
 import { isPlatformBrowser } from '@angular/common';
+import { AdminService } from 'src/app/_services/admins.service';
+import { Util as util } from "src/app/util/util";
+
 
 @Component({
   selector: 'app-products',
@@ -16,11 +20,12 @@ export class ProductsComponent implements OnInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen:boolean = true;
   private sub: any;
+  public categorias: Categorias[] = [];
   public viewType: string = 'grid';
   public viewCol: number = 25;
   public counts = [12, 24, 36];
   public count:any;
-  public sortings = ['Sort by Default', 'Best match', 'Lowest first', 'Highest first'];
+  public sortings = ['Ordenar por defecto', 'Best match', 'Lowest first', 'Highest first'];
   public sort:any;
   public products: Array<Product> = [];
   public categories:Category[];
@@ -68,11 +73,13 @@ export class ProductsComponent implements OnInit {
               public appService:AppService, 
               public dialog: MatDialog, 
               private router: Router,
+              private adminService: AdminService,
               @Inject(PLATFORM_ID) private platformId: Object) {
     this.settings = this.appSettings.settings;
   }
 
   ngOnInit() {
+    this.getCategorias();
     this.count = this.counts[0];
     this.sort = this.sortings[0];
     this.sub = this.activatedRoute.params.subscribe(params => {
@@ -160,6 +167,21 @@ export class ProductsComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       window.scrollTo(0,0);
     } 
+  }
+
+  public getCategorias(){
+  
+    this.adminService.getCategoriasActivas().subscribe(
+    {
+      next: (data) => {
+        this.categorias = data.response;
+      },
+      error: (err) => {
+        util.errorMessage(err.error);
+      }
+    }
+    );
+    
   }
 
   public onChangeCategory(event){

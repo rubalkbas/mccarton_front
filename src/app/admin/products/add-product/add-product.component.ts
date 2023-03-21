@@ -21,14 +21,14 @@ export class AddProductComponent implements OnInit {
   public colores: Colores[] = [];
   public materiales: Materiales[] = [];
   public categorias: Categorias[] = [
-    { idCategorias: 1, 
-      descripcionCategoria: "Categoria 1", 
-      nombreCategoria: "nombre categoria", 
-      detallesCategoria: "Categoria 1", 
-      codigoReferencia: "123", 
-      idCategoriaPadre: 1,
-    estatus:1
-    },
+    // { idCategorias: 1, 
+    //   descripcionCategoria: "Categoria 1", 
+    //   nombreCategoria: "nombre categoria", 
+    //   detallesCategoria: "Categoria 1", 
+    //   codigoReferencia: "123", 
+    //   idCategoriaPadre: 1,
+    // estatus:1
+    // },
   ];
   
   public sizes = ["S","M","L","XL","2XL","32", "36","38","46","52","13.3\"","15.4\"","17\"","21\"","23.4\""]; 
@@ -42,6 +42,7 @@ export class AddProductComponent implements OnInit {
   constructor(public appService:AppService, public formBuilder: UntypedFormBuilder, private activatedRoute: ActivatedRoute, private adminService: AdminService,  ) { }
 
   ngOnInit(): void {
+    this.getCategorias();
     this.getColores();
     this.getMateriales();
     this.form = this.formBuilder.group({ 
@@ -98,6 +99,19 @@ export class AddProductComponent implements OnInit {
         util.errorMessage(error.error.mensaje);
       }
     });
+  }
+
+  public getCategorias(){
+    this.adminService.getCategoriasActivas().subscribe(
+    {
+      next: (data) => {
+        this.categorias = data.response;
+      },
+      error: (err) => {
+        util.errorMessage(err.error);
+      }
+    }
+    );
   }
 
   public getCategories(){   
