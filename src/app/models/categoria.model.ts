@@ -5,4 +5,6 @@ export class Categorias {
     detallesCategoria: string;
     codigoReferencia: string;
     idCategoriaPadre: number;
+    estatus:number
 }
+

@@ -1,35 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Category } from 'src/app/app.models';
 import { AppService } from 'src/app/app.service';
 import { CategoryDialogComponent } from './category-dialog/category-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { AppSettings, Settings } from 'src/app/app.settings';
-
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { AdminService } from '../../../_services/admins.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { Util } from '../../../util/util';
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
-  public categories:Category[] = []; 
+
+  public categorias:[] = []; 
   public page: any;
   public count = 6;
   public settings:Settings;
-  constructor(public appService: AppService, public dialog: MatDialog, public appSettings:AppSettings) {
-    this.settings = this.appSettings.settings;
-  }
+
+  constructor(
+    public appService: AppService, 
+    public dialog: MatDialog, 
+    public appSettings:AppSettings,
+    private adminService:AdminService,
+    private paginator1:MatPaginatorIntl
+    
+    ) { }
 
   ngOnInit(): void {
-    this.getCategories();
+    this.adminService.getAllCategorias().subscribe(resp=>{
+      console.log(resp.response)
+      this.categorias=resp.response;
+    }, error=>{
+      Util.errorMessage(error.error.mensaje);
+    })
   }
 
-  public getCategories(){   
-    this.appService.getCategories().subscribe(data => {
-      this.categories = data; 
-      this.categories.shift();
-    }); 
-  }
+
 
   public onPageChanged(event){
     this.page = event; 
@@ -37,46 +48,10 @@ export class CategoriesComponent implements OnInit {
   }
 
   public openCategoryDialog(data:any){
-    const dialogRef = this.dialog.open(CategoryDialogComponent, {
-      data: {
-        category: data,
-        categories: this.categories
-      },
-      panelClass: ['theme-dialog'],
-      autoFocus: false,
-      direction: (this.settings.rtl) ? 'rtl' : 'ltr'
-    });
-    dialogRef.afterClosed().subscribe(category => { 
-      if(category){    
-        const index: number = this.categories.findIndex(x => x.id == category.id);
-        if(index !== -1){
-          this.categories[index] = category;
-        } 
-        else{ 
-          let last_category = this.categories[this.categories.length - 1]; 
-          category.id = last_category.id + 1;
-          this.categories.push(category);  
-        }          
-      }
+    const dialogRef = this.dialog.open(CategoryDialogComponent,{
+      data:data
     });
   }
 
-  public remove(category:any){  
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      maxWidth: "400px",
-      data: {
-        title: "Confirm Action",
-        message: "Are you sure you want remove this category?"
-      }
-    }); 
-    dialogRef.afterClosed().subscribe(dialogResult => { 
-      if(dialogResult){
-        const index: number = this.categories.indexOf(category);
-        if (index !== -1) {
-          this.categories.splice(index, 1);  
-        } 
-      } 
-    }); 
-  }
 
 }

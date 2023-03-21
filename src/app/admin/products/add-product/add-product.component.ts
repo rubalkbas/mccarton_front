@@ -26,7 +26,9 @@ export class AddProductComponent implements OnInit {
       nombreCategoria: "nombre categoria", 
       detallesCategoria: "Categoria 1", 
       codigoReferencia: "123", 
-      idCategoriaPadre: 1},
+      idCategoriaPadre: 1,
+    estatus:1
+    },
   ];
   
   public sizes = ["S","M","L","XL","2XL","32", "36","38","46","52","13.3\"","15.4\"","17\"","21\"","23.4\""]; 

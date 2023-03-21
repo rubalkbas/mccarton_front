@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { Colores } from "../models/color.model";
 import { Materiales } from "../models/material.model";
 import { Producto } from "../models/producto.model";
+import { Category } from '../app.models';
 
 @Injectable({
   providedIn: "root",
@@ -40,7 +41,24 @@ export class AdminService {
       this.httpOptions
     );
   }
+//Añadiendo el CRUD categorias
 
+public getAllCategorias(): Observable<any>{
+  const url=`${this.urlAdmin}/categorias/todos`;
+  return this.http.get(url);
+}
+  public crearCategoria(descripcionCategoria,nombreCategoria, detallesCategoria,codigoReferencia): Observable<any>{
+    const url=`${this.urlAdmin}/categorias/guardarCategoria`;
+    const body ={descripcionCategoria: descripcionCategoria,nombreCategoria:nombreCategoria, detallesCategoria:detallesCategoria,codigoReferencia:codigoReferencia};
+    return this.http.post(url, body);
+  }
+  public editarCategoria(idCategorias, estatus, descripcionCategoria,nombreCategoria,detallesCategoria,codigoReferencia): Observable<any>{
+    const url=`${this.urlAdmin}/categorias/actualizarCategoria`;
+    const body = { idCategorias, estatus,descripcionCategoria,nombreCategoria,detallesCategoria,codigoReferencia }; 
+    return this.http.put(url, body);
+  }
+
+//Terminacion del CRUD categorias
   public listarColores(): Observable<any> {
     return this.http.get(`${this.urlAdmin}/colores/todos`, this.httpOptions);
   }
