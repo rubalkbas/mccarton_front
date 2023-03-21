@@ -9,11 +9,10 @@
 
 <div fxLayout="row wrap">
 
-    <div fxFlex="100" fxFlex.gt-md="100" fxFlex.md="55" ngClass.gt-sm="px-3 m-0" ngClass.sm="mt-2" ngClass.xs="mt-2">
+    <div fxFlex="100" fxFlex.gt-md="100" fxFlex.md="100" ngClass.gt-sm="px-3 m-0" ngClass.sm="mt-2" ngClass.xs="mt-2">
 
         <mat-card class="product-image">
             <mat-chip-list *ngIf="product?.discount">
-                <mat-chip color="warn" selected="true">{{product?.discount}}% OFF</mat-chip>
             </mat-chip-list>
             <button mat-icon-button (click)="openZoomViewer()" fxHide="false"
                 fxHide.gt-md><mat-icon>fullscreen</mat-icon></button>
@@ -32,18 +31,15 @@
                         </mat-card>
                     </div>
                 </div>
-                <button mat-icon-button
-                    class="swiper-button-prev swipe-arrow"><mat-icon>keyboard_arrow_left</mat-icon></button>
-                <button mat-icon-button
-                    class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button>
             </div>
         </div>
 
+        <div id="linea"></div>
         <!--Aqui empieza la tabla-->
-        <mat-card class="p-0">
+        <mat-card class="p-0 tabla-card">
             <div class="content info-quienes">
                 <h3 id="h3">Cotiza tus cajas perzonalizadas</h3>
-          
+
 
             </div>
             <mat-divider></mat-divider>
@@ -207,37 +203,16 @@
 <div fxLayout="row wrap" class="info">
     <div fxFlex="400" fxFlex.gt-md="50" fxFlex.gt-xs="200">
         <div class="card-info" fxLayout="row" fxLayoutAlign="start center">
-            <div class="content info-quienes">
-                <div>
-                    <h3 id="h3">Descripción</h3>
+            <div class="content info-descripcion">
+                <div class="">
+                    <h3 id="title-des">Descripción</h3>
                 </div>
-                <p id="p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id nulla metus. Maecenas
-                    commodo turpis dui, porttitor tincidunt enim mollis a. Curabitur eu velit mi. Nullam congue
-                    turpis id metus sollicitudin, id cursus nulla laoreet. Proin commodo eu felis at malesuada.
-                    Nulla ac facilisis justo, eget vulputate ex. Nulla nec laoreet nulla. Cras auctor leo at
-                    diam congue, quis convallis urna pulvinar. Nunc ut mi nulla. Nunc ligula massa, vulputate
-                    sed scelerisque sit amet, dapibus semper est. Sed sed blandit turpis. Vestibulum id
-                    porttitor ligula, at iaculis ligula. Pellentesque vel tellus sit amet mauris aliquet
-                    bibendum id et lorem.</p>
-                <ul id="p">
-                    <li>Phasellus eu justo dictum, varius eros ut, posuere sapien.</li>
-                    <li>Nulla eu erat sit amet enim lobortis rhoncus.</li>
-                    <li>Etiam eu mauris in massa convallis ornare non id ex.</li>
-                    <li>Nam sagittis augue at pretium pharetra.</li>
-                    <li>Sed a sem id massa egestas porta a sit amet felis.</li>
-                    <li>Duis aliquam urna in sapien cursus consequat.</li>
-                </ul>
-                <p id="p">Duis eu felis ultricies urna pharetra efficitur nec non elit. Class aptent
-                    taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur
-                    posuere eu justo eget mollis. Sed semper accumsan urna vel rutrum. Nulla condimentum quis
-                    lacus ut semper. Quisque at massa pretium, porta ligula ut, rutrum elit. Pellentesque et
-                    orci sit amet dolor laoreet tempor sed eu sem. Morbi lacinia pellentesque tellus euismod
-                    eleifend.</p>
-                <p id="p">Quisque fringilla eros id ligula luctus, a gravida augue sodales. Sed eget augue
-                    ut lectus condimentum volutpat. Morbi quis nunc viverra, gravida arcu quis, varius metus.
-                    Praesent tincidunt ipsum est, quis molestie ligula efficitur ut. Nunc interdum erat eu
-                    tortor maximus suscipit. Vivamus nec laoreet dui. Nullam dignissim laoreet metus quis
-                    pretium.</p>
+                <p id="texto-descripcion">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus venenatis ex, in congue
+                    sapien ultricies in. Maecenas sagittis placerat sagittis. Nunc varius magna lorem, ac dictum quam
+                    pellentesque ut. Duis ut nibh nec lacus tincidunt maximus. Nulla facilisi. Aenean eleifend vehicula
+                    arcu lacinia elementum. Donec efficitur orci urna, at bibendum nulla molestie quis. Nunc fringilla
+                    nibh a facilisis pharetra. Sed malesuada urna ut elementum ornare. Ut quis nisi semper, maximus
+                    augue at, vestibulum quam. Cras ac ipsum vel mauris sollicitudin tempus eget a felis.</p>
             </div>
         </div>
     </div>
@@ -252,9 +227,7 @@
 
 <br>
 <div class="divider">
-    <h3 id="h3">Apartado para la implementacion de Juan Carlos</h3>
-
-
+<app-cajas></app-cajas>
 </div>
 
 <div class="py-2 mt-2">

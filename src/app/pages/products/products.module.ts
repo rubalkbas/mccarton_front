@@ -9,7 +9,7 @@ import { PipesModule } from '../../theme/pipes/pipes.module';
 import { ProductsComponent } from './products.component';
 import { ProductComponent } from './product/product.component';
 import { ProductZoomComponent } from './product/product-zoom/product-zoom.component';
-
+import { CajasComponent } from '../cajas/cajas.component';
 export const routes: Routes = [
   { path: '', component: ProductsComponent, pathMatch: 'full' },
   { path: ':name', component: ProductsComponent },
@@ -25,12 +25,14 @@ export const routes: Routes = [
         SwiperModule,
         NgxPaginationModule,
         SharedModule,
-        PipesModule
+        PipesModule,
+   
     ],
     declarations: [
         ProductsComponent,
         ProductComponent,
-        ProductZoomComponent
+        ProductZoomComponent,
+        CajasComponent
     ]
 })
 export class ProductsModule { }
