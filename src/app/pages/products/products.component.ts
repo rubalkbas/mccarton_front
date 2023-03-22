@@ -218,7 +218,7 @@ export class ProductsComponent implements OnInit {
 
   public getCategorias(){
   
-    this.adminService.getCategoriasActivas().subscribe(
+    this.adminService.getAllCategorias().subscribe(
     {
       next: (data) => {
         this.categorias = data.response;
