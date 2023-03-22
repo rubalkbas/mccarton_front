@@ -88,7 +88,7 @@ export class UsersComponent implements OnInit {
                     // user.get('correoElectronico').set(null);
                     // user.correoElectronico=null;
                 }
-                (user.get('idUsuario')) ? this.actualizarUsuario(user) : this.crearUsuario(user);
+                (user.get('idUsuario')!='null') ? this.actualizarUsuario(user) : this.crearUsuario(user);
             }else{
                 // this.listarUsuarios();
                 this.listarActivosPorPagina(this.page, "idUsuario", "asc", "");
@@ -110,6 +110,7 @@ export class UsersComponent implements OnInit {
 
     public crearUsuario(usuario){
         console.log("agrega");
+        usuario.delete('idUsuario');
         this.usuariosService.crearUsuario(usuario).subscribe({next:data=>{
             Util.successMessage(data.mensaje);
             // this.listarUsuarios();
@@ -169,19 +170,31 @@ export class UsersComponent implements OnInit {
         const formData = new FormData();
 
         let base64Data =this.bytesToImageUrl(user.bytesImagen, user.tipoImagen);
-        // let imagenFile: File= this.base64toFile(base64Data, user.nombreImagen, user.tipoImagen);
-
+        let imagenFile: File= this.base64ToFile(base64Data, user.nombreImagen);
 
         formData.append('idUsuario', user.idUsuario.toString());
         formData.append('estatus', estatusN.toString());
-        // formData.append('multipartFile', imagenFile);
+        formData.append('multipartFile', imagenFile);
 
         this.actualizarUsuario(formData);
       }
       
-      bytesToImageUrl(bytes: Uint8Array, tipoImagen:string): string {
+    bytesToImageUrl(bytes: Uint8Array, tipoImagen:string): string {
         return `data:${tipoImagen};base64,${bytes}`;
-      }
-      
+    }
+    
+    // Función para convertir Base64 a File
+    base64ToFile(base64: string, filename: string): File {
+        const arr = base64.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, { type: mime });
+    }
+  
 
 }

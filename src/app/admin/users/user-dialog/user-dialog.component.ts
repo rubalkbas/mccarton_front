@@ -46,7 +46,7 @@ export class UserDialogComponent implements OnInit {
       correoElectronico: [null, Validators.compose([Validators.required, Validators.email])],
       password:[null, Validators.compose([Validators.required, Validators.minLength(5)])],
       bytesImagen: null,
-      estatus: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
+      estatus: [1, Validators.compose([Validators.required, Validators.minLength(5)])],
       multipartFile: null,
       idRolF: [null, Validators.compose([Validators.required, Validators.minLength(5)])]
   });
@@ -107,7 +107,7 @@ export class UserDialogComponent implements OnInit {
     if (data.bytesImagen != null) {
       imagenFile = data.bytesImagen[0].file;
     }
-  
+  console.log(data)
     // Crear instancia de FormData y agregar propiedades del usuarioEnviar
     const formData = new FormData();
     formData.append('idUsuario', data.idUsuario==null? null:data.idUsuario.toString());
