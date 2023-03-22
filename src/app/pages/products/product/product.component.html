@@ -1,22 +1,11 @@
-<div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
-    <button mat-stroked-button color="" id="boton_atras"> <span class="material-icons">
-            keyboard_backspace
-        </span> Atras </button>
-    <h3 id="h3">{{product?.name}}</h3>
-    <button mat-raised-button color="primary" id="boton_cotizar">Cotizar ahora</button>
-</div>
-
-
-<div fxLayout="row wrap">
-
-    <div fxFlex="100" fxFlex.gt-md="40" fxFlex.md="45">
-        
+<div fxLayout="row wrap" class="contenido">
+    <div fxFlex="100" fxFlex.gt-md="40" fxFlex.md="45" class="detalleproducto">
         <mat-card class="product-image">
             <mat-chip-list *ngIf="product?.discount">
                 <mat-chip color="warn" selected="true">{{product?.discount}}% OFF</mat-chip>
             </mat-chip-list>
             <button mat-icon-button (click)="openZoomViewer()" fxHide="false" fxHide.gt-md><mat-icon>fullscreen</mat-icon></button>
-            <img *ngIf="image" [src]="image" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave($event)"/>
+            <img class="img-producto" *ngIf="image" [src]="image" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave($event)"/>
         </mat-card>       
 
         <div class="small-carousel"> 
@@ -33,8 +22,6 @@
                 <button mat-icon-button class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button> 
             </div>
         </div>
-
-
     </div>
     <div fxFlex="100" fxFlex.gt-md="60" fxFlex.md="55" ngClass.gt-sm="px-3 m-0" ngClass.sm="mt-2" ngClass.xs="mt-2">
         
@@ -42,15 +29,15 @@
             <mat-card *ngIf="zoomImage" class="zoom-viewer mat-elevation-z18" [ngStyle]="{'background-image': 'url(' + zoomImage + ')'}"></mat-card>
         </div>
 
-        <h2>{{product?.name}}</h2>
+        <h2 id="product-name">{{product?.name}}</h2>
         <div class="py-1 lh">
-            <p><span class="text-muted fw-500">Category: </span><span>{{ ( appService.Data.categories | filterById : product?.categoryId )?.name }}</span></p>
-            <p><span class="text-muted fw-500">Availibility: </span><span>{{ (product?.availibilityCount > 0) ? 'In stock':'Unavailable'}}</span></p>
+            <p class="descripcion-product"><span class="text-muted fw-500">Category: </span><span>{{ ( appService.Data.categories | filterById : product?.categoryId )?.name }}</span></p>
+            <p class="descripcion-product"><span class="text-muted fw-500">Availibility: </span><span>{{ (product?.availibilityCount > 0) ? 'In stock':'Unavailable'}}</span></p>
         </div>                 
         <div class="py-1">
             <app-rating [ratingsCount]="product?.ratingsCount" [ratingsValue]="product?.ratingsValue" [direction]="'row'"></app-rating>
         </div>
-        <p class="py-1 text-muted lh">{{product?.description}}</p>
+        <p  class="py-1 text-muted lh descripcion-product1">{{product?.description}}</p>
 
         <div class="divider mt-1"></div>
         <div class="py-2">
