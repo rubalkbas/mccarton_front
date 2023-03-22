@@ -10,10 +10,17 @@
         </mat-button-toggle-group>            
     </div>
     <form class="user-search" [class.show]="controls.value == 'search'">
-        <mat-form-field class="user-search-input">
-            <input matInput placeholder="Search user by name..." [(ngModel)]="searchText" name="search">
+        <mat-form-field appearance="outline" class="formBusqueda busqueda2">
+            <input matInput placeholder="Search user by name..." [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}">
         </mat-form-field>
+        <!-- <mat-form-field appearance="outline" class="formBusqueda">
+            <input matInput placeholder="Search user by name..." [(ngModel)]="searchText">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="Search user by name..." [(ngModel)]="searchText">
+        </mat-form-field> -->
     </form>
+
     <div fxLayout="row" fxLayoutAlign="space-between center">
         <mat-button-toggle-group #viewType="matButtonToggleGroup" appearance="legacy" value="grid">            
             <mat-button-toggle value="grid">
@@ -27,7 +34,7 @@
 </div>
 
 <div *ngIf="viewType.value == 'grid'" fxLayout="row wrap">    
-    <div *ngFor="let user of usuariosActivosPorPagina  | paginate: { itemsPerPage: 5, currentPage: page, totalItems:_totalElementos}" fxFlex="100" fxFlex.gt-md="33.3" fxFlex.md="50" class="p-1"> 
+    <div *ngFor="let user of usuariosActivosPorPagina  | paginate: { itemsPerPage: sizePage, currentPage: page, totalItems:_totalElementos}" fxFlex="100" fxFlex.gt-md="33.3" fxFlex.md="50" class="p-1"> 
         <mat-card class="p-0">  
             <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
                 <h3 *ngIf="!user.estatus==0" class="user-name">{{user.nombreUsuario}} {{user.apellidoPaterno}} {{user.apellidoMaterno}}</h3> 
@@ -51,8 +58,8 @@
             <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
                 <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
                     <div class="user-img">
-                        <img *ngIf="user.foto" [src]="user.profile.image" class="transition-2" [class.blocked]="user.estatus==0">
-                        <img *ngIf="!user.foto" src="assets/images/others/user.jpg" class="transition-2" [class.blocked]="user.estatus==0">  
+                        <img *ngIf="user.bytesImagen" [src]="bytesToImageUrl(user.bytesImagen, user.tipoImagen)" class="transition-2" [class.blocked]="user.estatus==0">
+                        <img *ngIf="!user.bytesImagen" src="assets/images/others/user.jpg" class="transition-2" [class.blocked]="user.estatus==0">  
                         <mat-icon *ngIf="user.estatus==0" color="warn">block</mat-icon>
                     </div>                                            
                     <div class="user-social">
@@ -76,7 +83,7 @@
 
 
 <div *ngIf="viewType.value == 'list'" fxLayout="row wrap">
-    <div *ngFor="let user of usuariosActivosPorPagina |  paginate: { itemsPerPage: 5, currentPage: page, totalItems:_totalElementos}" fxFlex="100" class="p-1"> 
+    <div *ngFor="let user of usuariosActivosPorPagina |  paginate: { itemsPerPage: sizePage, currentPage: page, totalItems:_totalElementos}" fxFlex="100" class="p-1"> 
         <mat-card class="p-0">  
             <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
                 <h3 *ngIf="!user.estatus==0" class="user-name">{{user.nombreUsuario}} {{user.apellidoPaterno}} {{user.apellidoMaterno}}</h3> 
@@ -100,8 +107,8 @@
             <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
                 <div fxFlex="20" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">
                     <div class="user-img">
-                        <img *ngIf="user.foto" [src]="user.profile.image" class="transition-2" [class.blocked]="user.estatus==0"> 
-                        <img *ngIf="!user.foto" src="assets/images/others/user.jpg" class="transition-2" [class.blocked]="user.estatus==0">  
+                        <img *ngIf="user.bytesImagen" [src]="bytesToImageUrl(user.bytesImagen, user.tipoImagen)" class="transition-2" [class.blocked]="user.estatus==0"> 
+                        <img *ngIf="!user.bytesImageno" src="assets/images/others/user.jpg" class="transition-2" [class.blocked]="user.estatus==0">  
                         <mat-icon *ngIf="user.estatus==0" color="warn">block</mat-icon>   
                     </div>                                            
                     <div class="user-social">

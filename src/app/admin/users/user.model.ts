@@ -8,7 +8,11 @@ export interface Usuario{
   apellidoMaterno:string,
   correoElectronico:string,
   password:string,
-  foto:string,
+  nombreImagen:string,
+  tipoImagen:string,
+  bytesImagen: Uint8Array
   estatus:number,
-  rol:Rol
+  rol:Rol,
+  multipartFile: File,
+  idRolF: number,
 }

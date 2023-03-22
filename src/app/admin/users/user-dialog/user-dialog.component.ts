@@ -5,6 +5,7 @@ import { Usuario } from './../user.model';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsuariosService } from 'src/app/_services/usuarios.service';
 
 @Component({
   selector: 'app-user-dialog',
@@ -27,41 +28,64 @@ export class UserDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public user: Usuario,
               public fb: FormBuilder,
               private rolesService:RolesService) {
-    this.form = this.fb.group({
-            idUsuario: null,
-            nombreUsuario: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
-            apellidoPaterno: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
-            apellidoMaterno: null,
-            correoElectronico: [null, Validators.compose([Validators.required, Validators.email])],
-            password:[null, Validators.compose([Validators.required, Validators.minLength(5)])],
-            foto: null,
-            estatus: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
-            rol: [null, Validators.compose([Validators.required, Validators.minLength(5)])]
-        });
+                this.iniciarFormulario();
   }
 
   ngOnInit() {
     this.consoltarRoles();
     this.iniciaValores();
   }
+  
 
+  iniciarFormulario(){
+    this.form = this.fb.group({
+      idUsuario: null,
+      nombreUsuario: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
+      apellidoPaterno: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
+      apellidoMaterno: null,
+      correoElectronico: [null, Validators.compose([Validators.required, Validators.email])],
+      password:[null, Validators.compose([Validators.required, Validators.minLength(5)])],
+      bytesImagen: null,
+      estatus: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
+      multipartFile: null,
+      idRolF: [null, Validators.compose([Validators.required, Validators.minLength(5)])]
+  });
+  }
 
   iniciaValores(){
     if(this.user){
-      this.form.setValue(this.user);
+      console.log(this.user);
+      // this.user.bytesImagen=null;
+      // this.form.setValue(this.user);
+      this.form.setValue({
+        idUsuario: this.user.idUsuario,
+        nombreUsuario: this.user.nombreUsuario,
+        apellidoPaterno: this.user.apellidoPaterno,
+        apellidoMaterno: this.user.apellidoMaterno,
+        correoElectronico: this.user.correoElectronico,
+        password: this.user.password,
+        bytesImagen:null,
+        estatus: this.user.estatus,
+        multipartFile: this.user.multipartFile,
+        idRolF: this.user.idRolF
+      });
       this._rol=this.user.rol.idRol;
     } 
     else{
       this.user = {
-        idUsuario: null,
+            idUsuario: null,
             nombreUsuario: null,
             apellidoPaterno: null,
             apellidoMaterno: null,
             correoElectronico: null,
             password:null,
-            foto: null,
+            nombreImagen:null,
+            tipoImagen:null,
+            bytesImagen: null,  
             estatus: null,
-            rol: null
+            rol: null,
+            multipartFile: null,
+            idRolF: null
       };
     } 
   }
@@ -77,19 +101,25 @@ export class UserDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  enviarDatos(data:Usuario){
-    console.log(data);
-    data.password=this.password;
-    data.rol={
-      idRol:this._rol,
-      descripcionRol:null,
-      estatus: null,
-      nombreRol:null
-    };
-    // return;
-    this.dialogRef.close(
-      data
-    )
-  }
+  enviarDatos(data) {
+    let imagenFile: File= new File([], '')
+  
+    if (data.bytesImagen != null) {
+      imagenFile = data.bytesImagen[0].file;
+    }
+  
+    // Crear instancia de FormData y agregar propiedades del usuarioEnviar
+    const formData = new FormData();
+    formData.append('idUsuario', data.idUsuario==null? null:data.idUsuario.toString());
+    formData.append('nombreUsuario', data.nombreUsuario);
+    formData.append('apellidoPaterno', data.apellidoPaterno);
+    formData.append('apellidoMaterno', data.apellidoMaterno);
+    formData.append('correoElectronico', data.correoElectronico);
+    formData.append('password', this.password);
+    formData.append('estatus', data.estatus==null?null:data.estatus.toString());
+    formData.append('multipartFile', imagenFile);
+    formData.append('idRolF', this._rol==null? null: this._rol.toString());
 
+    this.dialogRef.close(formData);
+  }
 }
