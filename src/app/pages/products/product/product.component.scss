@@ -23,9 +23,7 @@
 }
 
 .small-carousel {
-    margin-top: 2%;
     text-align: center;
-    max-width: 100%;
     .swiper-container {
         padding: 3%;
         height: 200px;
@@ -33,10 +31,6 @@
 
         .swiper-slide {
             color: #1AD079;
-
-            img {
-                max-width: 100%;
-            }
         }
     }
 
@@ -52,6 +46,14 @@
     .swiper-button-next {
         right: -10px;
     }
+}
+.card-producto{
+    height: 60%;
+}
+.card-producto img{
+    width: 80%;
+    height: 80%;
+    margin-top: 10%;
 }
 
 .mat-card.zoom-viewer {
