@@ -35,11 +35,11 @@
                         <h4>Categorías</h4>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <div fxLayout="column">
-                    <mat-checkbox color="primary" *ngFor="let categoria of categorias">{{categoria.nombreCategoria}}</mat-checkbox>
-                    <!-- <button mat-raised-button *ngFor="let categoria of categorias">
+                <div fxLayout="column" *ngFor="let categoria of categorias">
+                    <mat-checkbox color="primary" (change)="selectCategoria($event, categoria)"
+                    [checked]="selectionCategoria.isSelected(categoria)">
                         {{categoria.nombreCategoria}}
-                    </button> -->
+                    </mat-checkbox>
                 </div>
             </mat-expansion-panel>
 
@@ -101,7 +101,7 @@
             <button *ngIf="!sidenavOpen" mat-icon-button (click)="sidenav.toggle()">
                 <mat-icon>more_vert</mat-icon>
             </button>
-            <div>
+            <!-- <div>
                 <a mat-button [matMenuTriggerFor]="sortMenu" #sortMenuTrigger="matMenuTrigger">
                     {{sort}}<mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
                 </a>
@@ -112,10 +112,10 @@
                         </button>
                     </span>
                 </mat-menu>
-            </div>
+            </div> -->
             <div>
                 <a mat-button [matMenuTriggerFor]="countsMenu" #countsMenuTrigger="matMenuTrigger">
-                    Show {{count}}<mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+                    Mostrar {{count}}<mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
                 </a>
                 <mat-menu #countsMenu="matMenu" xPosition="before" class="app-dropdown" overlapTrigger="true">
                     <span (mouseleave)="countsMenuTrigger.closeMenu()">
@@ -137,24 +137,24 @@
         </div>
 
         <div *ngIf="viewType == 'grid'" fxLayout="row wrap" class="products-wrapper">
-            <div *ngFor="let product of products | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
+            <div *ngFor="let product of productosMostrar | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
                 <mat-card class="product-item text-center">
-                    <mat-chip-list *ngIf="product.discount">
+                    <!-- <mat-chip-list *ngIf="product.discount">
                         <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>
-                    </mat-chip-list>
-                    <a [routerLink]="['/products', product.id, product.name]" class="image-link">
-                        <img [src]="product.images[0].medium" alt="">
+                    </mat-chip-list> -->
+                    <a [routerLink]="['/products', product.idProducto, product.nombreProducto]" class="image-link">
+                        <img [src]="imagen" alt="">
                     </a>
-                    <h4 class="category text-muted">{{ ( appService.Data.categories | filterById : product.categoryId )?.name }}</h4>                                                                     
-                    <a [routerLink]="['/products', product.id, product.name]" class="title text-truncate">
-                        {{product.name}}
+                    <h4 class="category text-muted">{{product.categorias?.nombreCategoria }}</h4>                                                                     
+                    <a [routerLink]="['/products', product.idProducto, product.nombreProducto]" class="title text-truncate">
+                        {{product.nombreProducto}}
                     </a>
                     <div fxLayout="row" fxLayoutAlign="space-between center" class="prices">
                         <div fxLayout="column" fxLayoutAlign="center start">
-                            <p class="old-price text-muted"><span *ngIf="product.oldPrice">${{product.oldPrice | number : '1.2-2'}}</span></p>
-                            <p class="new-price">${{product.newPrice | number : '1.2-2'}}</p>
+                            <!-- <p class="old-price text-muted"><span *ngIf="product.oldPrice">${{product.oldPrice | number : '1.2-2'}}</span></p> -->
+                            <p class="new-price">{{product.precioVenta | currency}}</p>
                         </div>
-                        <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue" [direction]="'column'"></app-rating>
+                        <!-- <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue" [direction]="'column'"></app-rating> -->
                     </div>                            
                     <div class="divider mt-2"></div>
                     <div class="icons">
@@ -165,29 +165,29 @@
         </div>
 
         <div *ngIf="viewType == 'list'" fxLayout="row wrap" class="products-wrapper">
-            <div  *ngFor="let product of products | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" class="col">
+            <div  *ngFor="let product of productosMostrar | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" class="col">
                 <mat-card class="product-item">
                     <div fxLayout="row wrap">
                         <div fxFlex="100" fxFlex.gt-xs="40" class="p-2">
-                            <mat-chip-list *ngIf="product.discount" class="list-view">
+                            <!-- <mat-chip-list *ngIf="product.discount" class="list-view">
                                 <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>
-                            </mat-chip-list>
-                            <a [routerLink]="['/products', product.id, product.name]" class="image-link">
-                                <img [src]="product.images[0].medium" alt="">
+                            </mat-chip-list> -->
+                            <a [routerLink]="['/products', product.idProducto, product.nombreProducto]" class="image-link">
+                                <img [src]="imagen" alt="">
                             </a>
                         </div>
                         <div fxFlex="100" fxFlex.gt-xs="60" class="p-2">
-                            <h4 class="category text-muted">{{ ( appService.Data.categories | filterById : product.categoryId )?.name }}</h4>                                                                     
-                            <a [routerLink]="['/products', product.id, product.name]" class="title">
-                                {{product.name}}
+                            <h4 class="category text-muted">{{product.categorias?.nombreCategoria }}</h4>                                                                            
+                            <a [routerLink]="['/products', product.idProducto, product.nombreProducto]" class="title">
+                                {{product.nombreProducto}}
                             </a>
-                            <p class="py-1 text-muted lh">{{product.description}}</p>
+                            <p class="py-1 text-muted lh">{{product.descripcionBreve}}</p>
                             <div fxLayout="row" fxLayoutAlign="space-between center" class="prices">
                                 <div fxLayout="column" fxLayoutAlign="center start">
-                                    <p class="old-price text-muted"><span *ngIf="product.oldPrice">${{product.oldPrice | number : '1.2-2'}}</span></p>
-                                    <p class="new-price">${{product.newPrice | number : '1.2-2'}}</p>
+                                    <!-- <p class="old-price text-muted"><span *ngIf="product.oldPrice">${{product.oldPrice | number : '1.2-2'}}</span></p> -->
+                                    <p class="new-price">{{product.precioVenta | currency}}</p>
                                 </div>
-                                <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue" [direction]="'column'"></app-rating>
+                                <!-- <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue" [direction]="'column'"></app-rating> -->
                             </div>                            
                             <div class="divider"></div>
                             <div class="icons">

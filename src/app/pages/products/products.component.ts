@@ -9,6 +9,9 @@ import { Settings, AppSettings } from 'src/app/app.settings';
 import { isPlatformBrowser } from '@angular/common';
 import { AdminService } from 'src/app/_services/admins.service';
 import { Util as util } from "src/app/util/util";
+import { Producto } from 'src/app/models/producto.model';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 
 @Component({
@@ -21,10 +24,16 @@ export class ProductsComponent implements OnInit {
   public sidenavOpen:boolean = true;
   private sub: any;
   public categorias: Categorias[] = [];
+  public selectionCategoria = new SelectionModel<Categorias>(true, []);
+  public productos: Producto[] = [];
+  public productosFiltrados: Producto[] = [];
+  public productosMostrar: Producto[] = [];
+  public categoriaSeleccionada = {};
   public viewType: string = 'grid';
   public viewCol: number = 25;
   public counts = [12, 24, 36];
   public count:any;
+  public imagen: any;
   public sortings = ['Ordenar por defecto', 'Best match', 'Lowest first', 'Highest first'];
   public sort:any;
   public products: Array<Product> = [];
@@ -54,20 +63,21 @@ export class ProductsComponent implements OnInit {
     { name: "M", selected: false },
     { name: "L", selected: false },
     { name: "XL", selected: false },
-    { name: "2XL", selected: false },
-    { name: "32", selected: false },
-    { name: "36", selected: false },
-    { name: "38", selected: false },
-    { name: "46", selected: false },
-    { name: "52", selected: false },
-    { name: "13.3\"", selected: false },
-    { name: "15.4\"", selected: false },
-    { name: "17\"", selected: false },
-    { name: "21\"", selected: false },
-    { name: "23.4\"", selected: false }
+    // { name: "2XL", selected: false },
+    // { name: "32", selected: false },
+    // { name: "36", selected: false },
+    // { name: "38", selected: false },
+    // { name: "46", selected: false },
+    // { name: "52", selected: false },
+    // { name: "13.3\"", selected: false },
+    // { name: "15.4\"", selected: false },
+    // { name: "17\"", selected: false },
+    // { name: "21\"", selected: false },
+    // { name: "23.4\"", selected: false }
   ]; 
   public page:any;
   public settings: Settings;
+  categoriasSeleccionadas: Categorias[] = [];
   constructor(public appSettings:AppSettings, 
               private activatedRoute: ActivatedRoute, 
               public appService:AppService, 
@@ -79,6 +89,8 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.imagen = 'assets/images/carousel/caja6.jpg';
+    this.getProductosActivos();
     this.getCategorias();
     this.count = this.counts[0];
     this.sort = this.sortings[0];
@@ -97,6 +109,18 @@ export class ProductsComponent implements OnInit {
     this.getAllProducts();   
   }
 
+  public getProductosActivos(){
+    this.adminService.listarProductosActivos().subscribe({
+      next: (data) => {
+        this.productos = data.response;
+        this.productosMostrar = this.productos;
+      },
+      error: (err) => {
+        util.errorMessage("Error interno del servidor");
+      }
+    });
+  }
+
   public getAllProducts(){
     this.appService.getProducts("featured").subscribe(data=>{
       this.products = data; 
@@ -105,6 +129,29 @@ export class ProductsComponent implements OnInit {
         this.products = this.products.concat(this.products);        
       }
     });
+  }
+
+  public filtrarProductos(){
+
+    this.productosFiltrados = this.productos.filter(producto => {
+      return this.selectionCategoria.selected.some(categoria => categoria.idCategorias == producto.categoria.idCategorias);
+    });
+
+    if(this.selectionCategoria.selected.length === 0 && this.productos.length > 0){
+      this.productosMostrar = this.productos;
+    } else {
+      this.productosMostrar = this.productosFiltrados;
+    }
+
+  }
+
+  public selectCategoria(event: MatCheckboxChange, categoria: Categorias) {
+    if (event.checked) {
+      this.selectionCategoria.select(categoria);
+    } else {
+      this.selectionCategoria.deselect(categoria);
+    }
+    this.filtrarProductos();
   }
 
   public getCategories(){  
@@ -183,6 +230,24 @@ export class ProductsComponent implements OnInit {
     );
     
   }
+
+
+
+  // public checkboxLabelCategoria(categoria: Categorias){
+  //   console.log(categoria);
+  //   if(!categoria){
+  //     return `${this.isAllSelectedCategoria() ? 'select' : 'deselect'} all`;
+  //   } else {
+  //     return `${this.selectionCategoria.isSelected(categoria) ? 'deselect' : 'select'} row ${categoria.idCategorias + 1}`;
+  //   }
+  // }
+
+  // public isAllSelectedCategoria() {
+  //   this.categoriasSeleccionadas = this.selectionCategoria.selected;
+  //   const numSelected = this.selectionCategoria.selected.length;
+  //   const numRows = this.categorias.length;
+  //   return numSelected === numRows;
+  // }
 
   public onChangeCategory(event){
     if(event.target){
