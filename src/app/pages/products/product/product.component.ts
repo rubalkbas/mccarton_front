@@ -7,6 +7,13 @@ import { Data, AppService } from '../../../app.service';
 import { Product } from "../../../app.models";
 import { emailValidator } from '../../../theme/utils/app-validators';
 import { ProductZoomComponent } from './product-zoom/product-zoom.component';
+import { AdminService } from 'src/app/_services/admins.service';
+import { Producto } from 'src/app/models/producto.model';
+import { Categorias } from 'src/app/models/categoria.model';
+import { Colores } from 'src/app/models/color.model';
+import { Materiales } from 'src/app/models/material.model';
+import { Util as util } from "src/app/util/util";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product',
@@ -18,18 +25,26 @@ export class ProductComponent implements OnInit {
   @ViewChild(SwiperDirective, { static: true }) directiveRef: SwiperDirective;
   public config: SwiperConfigInterface={};
   public product: Product;
+  public producto: Producto;
   public image: any;
   public zoomImage: any;
+  
   private sub: any;
   public form: UntypedFormGroup;
   public relatedProducts: Array<Product>;
 
-  constructor(public appService:AppService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, public formBuilder: UntypedFormBuilder) {  }
+  constructor(public appService:AppService, 
+    private activatedRoute: ActivatedRoute, 
+    public dialog: MatDialog, 
+    public formBuilder: UntypedFormBuilder,
+    private location: Location,
+    private adminService: AdminService) {  }
 
   ngOnInit() {      
     this.sub = this.activatedRoute.params.subscribe(params => { 
       this.getProductById(params['id']); 
     }); 
+
     this.form = this.formBuilder.group({ 
       'review': [null, Validators.required],            
       'name': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -60,17 +75,17 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  public getProductById(id){
-    this.appService.getProductById(id).subscribe(data=>{
-      this.product = data;
-      this.image = data.images[0].medium;
-      this.zoomImage = data.images[0].big;
-      setTimeout(() => { 
-        this.config.observer = true;
-       // this.directiveRef.setIndex(0);
-      });
-    });
-  }
+  // public getProductById(id){
+  //   this.appService.getProductById(id).subscribe(data=>{
+  //     this.product = data;
+  //     this.image = data.images[0].medium;
+  //     this.zoomImage = data.images[0].big;
+  //     setTimeout(() => { 
+  //       this.config.observer = true;
+  //      // this.directiveRef.setIndex(0);
+  //     });
+  //   });
+  // }
 
   public getRelatedProducts(){
     this.appService.getProducts('related').subscribe(data => {
@@ -110,6 +125,49 @@ export class ProductComponent implements OnInit {
       data: this.zoomImage,
       panelClass: 'zoom-dialog'
     });
+  }
+
+  public getProductById(id:any){
+    const producto: Producto = {
+      idProducto: id,
+      codigoReferencia: '',
+      nombreProducto: '',
+      descripcionBreve: '',
+      largoInterior: 0,
+      largoExterior: 0,
+      anchoInterior: 0,
+      anchoExterior: 0,
+      altoInterior: 0,
+      altoExterior: 0,
+      stock: 0,
+      precioCompra: 0,
+      precioVenta: 0,
+      fechaAlta: undefined,
+      fechaModificacion: undefined,
+      peso: 0,
+      material: new Materiales,
+      color: new Colores,
+      categoria: new Categorias
+    };
+    this.adminService.obtenerProducto(producto).subscribe({
+      next: (data: any) => {
+        this.producto = data.response;
+        this.image = 'assets/images/carousel/caja6.jpg';
+        this.zoomImage = 'assets/images/carousel/caja6.jpg';;
+        setTimeout(() => { 
+          this.config.observer = true;
+         // this.directiveRef.setIndex(0);
+        });
+      },
+      error: (error: any) => {
+        util.errorMessage(error.error.message);
+      }
+
+    })
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   ngOnDestroy() {

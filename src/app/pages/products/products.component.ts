@@ -104,9 +104,9 @@ export class ProductsComponent implements OnInit {
       this.viewCol = 33.3;
     };
 
-    this.getCategories();
-    this.getBrands();
-    this.getAllProducts();   
+    // this.getCategories();
+    // this.getBrands();
+    // this.getAllProducts();   
   }
 
   public getProductosActivos(){
@@ -115,7 +115,7 @@ export class ProductsComponent implements OnInit {
         this.productos = data.response;
         this.productosMostrar = this.productos;
       },
-      error: (err) => {
+      error: () => {
         util.errorMessage("Error interno del servidor");
       }
     });
@@ -154,22 +154,22 @@ export class ProductsComponent implements OnInit {
     this.filtrarProductos();
   }
 
-  public getCategories(){  
-    if(this.appService.Data.categories.length == 0) { 
-      this.appService.getCategories().subscribe(data => {
-        this.categories = data;
-        this.appService.Data.categories = data;
-      });
-    }
-    else{
-      this.categories = this.appService.Data.categories;
-    }
-  }
+  // public getCategories(){  
+  //   if(this.appService.Data.categories.length == 0) { 
+  //     this.appService.getCategories().subscribe(data => {
+  //       this.categories = data;
+  //       this.appService.Data.categories = data;
+  //     });
+  //   }
+  //   else{
+  //     this.categories = this.appService.Data.categories;
+  //   }
+  // }
 
-  public getBrands(){
-    this.brands = this.appService.getBrands();
-    this.brands.forEach(brand => { brand.selected = false });
-  }
+  // public getBrands(){
+  //   this.brands = this.appService.getBrands();
+  //   this.brands.forEach(brand => { brand.selected = false });
+  // }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
@@ -230,24 +230,6 @@ export class ProductsComponent implements OnInit {
     );
     
   }
-
-
-
-  // public checkboxLabelCategoria(categoria: Categorias){
-  //   console.log(categoria);
-  //   if(!categoria){
-  //     return `${this.isAllSelectedCategoria() ? 'select' : 'deselect'} all`;
-  //   } else {
-  //     return `${this.selectionCategoria.isSelected(categoria) ? 'deselect' : 'select'} row ${categoria.idCategorias + 1}`;
-  //   }
-  // }
-
-  // public isAllSelectedCategoria() {
-  //   this.categoriasSeleccionadas = this.selectionCategoria.selected;
-  //   const numSelected = this.selectionCategoria.selected.length;
-  //   const numRows = this.categorias.length;
-  //   return numSelected === numRows;
-  // }
 
   public onChangeCategory(event){
     if(event.target){
