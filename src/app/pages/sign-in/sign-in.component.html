@@ -52,11 +52,14 @@
             <form [formGroup]="registerForm" (ngSubmit)="onRegisterFormSubmit(registerForm.value)"
                 enctype="multipart/form-data">
                 <div class="w-100 mt-2">
-                    <p class="mt-1"><span class="uppercase fw-500">Sube una foto de perfil</span><span
-                            class="text-muted px-1"></span></p>
-                    <input type="file" id="multipartFile" formControlName="multipartFile" fileAccept="image/*"
-                        (change)="onFileSelected($event)">
+                    <div class="image-upload-container">
+                        <input type="file" id="multipartFile" formControlName="multipartFile" fileAccept="image/*"
+                          (change)="onFileSelected($event)">
+                        <label for="multipartFile"><i class="fas fa-camera"></i>Foto de perfil</label>
+                        <img id="previewImage" class="mt-2" style="max-width: 200px;">
+                      </div>
                 </div>
+
                 <mat-form-field appearance="outline" class="w-100 mt-2">
                     <mat-label>Nombre</mat-label>
                     <input matInput placeholder="Full Name" formControlName="nombre" required>

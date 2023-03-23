@@ -63,6 +63,14 @@ export class SignInComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     this.cliente.multipartFile = file;
+  
+    // Mostrar la imagen seleccionada en la vista previa
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const image = document.getElementById('previewImage');
+      image.setAttribute('src', e.target.result);
+    };
+    reader.readAsDataURL(file);
   }
   
   public onRegisterFormSubmit(values: Object): void {
