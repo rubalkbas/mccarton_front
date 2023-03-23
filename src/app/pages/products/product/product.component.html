@@ -1,9 +1,9 @@
 <div fxLayout="row wrap" class="contenido">
     <div fxFlex="100" fxFlex.gt-md="40" fxFlex.md="45" class="detalleproducto">
         <mat-card class="product-image">
-            <!-- <mat-chip-list *ngIf="product?.discount">
+            <mat-chip-list *ngIf="product?.discount">
                 <mat-chip color="warn" selected="true">{{product?.discount}}% OFF</mat-chip>
-            </mat-chip-list> -->
+            </mat-chip-list>
             <button mat-icon-button (click)="openZoomViewer()" fxHide="false" fxHide.gt-md><mat-icon>fullscreen</mat-icon></button>
             <img class="img-producto" *ngIf="image" [src]="image" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave($event)"/>
         </mat-card>       
@@ -29,29 +29,29 @@
             <mat-card *ngIf="zoomImage" class="zoom-viewer mat-elevation-z18" [ngStyle]="{'background-image': 'url(' + zoomImage + ')'}"></mat-card>
         </div>
 
-        <h2 id="product-name">{{producto?.nombreProducto}}</h2>
+        <h2 id="product-name">{{product?.name}}</h2>
         <div class="py-1 lh">
-            <p class="descripcion-product"><span class="text-muted fw-500">Categoría: </span><span>{{ producto?.categoria?.nombreCategoria }}</span></p>
-            <p class="descripcion-product"><span class="text-muted fw-500">Stock: </span><span>{{ (producto?.stock > 0) ? (producto?.stock):'No disponible'}}</span></p>
+            <p class="descripcion-product"><span class="text-muted fw-500">Category: </span><span>{{ ( appService.Data.categories | filterById : product?.categoryId )?.name }}</span></p>
+            <p class="descripcion-product"><span class="text-muted fw-500">Availibility: </span><span>{{ (product?.availibilityCount > 0) ? 'In stock':'Unavailable'}}</span></p>
         </div>                 
-        <!-- <div class="py-1">
+        <div class="py-1">
             <app-rating [ratingsCount]="product?.ratingsCount" [ratingsValue]="product?.ratingsValue" [direction]="'row'"></app-rating>
-        </div> -->
-        <p  class="py-1 text-muted lh descripcion-product1">{{producto?.descripcionBreve}}</p>
+        </div>
+        <p  class="py-1 text-muted lh descripcion-product1">{{product?.description}}</p>
 
         <div class="divider mt-1"></div>
         <div class="py-2">
-            <!-- <h3 class="old-price text-muted"><span *ngIf="product?.oldPrice">${{product?.oldPrice | number : '1.2-2'}}</span></h3> -->
-            <h2 class="new-price">{{producto?.precioVenta | currency}}</h2>
+            <h3 class="old-price text-muted"><span *ngIf="product?.oldPrice">${{product?.oldPrice | number : '1.2-2'}}</span></h3>
+            <h2 class="new-price">${{product?.newPrice}}</h2>
         </div>        
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="details text-muted py-1">
             <div *ngIf="product?.color" class="color">
-                <span class="fw-500">Selecciona Color:</span>
-                <button mat-raised-button *ngFor="let color of producto?.color" [style.background]="color">&nbsp;</button>              
+                <span class="fw-500">Select Color:</span>
+                <button mat-raised-button *ngFor="let color of product?.color" [style.background]="color">&nbsp;</button>              
             </div>
             <div *ngIf="product?.size" class="size" ngClass.xs="mt-1">
-                <span class="fw-500">Selecciona Tamaño:</span>
+                <span class="fw-500">Select Size:</span>
                 <button mat-raised-button *ngFor="let size of product?.size">{{size}}</button>
             </div>
         </div>
@@ -63,7 +63,7 @@
         <div class="divider"></div>
 
         <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted py-1">
-            <button mat-button><mat-icon>mail_outline</mat-icon> Enviar por correo</button>
+            <button mat-button><mat-icon>mail_outline</mat-icon> Email to a Friend</button>
             <button mat-icon-button><mat-icon>share</mat-icon></button>
         </div>
 
