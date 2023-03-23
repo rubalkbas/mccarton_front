@@ -14,6 +14,6 @@
         <button *ngIf="type!='all'" mat-icon-button matTooltip="Vista rápida" (click)="openProductDialog(product)"><mat-icon>remove_red_eye</mat-icon></button>
     </div>
 </div> 
-<div *ngIf="product?.availibilityCount == 0 && type=='all'" class="bg-warn p-1 mt-2">
-    Sorry, this item is unavailable. Please choose a different one.
+<div *ngIf="producto?.stock == 0 && type=='all'" class="bg-warn p-1 mt-2">
+    Lo sentimos, este producto no esta disponible. Por favor, seleccione uno diferente.
 </div>
