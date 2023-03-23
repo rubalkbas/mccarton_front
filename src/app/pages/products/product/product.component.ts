@@ -43,6 +43,7 @@ export class ProductComponent implements OnInit {
   ngOnInit() {      
     this.sub = this.activatedRoute.params.subscribe(params => { 
       this.getProductById(params['id']); 
+      this.getProductoById(params['id']);
     }); 
 
     this.form = this.formBuilder.group({ 
@@ -75,17 +76,17 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  // public getProductById(id){
-  //   this.appService.getProductById(id).subscribe(data=>{
-  //     this.product = data;
-  //     this.image = data.images[0].medium;
-  //     this.zoomImage = data.images[0].big;
-  //     setTimeout(() => { 
-  //       this.config.observer = true;
-  //      // this.directiveRef.setIndex(0);
-  //     });
-  //   });
-  // }
+  public getProductById(id){
+    this.appService.getProductById(id).subscribe(data=>{
+      this.product = data;
+      this.image = data.images[0].medium;
+      this.zoomImage = data.images[0].big;
+      setTimeout(() => { 
+        this.config.observer = true;
+       // this.directiveRef.setIndex(0);
+      });
+    });
+  }
 
   public getRelatedProducts(){
     this.appService.getProducts('related').subscribe(data => {
@@ -127,7 +128,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  public getProductById(id:any){
+  public getProductoById(id:any){
     const producto: Producto = {
       idProducto: id,
       codigoReferencia: '',
