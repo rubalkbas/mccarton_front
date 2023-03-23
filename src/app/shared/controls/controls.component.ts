@@ -1,3 +1,4 @@
+import { Producto } from './../../models/producto.model';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Data, AppService } from '../../app.service';
@@ -10,6 +11,7 @@ import { Product } from '../../app.models';
 })
 export class ControlsComponent implements OnInit {
   @Input() product: Product;
+  @Input() producto: Producto;
   @Input() type: string;
   @Output() onOpenProductDialog: EventEmitter<any> = new EventEmitter();
   @Output() onQuantityChange: EventEmitter<any> = new EventEmitter<any>();
@@ -18,9 +20,10 @@ export class ControlsComponent implements OnInit {
   constructor(public appService:AppService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    if(this.product){
+
+    if(this.producto){
       if(this.product.cartCount > 0){
-        this.count = this.product.cartCount;
+        this.count = this.producto.stock;
       }
     }  
     this.layoutAlign(); 
@@ -40,8 +43,8 @@ export class ControlsComponent implements OnInit {
 
 
 
-  public increment(count){
-    if(this.count < this.product.availibilityCount){
+  public increment(){
+    if(this.count < this.producto.stock){
       this.count++;
       let obj = {
         productId: this.product.id,
@@ -51,7 +54,7 @@ export class ControlsComponent implements OnInit {
       this.changeQuantity(obj);
     }
     else{
-      this.snackBar.open('You can not choose more items than available. In stock ' + this.count + ' items.', '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
+      this.snackBar.open('No se pueden elegir más artículos de los disponibles. En inventario hay ' + this.count + ' productos.', '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
     }    
   }
 
