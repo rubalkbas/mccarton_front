@@ -49,7 +49,7 @@ export class ControlsComponent implements OnInit {
       let obj = {
         productId: this.product.id,
         soldQuantity: this.count,
-        total: this.count * this.product.newPrice
+        total: this.count * this.producto.precioVenta
       }
       this.changeQuantity(obj);
     }
@@ -64,7 +64,7 @@ export class ControlsComponent implements OnInit {
       let obj = {
         productId: this.product.id,
         soldQuantity: this.count,
-        total: this.count * this.product.newPrice
+        total: this.count * this.producto.precioVenta
       }
       this.changeQuantity(obj);
     }
@@ -82,11 +82,11 @@ export class ControlsComponent implements OnInit {
     // console.log(product)
     let currentProduct = this.appService.Data.cartList.filter(item=>item.id == product.id)[0];
     if(currentProduct){
-      if((currentProduct.cartCount + this.count) <= this.product.availibilityCount){
+      if((currentProduct.cartCount + this.count) <= this.producto.stock){
         product.cartCount = currentProduct.cartCount + this.count;
       }
       else{
-        this.snackBar.open('You can not add more items than available. In stock ' + this.product.availibilityCount + ' items and you already added ' + currentProduct.cartCount + ' item to your cart', '×', { panelClass: 'error', verticalPosition: 'top', duration: 5000 });
+        this.snackBar.open('No se pueden elegir más artículos de los disponibles. En inventario hay ' + this.producto.stock + ' productos y ya ha agragado ' + currentProduct.cartCount + ' productos a su carrito', '×', { panelClass: 'error', verticalPosition: 'top', duration: 5000 });
         return false;
       }
     }
