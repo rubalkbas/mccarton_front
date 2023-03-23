@@ -17,6 +17,7 @@ import { Rol } from '../roles/roles';
 export class UsersComponent implements OnInit {
     public searchText: string;
     public page:number=1;
+    public sizePage:number=0;
     public settings: Settings;
     public _totalElementos: number=0;
 
@@ -52,10 +53,17 @@ export class UsersComponent implements OnInit {
     }
 
     listarActivosPorPagina(noPagina:number, campo:string, direccion:string, buscar:string){
-        this.usuariosService.listarActivosPorPagina(noPagina, campo, direccion, buscar).subscribe(data=>{
+        this.usuariosService.listarActivosPorPagina(noPagina, campo, direccion, buscar).subscribe({next:data=>{
+            console.log(data);
             this.usuariosActivosPorPagina=data.response.content;
+            this.sizePage=data.response.size;
             this._totalElementos=data.response.totalElements;
-        })
+        }, error:error=>{
+            this.usuariosActivosPorPagina=[];
+            this._totalElementos=0;
+            Util.errorMessage(error.error.mensaje);
+        }
+    })
     }
 
     public openUserDialog(user:Usuario){
@@ -74,12 +82,16 @@ export class UsersComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(user => {
             if(user){
-                if(user.correoElectronico==correo){
-                    user.correoElectronico=null;
+                if(user.get('correoElectronico')==correo){
+                    // user.set('correoElectronico', null);
+                    user.delete('correoElectronico');
+                    // user.get('correoElectronico').set(null);
+                    // user.correoElectronico=null;
                 }
-                (user.idUsuario) ? this.actualizarUsuario(user) : this.crearUsuario(user);
+                (user.get('idUsuario')!='null') ? this.actualizarUsuario(user) : this.crearUsuario(user);
             }else{
-                this.listarUsuarios();
+                // this.listarUsuarios();
+                this.listarActivosPorPagina(this.page, "idUsuario", "asc", "");
             }
         });
     }
@@ -96,21 +108,25 @@ export class UsersComponent implements OnInit {
         }})
     }
 
-    public crearUsuario(usuario:Usuario){
-
+    public crearUsuario(usuario){
+        console.log("agrega");
+        usuario.delete('idUsuario');
         this.usuariosService.crearUsuario(usuario).subscribe({next:data=>{
             Util.successMessage(data.mensaje);
-            this.listarUsuarios();
+            // this.listarUsuarios();
+            this.listarActivosPorPagina(this.page, "idUsuario", "asc", "");
             console.log(data);
         }, error:error=>{
             Util.errorMessage(error.error.mensaje);
         }})
     }
 
-    public actualizarUsuario(usuario:Usuario){
+    public actualizarUsuario(usuario){
+        console.log("Actualiza")
             this.usuariosService.actualizarUsuario(usuario).subscribe({next:data=>{
                 Util.successMessage(data.mensaje);
-                this.listarUsuarios();
+                // this.listarUsuarios();
+                this.listarActivosPorPagina(this.page, "idUsuario", "asc", "");
                 console.log(data);
             }, error:error=>{
                 Util.errorMessage(error.error.mensaje);
@@ -125,7 +141,8 @@ export class UsersComponent implements OnInit {
         this.usuariosService.eliminarUsuario(id).subscribe({next: data=> {
             if(data.ok){
                 Util.successMessage(data.mensaje);
-                this.listarUsuarios();
+                // this.listarUsuarios();
+                this.listarActivosPorPagina(this.page, "idUsuario", "asc", "");
             }
             console.log(data);
         }, error: error=>{
@@ -148,11 +165,36 @@ export class UsersComponent implements OnInit {
     }
 
     toggleEstatus(user:Usuario) {
-        user.estatus = user.estatus === 1 ? 0 : 1;
-        console.log(user)
-        user.correoElectronico=null;
-        this.actualizarUsuario(user);
+        let estatusN= user.estatus = user.estatus === 1 ? 0 : 1;
+
+        const formData = new FormData();
+
+        let base64Data =this.bytesToImageUrl(user.bytesImagen, user.tipoImagen);
+        let imagenFile: File= this.base64ToFile(base64Data, user.nombreImagen);
+
+        formData.append('idUsuario', user.idUsuario.toString());
+        formData.append('estatus', estatusN.toString());
+        formData.append('multipartFile', imagenFile);
+
+        this.actualizarUsuario(formData);
       }
       
+    bytesToImageUrl(bytes: Uint8Array, tipoImagen:string): string {
+        return `data:${tipoImagen};base64,${bytes}`;
+    }
+    
+    // Función para convertir Base64 a File
+    base64ToFile(base64: string, filename: string): File {
+        const arr = base64.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, { type: mime });
+    }
+  
 
 }

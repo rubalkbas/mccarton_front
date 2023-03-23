@@ -30,9 +30,10 @@
                     <mat-form-field class="w-100">
                         <input matInput placeholder="Apellido materno" formControlName="apellidoMaterno">
                     </mat-form-field>
-                    <mat-form-field class="w-100">
-                        <input matInput placeholder="Image url" formControlName="foto">
-                    </mat-form-field>
+                    <div fxFlex="40" class="px-2"> 
+                        <p class="mt-1"><span class="uppercase fw-500">Foto</span></p>  
+                        <input-file formControlName="bytesImagen" fileLimit="1" fileAccept="image/*"></input-file>  
+                    </div>
                 </div>
             </mat-tab>
             <mat-tab label="Rol">
@@ -60,7 +61,7 @@
 </div>
 <div mat-dialog-actions>
     <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
-        <button mat-raised-button color="primary" (click)="enviarDatos(form.value)" [disabled]="!form.valid"><span *ngIf="!user.idUsuario">Guardar</span><span *ngIf="user.idUsuario">Actualizar</span></button>
+        <button mat-raised-button color="primary" (click)="enviarDatos(form.value)" ><span *ngIf="!user.idUsuario">Guardar</span><span *ngIf="user.idUsuario">Actualizar</span></button>
         <button mat-raised-button color="warn" (click)="close()">Cancelar</button>
     </div> 
 </div>

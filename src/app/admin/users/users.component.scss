@@ -46,9 +46,9 @@
     overflow: hidden;
     transition: 0.3s;
     .mat-form-field{
-        width: 100% !important;
+        width: 30% !important;
         text-align: center !important;
-        height: 36px;        
+        height: 36px; 
     }
     .mat-form-field-infix{
         padding: 5px;
@@ -59,6 +59,12 @@
     &.show{
         width: 100%;
         overflow: visible;
+    }
+    .formBusqueda{
+        margin-right: 3.5%;
+    }
+    .busqueda2{
+        margin-left: 1%;
     }
 }
 

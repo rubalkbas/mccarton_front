@@ -130,6 +130,13 @@ export class AdminService {
     return this.http.get(`${this.urlAdmin}/Productos/todos`, this.httpOptions);
   }
 
+  public listarProductosActivos(): Observable<any> {
+    return this.http.get(
+      `${this.urlAdmin}/Productos/todosEnStock`,
+      this.httpOptions
+    );
+  }
+
   public actualizarProducto(producto: Producto): Observable<any> {
     return this.http.put(
       `${this.urlAdmin}/Productos/actualizaProducto`,

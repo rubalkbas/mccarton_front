@@ -23,13 +23,17 @@ export class UsuariosService {
   }
   
   //Crea un nuevo usuario
-  public crearUsuario(usuario:Usuario): Observable<SingleResponse<Usuario>>{
-    return this.http.post<SingleResponse<Usuario>>(`${this.urlAdmin}/usuarios/nuevoUsuario`,usuario, this.httpOptions);
+  public crearUsuario(usuario): Observable<SingleResponse<Usuario>>{
+    let headers = new HttpHeaders();
+    headers = headers.append('enctype', 'multipart/form-data');
+    return this.http.post<SingleResponse<Usuario>>(`${this.urlAdmin}/usuarios/nuevoUsuario`,usuario, { headers: headers });
   }
   
   //Actualiza un usuario
-  public actualizarUsuario(usuario:Usuario): Observable<SingleResponse<Usuario>>{
-    return this.http.put<SingleResponse<Usuario>>(`${this.urlAdmin}/usuarios/actualizarUsuario`, usuario, this.httpOptions);
+  public actualizarUsuario(usuario): Observable<SingleResponse<Usuario>>{
+    let headers = new HttpHeaders();
+    headers = headers.append('enctype', 'multipart/form-data');
+    return this.http.put<SingleResponse<Usuario>>(`${this.urlAdmin}/usuarios/actualizarUsuario`, usuario, { headers: headers });
   }
 
   //Elimina un usuario

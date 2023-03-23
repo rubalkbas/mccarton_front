@@ -9,6 +9,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { PipesModule } from '../../theme/pipes/pipes.module';
 import { UsersComponent } from './users.component';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
+import { InputFileModule } from 'ngx-input-file';
+import { SwiperModule } from 'ngx-swiper-wrapper';
 
 export const routes: Routes = [
   { path: '', component: UsersComponent, pathMatch: 'full' }
@@ -23,7 +25,9 @@ export const routes: Routes = [
     ReactiveFormsModule,
     NgxPaginationModule,
     SharedModule,
-    PipesModule    
+    PipesModule,
+    SwiperModule,
+    InputFileModule
   ],
   declarations: [
     UsersComponent,
