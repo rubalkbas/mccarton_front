@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { SignInComponent } from './sign-in.component';
-
+import { FileValueAccessorDirective } from './file-value-accessor';
 export const routes: Routes = [
   { path: '', component: SignInComponent, pathMatch: 'full' }
 ];
@@ -17,7 +17,8 @@ export const routes: Routes = [
     SharedModule
   ],
   declarations: [
-    SignInComponent
+    SignInComponent,
+    FileValueAccessorDirective
   ]
 })
 export class SignInModule { }

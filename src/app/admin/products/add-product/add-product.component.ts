@@ -21,14 +21,6 @@ export class AddProductComponent implements OnInit {
   public colores: Colores[] = [];
   public materiales: Materiales[] = [];
   public categorias: Categorias[] = [
-    // { idCategorias: 1, 
-    //   descripcionCategoria: "Categoria 1", 
-    //   nombreCategoria: "nombre categoria", 
-    //   detallesCategoria: "Categoria 1", 
-    //   codigoReferencia: "123", 
-    //   idCategoriaPadre: 1,
-    // estatus:1
-    // },
   ];
   
   public sizes = ["S","M","L","XL","2XL","32", "36","38","46","52","13.3\"","15.4\"","17\"","21\"","23.4\""]; 

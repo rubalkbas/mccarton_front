@@ -13,7 +13,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class RolesDialogComponent implements OnInit {
   public formulario: FormGroup;
   public modoEditar: boolean = false;
-  
+
   constructor(public dialogRef: MatDialogRef<RolesDialogComponent>,
     private rolesService: RolesService,
     private formBuilder: FormBuilder,
@@ -39,7 +39,7 @@ export class RolesDialogComponent implements OnInit {
       this.formulario.controls['descripcion'].disable();
     }
   }
-  
+
   public onSubmit() {
     if (this.modoEditar) {
       // Actualizar el rol existente
@@ -55,7 +55,7 @@ export class RolesDialogComponent implements OnInit {
     } else {
       const nombreRol = this.formulario.get('nombre')?.value;
       const descripcionRol = this.formulario.get('descripcion')?.value;
-      this.rolesService.saveRol(nombreRol,descripcionRol).subscribe(result => {
+      this.rolesService.saveRol(nombreRol, descripcionRol).subscribe(result => {
         console.log(result)
         this.dialogRef.close(result);
         window.location.reload();

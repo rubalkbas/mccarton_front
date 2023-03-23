@@ -5,6 +5,8 @@ import { Colores } from "../models/color.model";
 import { Materiales } from "../models/material.model";
 import { Producto } from "../models/producto.model";
 import { Category } from "../app.models";
+import { SingleResponse } from "../models/response.model";
+import { Cliente } from '../models/cliente.model';
 
 @Injectable({
   providedIn: "root",
@@ -15,7 +17,7 @@ export class AdminService {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public listarMateriales(): Observable<any> {
     return this.http.get(`${this.urlAdmin}/Materiales/todos`, this.httpOptions);
@@ -91,6 +93,35 @@ export class AdminService {
   }
 
   //Terminacion del CRUD categorias
+
+
+  //Añadiendo el CRUD  Cliente
+  /*
+    public saveCliente(formData: FormData): Observable<any> {
+      const url = `${this.urlAdmin}/registro/cliente`;
+      const headers = new HttpHeaders().append('enctype', 'multipart/form-data');
+      const options = { headers: headers };
+      return this.http.post(url, formData, options);
+    }
+    */
+    public saveCliente(cliente): Observable<SingleResponse<Cliente>>{
+      let headers = new HttpHeaders();
+      headers = headers.append('enctype', 'multipart/form-data');
+      return this.http.post<SingleResponse<Cliente>>(`${this.urlAdmin}/registro/cliente`,cliente, { headers: headers });
+    }
+   /*
+    public saveCliente(cliente: any, file: File): Observable<SingleResponse<Cliente>> {
+      const formData = new FormData();
+      formData.append('cliente', JSON.stringify(cliente));
+      formData.append('file', file);
+    
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'multipart/form-data');
+      return this.http.post<SingleResponse<Cliente>>(`${this.urlAdmin}/registro/cliente`, formData, { headers: headers });
+    }    
+    */
+
+  //Terminacion CRUD cliente 
   public listarColores(): Observable<any> {
     return this.http.get(`${this.urlAdmin}/colores/todos`, this.httpOptions);
   }
