@@ -1,3 +1,4 @@
+import { Producto } from './../../../models/producto.model';
 import { Component, ViewEncapsulation, OnInit, Inject} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
@@ -14,9 +15,17 @@ export class ProductDialogComponent implements OnInit {
   public config: SwiperConfigInterface = {};
   constructor(public appService:AppService, 
               public dialogRef: MatDialogRef<ProductDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public product: Product) { }
+              @Inject(MAT_DIALOG_DATA) public product: Producto) { }
 
-  ngOnInit() { }
+    public imagenes: any[] = [];
+
+  ngOnInit() {
+
+    this.imagenes.push('assets/images/products/product1.jpg');
+    this.imagenes.push('assets/images/products/product2.jpg');
+    this.imagenes.push('assets/images/carousel/caja6.jpg');
+
+  }
 
   ngAfterViewInit(){
     this.config = {
