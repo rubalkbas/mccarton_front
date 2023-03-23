@@ -1,10 +1,10 @@
 <div fxLayout="row" fxLayout.xs="column" [fxLayoutAlign]="align" class="text-muted">
-    <div *ngIf="product?.availibilityCount > 0 && (type=='all' || type=='wish')">
+    <div *ngIf="producto?.stock > 0 && (type=='all' || type=='wish')">
         <bdi>
             <span *ngIf="type!='wish'" class="fw-500">Cantidad:</span> 
-            <button mat-icon-button matTooltip="Remove" (click)="decrement()"><mat-icon>remove</mat-icon></button>
+            <button mat-icon-button matTooltip="Eliminar" (click)="decrement()"><mat-icon>remove</mat-icon></button>
             <span> {{count}} </span>
-            <button mat-icon-button matTooltip="Add" (click)="increment()"><mat-icon>add</mat-icon></button>
+            <button mat-icon-button matTooltip="Agregar" (click)="increment()"><mat-icon>add</mat-icon></button>
         </bdi>
     </div>
     <div *ngIf="type!='wish'">
