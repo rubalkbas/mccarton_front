@@ -1,0 +1,32 @@
+.auth{
+    white-space: nowrap;
+    padding: 7px 14px;
+    font-weight: 500;    
+}
+
+#previewImage {
+    display: block;
+    margin-top: 10px;
+    max-width: 100%;
+  }
+  .image-upload-container {
+    position: relative;
+    display: inline-block;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+
+
+  label[for="multipartFile"] {
+    display: inline-block;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  label i {
+    margin-right: 8px;
+  }

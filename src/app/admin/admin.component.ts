@@ -1,3 +1,5 @@
+import { Usuario } from './users/user.model';
+import { SessionAdminStorageService } from './../_services/session-storage.service';
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { AppSettings, Settings } from '../app.settings';
 import { Router, NavigationEnd } from '@angular/router'; 
@@ -16,9 +18,12 @@ export class AdminComponent implements OnInit {
   public toggleSearchBar:boolean = false;
   constructor(public appSettings:AppSettings, 
               public router:Router,
-              private menuService: MenuService){        
+              private menuService: MenuService,
+              private sessionStorage:SessionAdminStorageService){        
     this.settings = this.appSettings.settings;
   }
+
+  usuario:any;
 
   ngOnInit() {  
     if(window.innerWidth <= 960){ 
@@ -28,7 +33,7 @@ export class AdminComponent implements OnInit {
     setTimeout(() => {
       this.settings.theme = 'blue'; 
     });
-    this.menuItems = this.menuService.getMenuItems();    
+    this.menuItems = this.menuService.getMenuItems();   
   }
 
   ngAfterViewInit(){  
@@ -43,7 +48,7 @@ export class AdminComponent implements OnInit {
         this.sidenav.close(); 
       }                
     });  
-    this.menuService.expandActiveSubMenu(this.menuService.getMenuItems());  
+    // this.verificaSesion();
   } 
 
   public toggleSidenav(){
@@ -79,5 +84,27 @@ export class AdminComponent implements OnInit {
       this.settings.adminSidenavIsPinned = true;
     }
   }
+
+  cerrarSesion(){
+    // this.menuService.closeAllSubMenus();
+    this.router.navigate(['admin/login-admin']);
+    this.sessionStorage.signOut();
+  }
+
+  verificaSesion(){
+    this.sessionStorage.getUser().subscribe((user) => {
+      this.usuario = user;
+      this.sidenav.toggle();
+
+      if(user){
+        this.sidenav.open();
+      }
+      console.log(user)
+    })
+  }
+
+  bytesToImageUrl(bytes: Uint8Array, tipoImagen:string): string {
+    return `data:${tipoImagen};base64,${bytes}`;
+}
 
 }
