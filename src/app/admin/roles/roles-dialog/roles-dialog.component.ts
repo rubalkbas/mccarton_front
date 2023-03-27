@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { RolesService } from 'src/app/_services/roles.service';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Util } from '../../../util/util';
 
 @Component({
   selector: 'app-roles-dialog',
@@ -57,6 +58,7 @@ export class RolesDialogComponent implements OnInit {
       const descripcionRol = this.formulario.get('descripcion')?.value;
       this.rolesService.saveRol(nombreRol, descripcionRol).subscribe(result => {
         console.log(result)
+        Util.successMessage(result.mensaje);
         this.dialogRef.close(result);
         window.location.reload();
       });

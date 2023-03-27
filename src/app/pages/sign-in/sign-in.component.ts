@@ -67,12 +67,12 @@ export class SignInComponent implements OnInit {
         Util.successMessage(response.mensaje);
         console.log(response);
         localStorage.setItem('token', response.response.token);
+        localStorage.setItem('response', response.response);
         console.log(response.response.token);
         this.loginForm.reset();
-        this.router.navigate(['/']);
+        this.router.navigate(['/account']);
       }
     )
-
   }
 
   onFileSelected(event: any) {
@@ -109,6 +109,7 @@ export class SignInComponent implements OnInit {
     this.adminService.saveCliente(formData).subscribe({next:data=>{
       Util.successMessage(data.mensaje);
       this.registerForm.reset();
+      this.router.navigate(['/account']);
   }})
 }
 
