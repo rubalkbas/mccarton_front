@@ -6,7 +6,6 @@ import { emailValidator, matchingPasswords } from '../../theme/utils/app-validat
 import { AdminService } from '../../_services/admins.service';
 import { Cliente } from '../../models/cliente.model';
 import { Util } from '../../util/util';
-
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -20,6 +19,7 @@ export class SignInComponent implements OnInit {
   public cliente: Cliente = new Cliente();
 
   constructor(
+
     public formBuilder: FormBuilder,
     private adminService: AdminService,
     public router: Router,
@@ -55,16 +55,29 @@ export class SignInComponent implements OnInit {
   }
 
   public onLoginFormSubmit(values: Object): void {
-    if (this.loginForm.valid) {
-      this.router.navigate(['/']);
-    }
+    this.cliente.correoElectronico=this.loginForm.get('email').value;
+    this.cliente.password=this.loginForm.get('password').value;
+
+    let formData = new FormData();
+    formData.append('correoElectronico', this.cliente.correoElectronico);
+    formData.append('password', this.cliente.password);
+    
+    this.adminService.loginCliente(this.cliente).subscribe(
+      response=>{
+        Util.successMessage(response.mensaje);
+        console.log(response);
+        localStorage.setItem('token', response.response.token);
+        console.log(response.response.token);
+        this.loginForm.reset();
+        this.router.navigate(['/']);
+      }
+    )
+
   }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     this.cliente.multipartFile = file;
-  
-    // Mostrar la imagen seleccionada en la vista previa
     const reader = new FileReader();
     reader.onload = (e: any) => {
       const image = document.getElementById('previewImage');

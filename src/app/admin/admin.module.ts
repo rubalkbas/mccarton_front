@@ -13,7 +13,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { FullScreenComponent } from './components/fullscreen/fullscreen.component'; 
 import { MessagesComponent } from './components/messages/messages.component';
-import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component'; 
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 export const routes = [ 
   { 
@@ -43,7 +43,8 @@ export const routes = [
     UserMenuComponent,
     FullScreenComponent,
     MessagesComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+  
   ],
   imports: [
     CommonModule,

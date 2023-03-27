@@ -180,4 +180,5 @@ export class ProductComponent implements OnInit {
       //email sent
     }
   }
+
 }

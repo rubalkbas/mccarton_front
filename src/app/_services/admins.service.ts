@@ -93,21 +93,24 @@ export class AdminService {
   }
 
   //Terminacion del CRUD categorias
+   //Añadiendo el CRUD  Cliente
 
-
-  //Añadiendo el CRUD  Cliente
-  /*
-    public saveCliente(formData: FormData): Observable<any> {
-      const url = `${this.urlAdmin}/registro/cliente`;
-      const headers = new HttpHeaders().append('enctype', 'multipart/form-data');
-      const options = { headers: headers };
-      return this.http.post(url, formData, options);
-    }
-    */
     public saveCliente(cliente): Observable<SingleResponse<Cliente>>{
       let headers = new HttpHeaders();
       headers = headers.append('enctype', 'multipart/form-data');
       return this.http.post<SingleResponse<Cliente>>(`${this.urlAdmin}/registro/cliente`,cliente, { headers: headers });
+    }
+
+    public loginCliente(cliente: Cliente): Observable<any> {
+      return this.http.post<any>(`${this.urlAdmin}/clientes/loginCliente`, cliente);
+    }
+    
+    public listarClientes(): Observable<any> {
+      return this.http.get(`${this.urlAdmin}/clientes/todos`, this.httpOptions);
+    }
+    
+    public eliminarCliente(id: number): Observable<SingleResponse<Cliente>> {
+      return this.http.delete<SingleResponse<Cliente>>(`${this.urlAdmin}/clientes/eliminarCliente/${id}`, this.httpOptions);
     }
    /*
     public saveCliente(cliente: any, file: File): Observable<SingleResponse<Cliente>> {
