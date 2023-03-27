@@ -5,9 +5,14 @@
 <mat-menu #userMenu="matMenu" [overlapTrigger]="false" class="toolbar-dropdown-menu user-menu">
     <span (mouseleave)="userMenuTrigger.closeMenu()">
         <mat-toolbar color="primary">
-            <div fxLayout="row" fxLayoutAlign="space-around center" class="user-info">
+            <div *ngIf="!usuario" fxLayout="row" fxLayoutAlign="space-around center" class="user-info">
                 <img [src]="userImage" alt="user-image" width="80" class="mat-elevation-z6">
                 <p>Emilio Verdines <br> <small>General Manager</small></p>
+            </div>  
+            <div *ngIf="usuario" fxLayout="row" fxLayoutAlign="space-around center" class="user-info">
+                <img *ngIf="!usuario.bytesImagen" [src]="userImage" alt="user-image" width="80" class="mat-elevation-z6">
+                <img *ngIf="usuario.bytesImagen" [src]="bytesToImageUrl(usuario.bytesImagen, usuario.tipoImagen)" alt="user-image" width="80" class="mat-elevation-z6">
+                <p>{{usuario.nombreUsuario}} {{usuario.apellidoPaterno}} <br> <small>{{usuario.rol.nombreRol}}</small></p>
             </div>  
         </mat-toolbar>
         <a mat-menu-item routerLink="/admin"> 
@@ -31,7 +36,7 @@
             <span>Help</span> 
         </a>
         <div class="divider"></div>
-        <a mat-menu-item routerLink="/sign-in"> 
+        <a mat-menu-item (click)="cerrarSesion()"> 
             <mat-icon>power_settings_new</mat-icon>
             <span>Log out</span> 
         </a>
