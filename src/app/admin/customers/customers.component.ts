@@ -5,6 +5,9 @@ import { CustomerDialogComponent } from './customer-dialog/customer-dialog.compo
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { customers } from './customers';
 import { AppSettings, Settings } from 'src/app/app.settings';
+import { Cliente } from '../../models/cliente.model';
+import { AdminService } from '../../_services/admins.service';
+import { Util } from '../../util/util';
 
 @Component({
   selector: 'app-customers',
@@ -12,71 +15,40 @@ import { AppSettings, Settings } from 'src/app/app.settings';
   styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent implements OnInit {
+  cliente: Cliente[]=[];
   public customers = [];
-  public stores = [
-    { id: 1, name: 'Store 1' },
-    { id: 2, name: 'Store 2' }
-  ]
-  public countries = [];
   public page: any;
   public count = 6;
-  public settings:Settings;
-  constructor(public appService:AppService, public dialog: MatDialog, public appSettings:AppSettings) {
-    this.settings = this.appSettings.settings;
+  constructor(
+    public adminService:AdminService
+    ) {
+
   }
 
   ngOnInit(): void {
-    this.countries = this.appService.getCountries();
-    this.customers = customers; 
+    this.adminService.listarClientes().subscribe(resp=>{
+      this.cliente=resp.response;
+      console.log(resp.response)
+    }, error=>{console.error(error)})
   }
 
   public onPageChanged(event){
-    this.page = event; 
-    window.scrollTo(0,0); 
+
   }
 
   public openCustomerDialog(data:any){
-    const dialogRef = this.dialog.open(CustomerDialogComponent, {
-      data: {
-        customer: data,
-        stores: this.stores,
-        countries: this.countries
-      },
-      panelClass: ['theme-dialog'],
-      autoFocus: false,
-      direction: (this.settings.rtl) ? 'rtl' : 'ltr' 
-    });
-    dialogRef.afterClosed().subscribe(customer => { 
-      if(customer){    
-        const index: number = this.customers.findIndex(x => x.id == customer.id);
-        if(index !== -1){
-          this.customers[index] = customer;
-        } 
-        else{ 
-          let last_customer= this.customers[this.customers.length - 1]; 
-          customer.id = last_customer.id + 1;
-          this.customers.push(customer);  
-        }          
-      }
-    });
+
   }
 
-  public remove(customer:any){  
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      maxWidth: "400px",
-      data: {
-        title: "Confirm Action",
-        message: "Are you sure you want remove this customer?"
+  public remove(cliente:Cliente):void{
+    this.adminService.eliminarCliente(cliente.idCliente).subscribe(
+      (response) => {
+        Util.successMessage(response.mensaje);
+      },
+      (error) => {
+        console.error(error);
       }
-    }); 
-    dialogRef.afterClosed().subscribe(dialogResult => { 
-      if(dialogResult){
-        const index: number = this.customers.indexOf(customer);
-        if (index !== -1) {
-          this.customers.splice(index, 1);  
-        } 
-      } 
-    }); 
+    );
   }
 
 }

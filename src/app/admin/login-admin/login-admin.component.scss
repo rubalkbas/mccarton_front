@@ -19,10 +19,7 @@
     cursor: pointer;
   }
 
-  input[type="file"] {
-    position: absolute;
-    left: -9999px;
-  }
+
 
   label[for="multipartFile"] {
     display: inline-block;

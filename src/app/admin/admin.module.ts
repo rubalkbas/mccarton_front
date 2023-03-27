@@ -13,13 +13,14 @@ import { MenuComponent } from './components/menu/menu.component';
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { FullScreenComponent } from './components/fullscreen/fullscreen.component'; 
 import { MessagesComponent } from './components/messages/messages.component';
-import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component'; 
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 export const routes = [ 
   { 
     path: '', 
     component: AdminComponent, children: [
       { path: '', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) }, 
+      { path: 'login-admin', loadChildren: () => import('./login-admin/login-admin.module').then(m => m.LoginAdminModule) },
       { path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule) },
       { path: 'sales', loadChildren: () => import('./sales/sales.module').then(m => m.SalesModule) },
       { path: 'roles', loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule) },
@@ -43,7 +44,8 @@ export const routes = [
     UserMenuComponent,
     FullScreenComponent,
     MessagesComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+  
   ],
   imports: [
     CommonModule,

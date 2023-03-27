@@ -63,7 +63,7 @@
         <div class="divider"></div>
 
         <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted py-1">
-            <button mat-button><mat-icon>mail_outline</mat-icon> Enviar por correo</button>
+            <button  mat-button><mat-icon>mail_outline</mat-icon> Enviar por correo</button>
             <button mat-icon-button><mat-icon>share</mat-icon></button>
         </div>
 
@@ -73,159 +73,114 @@
 
         <div id="linea"></div>
         <!--Aqui empieza la tabla-->
-        <mat-card class="p-0 tabla-card">
-            <div class="content info-quienes">
-                <h3 id="h3">Cotiza tus cajas perzonalizadas</h3>
+        <div class="content info-quienes">
+            <h3 id="h3">Cotiza tus cajas perzonalizadas</h3>
 
 
+        </div>
+
+        <div class="mat-table admin-table" id="tabla">
+            <div class="mat-header-row">
+                <div class="mat-header-cell" id="columna1">REFERENCIA</div>
+                <div class="mat-header-cell" id="columna2">LARGO</div>
+                <div class="mat-header-cell" id="columna3">ANCHO</div>
+                <div class="mat-header-cell" id="columna4">ALTO</div>
+                <div class="mat-header-cell" id="columna5">COLOR</div>
+                <div class="mat-header-cell" id="columna6">MÍNIMO DE IMPRESIÓN</div>
+                <div class="mat-header-cell" id="columna7">PRECIO POR UNIDAD</div>
+                <div class="mat-header-cell" id="columna8">CONFIGURADOR ONLINE</div>
             </div>
-            <mat-divider></mat-divider>
-            <div class="mat-table admin-table">
-                <div class="mat-header-row">
-                    <div class="mat-header-cell" id="columna1">Referencia</div>
-                    <div class="mat-header-cell" id="columna2">Largo</div>
-                    <div class="mat-header-cell" id="columna3">Ancho</div>
-                    <div class="mat-header-cell" id="columna4">Alto</div>
-                    <div class="mat-header-cell" id="columna5">Color</div>
-                    <div class="mat-header-cell" id="columna6">Mínimo de impresión</div>
-                    <div class="mat-header-cell" id="columna7">Precio por unidad</div>
-                    <div class="mat-header-cell" id="columna8"></div>
-                    <div class="mat-header-cell" id="columna9"></div>
-                </div>
-                <div class="mat-row">
-                    <div class="mat-cell">K1234D</div>
-                    <div class="mat-cell" id="columna11">9 cm</div>
-                    <div class="mat-cell" id="columna12">9 cm</div>
-                    <div class="mat-cell" id="columna13">5.5 cm</div>
-                    <div class="mat-cell" id="columna14">Marrón</div>
-                    <div class="mat-cell" id="columna15">700</div>
-                    <div class="mat-cell" id="columna16">$0.40</div>
-                    <div class="mat-cell" id="columnasactions">
-                        <div class="p-1 actions">
-                            <button mat-raised-button color="primary" id="boton_carrito">Agregar al carrito<span
-                                    class="material-icons">
-                                    shopping_cart
-                                </span></button>
-                        </div>
-                    </div>
-                    <div class="mat-cell" id="columnasactions2">
-                        <div class="p-1 actions">
-                            <button mat-stroked-button color="" id="boton_comprar"> Comprar ahora </button>
-                        </div>
+            <div class="mat-row">
+                <div class="mat-cell" id="columna10">K1234D</div>
+                <div class="mat-cell" id="columna11">9 cm</div>
+                <div class="mat-cell" id="columna12">9 cm</div>
+                <div class="mat-cell" id="columna13">5.5 cm</div>
+                <div class="mat-cell" id="columna14">Marrón</div>
+                <div class="mat-cell" id="columna15">700</div>
+                <div class="mat-cell" id="columna16">$0.40</div>
+                <div class="mat-cell" id="columnasactions">
+                    <div class="p-1 actions">
+                        <button mat-raised-button color="primary" id="boton_imprimir">Imprimir</button>
                     </div>
                 </div>
-                <div class="mat-row">
-                    <div class="mat-cell">K1234D</div>
-                    <div class="mat-cell" id="columna11">9 cm</div>
-                    <div class="mat-cell" id="columna12">9 cm</div>
-                    <div class="mat-cell" id="columna13">5.5 cm</div>
-                    <div class="mat-cell" id="columna14">Marrón</div>
-                    <div class="mat-cell" id="columna15">700</div>
-                    <div class="mat-cell" id="columna16">$0.40</div>
-                    <div class="mat-cell" id="columnasactions">
-                        <div class="p-1 actions">
-                            <button mat-raised-button color="primary" id="boton_carrito">Agregar al carrito<span
-                                    class="material-icons">
-                                    shopping_cart
-                                </span></button>
-                        </div>
-                    </div>
-                    <div class="mat-cell" id="columnasactions2">
-                        <div class="p-1 actions">
-                            <button mat-stroked-button color="" id="boton_comprar"> Comprar ahora </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="mat-row">
-                    <div class="mat-cell">K1234D</div>
-                    <div class="mat-cell" id="columna11">9 cm</div>
-                    <div class="mat-cell" id="columna12">9 cm</div>
-                    <div class="mat-cell" id="columna13">5.5 cm</div>
-                    <div class="mat-cell" id="columna14">Marrón</div>
-                    <div class="mat-cell" id="columna15">700</div>
-                    <div class="mat-cell" id="columna16">$0.40</div>
-                    <div class="mat-cell" id="columnasactions">
-                        <div class="p-1 actions">
-                            <button mat-raised-button color="primary" id="boton_carrito">Agregar al carrito<span
-                                    class="material-icons">
-                                    shopping_cart
-                                </span></button>
-                        </div>
-                    </div>
-                    <div class="mat-cell" id="columnasactions2">
-                        <div class="p-1 actions">
-                            <button mat-stroked-button color="" id="boton_comprar"> Comprar ahora </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="mat-row">
-                    <div class="mat-cell">K1234D</div>
-                    <div class="mat-cell" id="columna11">9 cm</div>
-                    <div class="mat-cell" id="columna12">9 cm</div>
-                    <div class="mat-cell" id="columna13">5.5 cm</div>
-                    <div class="mat-cell" id="columna14">Marrón</div>
-                    <div class="mat-cell" id="columna15">700</div>
-                    <div class="mat-cell" id="columna16">$0.40</div>
-                    <div class="mat-cell" id="columnasactions">
-                        <div class="p-1 actions">
-                            <button mat-raised-button color="primary" id="boton_carrito">Agregar al carrito<span
-                                    class="material-icons">
-                                    shopping_cart
-                                </span></button>
-                        </div>
-                    </div>
-                    <div class="mat-cell" id="columnasactions2">
-                        <div class="p-1 actions">
-                            <button mat-stroked-button color="" id="boton_comprar"> Comprar ahora </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="mat-row">
-                    <div class="mat-cell">K1234D</div>
-                    <div class="mat-cell" id="columna11">9 cm</div>
-                    <div class="mat-cell" id="columna12">9 cm</div>
-                    <div class="mat-cell" id="columna13">5.5 cm</div>
-                    <div class="mat-cell" id="columna14">Marrón</div>
-                    <div class="mat-cell" id="columna15">700</div>
-                    <div class="mat-cell" id="columna16">$0.40</div>
-                    <div class="mat-cell" id="columnasactions">
-                        <div class="p-1 actions">
-                            <button mat-raised-button color="primary" id="boton_carrito">Agregar al carrito<span
-                                    class="material-icons">
-                                    shopping_cart
-                                </span></button>
-                        </div>
-                    </div>
-                    <div class="mat-cell" id="columnasactions2">
-                        <div class="p-1 actions">
-                            <button mat-stroked-button color="" id="boton_comprar"> Comprar ahora </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="mat-row">
-                    <div class="mat-cell">K1234D</div>
-                    <div class="mat-cell" id="columna11">9 cm</div>
-                    <div class="mat-cell" id="columna12">9 cm</div>
-                    <div class="mat-cell" id="columna13">5.5 cm</div>
-                    <div class="mat-cell" id="columna14">Marrón</div>
-                    <div class="mat-cell" id="columna15">700</div>
-                    <div class="mat-cell" id="columna16">$0.40</div>
-                    <div class="mat-cell" id="columnasactions">
-                        <div class="p-1 actions">
-                            <button mat-raised-button color="primary" id="boton_carrito">Agregar al carrito<span
-                                    class="material-icons">
-                                    shopping_cart
-                                </span></button>
-                        </div>
-                    </div>
-                    <div class="mat-cell" id="columnasactions2">
-                        <div class="p-1 actions">
-                            <button mat-stroked-button color="" id="boton_comprar"> Comprar ahora </button>
-                        </div>
-                    </div>
-                </div>
+
             </div>
-        </mat-card>
+            <div class="mat-row">
+                <div class="mat-cell" id="columna10">K1234D</div>
+                <div class="mat-cell" id="columna11">9 cm</div>
+                <div class="mat-cell" id="columna12">9 cm</div>
+                <div class="mat-cell" id="columna13">5.5 cm</div>
+                <div class="mat-cell" id="columna14">Marrón</div>
+                <div class="mat-cell" id="columna15">700</div>
+                <div class="mat-cell" id="columna16">$0.40</div>
+                <div class="mat-cell" id="columnasactions">
+                    <div class="p-1 actions">
+                        <button mat-raised-button color="primary" id="boton_imprimir">Imprimir</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mat-row">
+                <div class="mat-cell" id="columna10">K1234D</div>
+                <div class="mat-cell" id="columna11">9 cm</div>
+                <div class="mat-cell" id="columna12">9 cm</div>
+                <div class="mat-cell" id="columna13">5.5 cm</div>
+                <div class="mat-cell" id="columna14">Marrón</div>
+                <div class="mat-cell" id="columna15">700</div>
+                <div class="mat-cell" id="columna16">$0.40</div>
+                <div class="mat-cell" id="columnasactions">
+                    <div class="p-1 actions">
+                        <button mat-raised-button color="primary" id="boton_imprimir">Imprimir</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mat-row">
+                <div class="mat-cell" id="columna10">K1234D</div>
+                <div class="mat-cell" id="columna11">9 cm</div>
+                <div class="mat-cell" id="columna12">9 cm</div>
+                <div class="mat-cell" id="columna13">5.5 cm</div>
+                <div class="mat-cell" id="columna14">Marrón</div>
+                <div class="mat-cell" id="columna15">700</div>
+                <div class="mat-cell" id="columna16">$0.40</div>
+                <div class="mat-cell" id="columnasactions">
+                    <div class="p-1 actions">
+                        <button mat-raised-button color="primary" id="boton_imprimir">Imprimir</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mat-row">
+                <div class="mat-cell" id="columna10">K1234D</div>
+                <div class="mat-cell" id="columna11">9 cm</div>
+                <div class="mat-cell" id="columna12">9 cm</div>
+                <div class="mat-cell" id="columna13">5.5 cm</div>
+                <div class="mat-cell" id="columna14">Marrón</div>
+                <div class="mat-cell" id="columna15">700</div>
+                <div class="mat-cell" id="columna16">$0.40</div>
+                <div class="mat-cell" id="columnasactions">
+                    <div class="p-1 actions">
+                        <button mat-raised-button color="primary" id="boton_imprimir">Imprimir</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mat-row">
+                <div class="mat-cell" id="columna10">K1234D</div>
+                <div class="mat-cell" id="columna11">9 cm</div>
+                <div class="mat-cell" id="columna12">9 cm</div>
+                <div class="mat-cell" id="columna13">5.5 cm</div>
+                <div class="mat-cell" id="columna14">Marrón</div>
+                <div class="mat-cell" id="columna15">700</div>
+                <div class="mat-cell" id="columna16">$0.40</div>
+                <div class="mat-cell" id="columnasactions">
+                    <div class="p-1 actions">
+                        <button mat-raised-button color="primary" id="boton_imprimir">Imprimir</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <!--Aqui termina la tabla-->
     </div>
 
@@ -261,6 +216,7 @@
         </div>
     </div>
 </div>
+
 
 <br>
 <div class="divider">

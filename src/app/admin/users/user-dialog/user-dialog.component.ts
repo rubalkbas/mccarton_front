@@ -107,6 +107,8 @@ export class UserDialogComponent implements OnInit {
     if (data.bytesImagen != null) {
       imagenFile = data.bytesImagen[0].file;
     }
+
+
   console.log(data)
     // Crear instancia de FormData y agregar propiedades del usuarioEnviar
     const formData = new FormData();
@@ -115,11 +117,15 @@ export class UserDialogComponent implements OnInit {
     formData.append('apellidoPaterno', data.apellidoPaterno);
     formData.append('apellidoMaterno', data.apellidoMaterno);
     formData.append('correoElectronico', data.correoElectronico);
-    formData.append('password', this.password);
+    if(this.password!=null){
+      formData.append('password', this.password);
+
+    }
     formData.append('estatus', data.estatus==null?null:data.estatus.toString());
     formData.append('multipartFile', imagenFile);
     formData.append('idRolF', this._rol==null? null: this._rol.toString());
 
     this.dialogRef.close(formData);
   }
+  
 }

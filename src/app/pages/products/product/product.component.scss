@@ -117,6 +117,7 @@
     flex: none;
     order: 1;
     flex-grow: 0;
+    
 }
 
 /*#personalizadas {
@@ -142,97 +143,102 @@
 #columna1 {
     margin-left: 0%;
     color: #1AD079;
+    text-align: center;
 }
 
 #columna2 {
-    margin-left: -9%;
+    margin-left: 2%;
     color: #1AD079;
+    text-align: center;
 }
 
 #columna3 {
-    margin-left: -9%;
+    margin-left: 2%;
     color: #1AD079;
+    text-align: center;
 }
 
 #columna4 {
 
-    margin-left: -8%;
+    margin-left: 2%;
     color: #1AD079;
+    text-align: center;
 }
 
 #columna5 {
-    margin-left: -10%;
+    margin-left: 2%;
     color: #1AD079;
+    text-align: center;
 
 }
 
 #columna6 {
 
-    margin-left: -10%;
+    margin-left: 2%;
     color: #1AD079;
-
+    text-align: center;
 
 }
 
 #columna7 {
-    margin-left: -4%;
+    margin-left: 2%;
     color: #1AD079;
+    text-align: center;
 
 }
 
 #columna8 {
-    margin-left: -5%;
+    margin-left: 2%;
+    color: #1AD079;
+    text-align: center;
 }
 
-#columna9 {
-    margin-left: -5%;
+#columna10 {
+    margin-left: 1;
+    text-align: center;
 }
-
 
 #columna11 {
-    margin-left: -10%;
+    margin-left: 1%;
+    text-align: center;
 }
 
 #columna12 {
-    margin-left: -10%;
+    margin-left: 1%;
+    text-align: center;
 }
 
 #columna13 {
-    margin-left: -10%;
+    margin-left: 1%;
+    text-align: center;
 
 
 }
 
 #columna14 {
-    margin-left: -10%;
+    margin-left: 1%;
+    text-align: center;
 
 
 }
 
 #columna15 {
-    margin-left: -8%;
-
+    margin-left: 1%;
+    text-align: center;
 
 }
 
 #columna16 {
-    margin-left: -8%;
-
+    margin-left: 1%;
+    text-align: center;
 
 }
 
 #columnasactions {
-    margin-left: -10%;
-
-    color: #1AD079;
-
+    margin-left: 1;
+    text-align: center;
 }
 
-#columnasactions2 {
-    margin-left: -2%;
-
-
-}
 
 #boton_cotizar {
     background-color: #1AD079;
@@ -240,7 +246,7 @@
     margin-right: 5%;
 }
 
-#boton_carrito {
+#boton_imprimir {
     background-color: #1AD079;
     min-width: 10px;
     margin-right: 10px;
@@ -307,14 +313,17 @@
 
 
     /* Headline Text - H3 */
-    font-family: 'Calistoga';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 40px;
-    line-height: 50px;
-    text-align: center;
+    
+    
     color: #283434;
-
+    align-items: start;
+    font-family: Calistoga;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 90px;
+    letter-spacing: 0px;
+    text-align: center;
+   
 }
 
 #p {
@@ -418,3 +427,7 @@
     letter-spacing: 0.10000000149011612px;
     text-align: left;
 }
+#tabla{
+    background-color: transparent;
+     
+ }
