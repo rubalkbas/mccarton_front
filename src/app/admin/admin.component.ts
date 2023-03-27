@@ -23,7 +23,7 @@ export class AdminComponent implements OnInit {
     this.settings = this.appSettings.settings;
   }
 
-  usuario:any;
+  usuario:any=null;
 
   ngOnInit() {  
     if(window.innerWidth <= 960){ 
@@ -48,7 +48,7 @@ export class AdminComponent implements OnInit {
         this.sidenav.close(); 
       }                
     });  
-    // this.verificaSesion();
+    this.verificaSesion();
   } 
 
   public toggleSidenav(){
@@ -94,10 +94,10 @@ export class AdminComponent implements OnInit {
   verificaSesion(){
     this.sessionStorage.getUser().subscribe((user) => {
       this.usuario = user;
-      this.sidenav.toggle();
+      // this.sidenav.toggle();
 
       if(user){
-        this.sidenav.open();
+        // this.sidenav.open();
       }
       console.log(user)
     })

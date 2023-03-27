@@ -164,6 +164,14 @@ export class UsersComponent implements OnInit {
         })
     }
 
+    public detalleUsuario(id:number){
+        this.usuariosService.detalleUsuario(id).subscribe({next:data=>{
+            console.log(data);
+        }, error:error=>{
+            Util.errorMessage(error.error.mensaje)
+        }})
+    }
+
     toggleEstatus(user:Usuario) {
         let estatusN= user.estatus = user.estatus === 1 ? 0 : 1;
 

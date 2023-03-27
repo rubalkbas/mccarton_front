@@ -45,9 +45,9 @@
             <!-- <div *ngIf="usuario!=null" fxLayout="column" fxLayoutAlign="center center" class="user-block transition-2" [class.show]="settings.adminSidenavUserBlock">  -->
             <div fxLayout="column" fxLayoutAlign="center center" class="user-block transition-2" [class.show]="settings.adminSidenavUserBlock"> 
                 <div ngif fxLayout="row" fxLayoutAlign="space-around center" class="user-info-wrapper" >
-                    <img [src]="userImage" alt="user-image">
-                    <!-- <img *ngIf="usuario.bytesImagen" [src]="bytesToImageUrl(usuario.bytesImagen, usuario.tipoImagen)" alt="user-image"> 
-                    <img *ngIf="!usuario.bytesImagen" src="assets/images/others/user.jpg" alt="user-image">   -->
+                    <!-- <img [src]="userImage" alt="user-image"> -->
+                    <img *ngIf="usuario && usuario.bytesImagen" [src]="bytesToImageUrl(usuario.bytesImagen, usuario.tipoImagen)" alt="user-image"> 
+                    <img *ngIf="!usuario" src="assets/images/others/user.jpg" alt="user-image">  
 
                     <!-- <div class="user-info">
                         <p class="name">{{usuario.nombreUsuario}} {{usuario.apellidoPaterno}}</p>
@@ -55,8 +55,11 @@
                     </div> -->
 
                     <div class="user-info">
-                        <p class="name">Emilio Verdines</p>
-                        <p class="position">General Manager <br> <small class="muted-text">Member since May. 2016</small></p>
+                        <p *ngIf="usuario" class="name">{{usuario.nombreUsuario}} {{usuario.apellidoPaterno}}</p>
+                        <p *ngIf="usuario" class="position">{{usuario.rol.nombreRol}}</p>
+
+                        <p *ngIf="!usuario" class="name">Emilio Verdines</p>
+                        <p *ngIf="!usuario" class="position">General Manager <br> <small class="muted-text">Member since May. 2016</small></p>
                     </div>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100 muted-text">
