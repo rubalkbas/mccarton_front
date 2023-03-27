@@ -1,3 +1,4 @@
+import { Imagen } from 'src/app/models/imagen.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppService } from 'src/app/app.service';
@@ -13,6 +14,8 @@ import { Categorias } from 'src/app/models/categoria.model';
 import { Colores } from 'src/app/models/color.model';
 import { Materiales } from 'src/app/models/material.model';
 import { Util as util } from "src/app/util/util";
+import { Buffer } from 'buffer';
+
 
 @Component({
   selector: 'app-product-detail',
@@ -75,60 +78,67 @@ export class ProductDetailComponent implements OnInit {
 
   public getProductById(id:any){
 
-    const detalleProducto: Producto = {
-      idProducto: id,
-      codigoReferencia: '',
-      nombreProducto: '',
-      descripcionBreve: '',
-      largoInterior: 0,
-      largoExterior: 0,
-      anchoInterior: 0,
-      anchoExterior: 0,
-      altoInterior: 0,
-      altoExterior: 0,
-      stock: 0,
-      precioCompra: 0,
-      precioVenta: 0,
-      fechaAlta: undefined,
-      fechaModificacion: undefined,
-      peso: 0,
-      material: new Materiales,
-      color: new Colores,
-      categoria: new Categorias
-    };
+    const detalleProducto: Producto = {};
+    detalleProducto.idProducto = id;
 
     this.adminService.obtenerProducto(detalleProducto).subscribe({
       next: response => {
         this.producto = response.response;
-        this.image = 'assets/images/carousel/caja6.jpg';
-        this.zoomImage = 'assets/images/carousel/caja6.jpg';
-        // this.image = response.images[0].medium;
-        // this.zoomImage = response.images[0].big;
-        setTimeout(() => { 
-          this.config.observer = true;
-         // this.directiveRef.setIndex(0);
+        
+        this.adminService.obtenerImagenesProducto(this.producto).subscribe({
+          next: responseImages => {
+
+            let imagenes: Imagen[] = [];
+            responseImages.response.forEach(element => {
+            
+              let imagen: Imagen = {};
+            
+              imagen.estatus = 1;
+              imagen.imagen = `data:image/${element.tipoImagen};base64,${element.imagenBits}`
+              imagen.imagenPredeterminado = element.imagenPredeterminado;
+              imagen.nombreImagen = element.nombreImagen;
+              imagen.tipoImagen = element.tipoImagen;
+
+              imagenes.push(imagen);
+
+            });
+
+            this.producto.imagenes = imagenes;
+            this.image = this.producto.imagenes[0].imagen;
+            this.zoomImage = this.getDataUrlAsFileUrl(this.producto.imagenes[0].imagen);
+
+            //console.log(this.zoomImage);
+
+            setTimeout(() => {
+              this.config.observer = true;
+            });
+          },
+          error: error => {
+            util.errorMessage(error.error.mensaje);
+          }
         });
+
       }, error:error => {
         util.errorMessage(error.error.mensaje);
       }
 
     });
 
-    // this.appService.getProductById(id).subscribe(data=>{
-    //   this.product = data;
-    //   this.image = data.images[0].medium;
-    //   this.zoomImage = data.images[0].big;
-    //   setTimeout(() => { 
-    //     this.config.observer = true;
-    //    // this.directiveRef.setIndex(0);
-    //   });
-    // });
   }
 
   public selectImage(image){
-    this.image = image.medium;
-    this.zoomImage = image.big;
+    this.image = image;
+    this.zoomImage = this.getDataUrlAsFileUrl(image);
   }
+
+  getDataUrlAsFileUrl(dataUrl: String) {
+    const base64 = dataUrl.split(',')[1];
+    const buffer = Buffer.from(base64, 'base64');
+    const blob = new Blob([buffer], { type: 'image/jpeg' });
+    const url = URL.createObjectURL(blob);
+    return url;
+  }
+  
 
   public onMouseMove(e){
     if(window.innerWidth >= 1280){
@@ -165,7 +175,7 @@ export class ProductDetailComponent implements OnInit {
   
   public onSubmit(){ 
     if(this.form.valid){
-      console.log(this.form.value);
+      //console.log(this.form.value);
     }
   }
 

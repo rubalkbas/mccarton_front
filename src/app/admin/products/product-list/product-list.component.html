@@ -1,11 +1,11 @@
 <div fxLayout="row wrap">
     <div *ngFor="let product of productos | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="p-1">
-        <mat-card class="product-item text-center">
+        <mat-card class="product-item product-card text-center">
             <!-- <mat-chip-list *ngIf="product.discount">
                 <mat-chip color="warn" selected="true">{{product.discount}}% de descuento</mat-chip>
             </mat-chip-list>  -->
-            <img [src]="imagen" alt=""> 
-            <h4 class="category text-muted">{{ ( appService.Data.categories | filterById : product.categoria )?.nombreCategoria }}</h4>                                                                     
+            <img [src]="product.imagenes?.[0]?.imagen" alt="imagen" class="product-image"> 
+            <h4 class="category text-muted">{{ product.categoria?.nombreCategoria }}</h4>                                                                     
             <div class="title text-truncate">
                 {{product.nombreProducto}}
             </div>

@@ -154,7 +154,7 @@ export class AdminService {
 
   public crearProducto(producto: Producto): Observable<any> {
     return this.http.post(
-      `${this.urlAdmin}/Productos/nuevoProducto`,
+      `${this.urlAdmin}/ProductosImg/crearProductoImagen`,
       producto,
       this.httpOptions
     );
@@ -182,6 +182,14 @@ export class AdminService {
   public obtenerProducto(producto: Producto): Observable<any> {
     return this.http.post(
       `${this.urlAdmin}/Productos/detalle`,
+      producto,
+      this.httpOptions
+    );
+  }
+
+  public obtenerImagenesProducto(producto: Producto): Observable<any> {
+    return this.http.post(
+      `${this.urlAdmin}/ProductosImg/buscarImagenesProd`,
       producto,
       this.httpOptions
     );
