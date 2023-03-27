@@ -51,5 +51,8 @@ export class UsuariosService {
     this.httpOptions);
   }
 
+  public loginUsuario(usuario):Observable<SingleResponse<Usuario>>{
+    return this.http.post<SingleResponse<Usuario>>(`${this.urlAdmin}/usuarios/loginUsuario`, usuario, this.httpOptions);
+  }
 
 }
