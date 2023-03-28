@@ -14,8 +14,6 @@ export class RolesService {
   }
 
   public saveRol(nombreRol, descripcionRol): Observable<any>{
-    console.log('nombreRol:', nombreRol);
-    console.log('descripcionRol:', descripcionRol);
     const url=`${this.API_SERVER}/nuevoRol`;
     const body ={nombreRol: nombreRol, descripcionRol: descripcionRol};
     return this.httpClient.post(url, body);

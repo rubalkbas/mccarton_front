@@ -9,7 +9,7 @@ import { emailValidator } from '../../theme/utils/app-validators';
 })
 export class ContactComponent implements OnInit {
   contactForm: UntypedFormGroup;
-
+  preguntasFrecuentes:[];
   constructor(public formBuilder: UntypedFormBuilder) { }
 
   ngOnInit() {
