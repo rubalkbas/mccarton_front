@@ -222,10 +222,25 @@ export class AdminService {
     );
   }
 
-}
+
 
 
 //SERVICIOS DE PREGUNTAS FRECUENTES
 
+public getAllPreguntas(): Observable<any> {
+  const url = `${this.urlAdmin}/preguntaFrecuente/consultarTodos`;
+  return this.http.get(url);
+}
 
+
+public crearPreguntaFrecuente(pregunta, respuesta): Observable<any> {
+  const url = `${this.urlAdmin}/preguntaFrecuente/guardar`;
+  const body = {
+    pregunta: pregunta,
+    respuesta: respuesta
+  };
+  return this.http.post(url, body);
+}
+
+}
 //PREGUNTAS FRECUENTES
