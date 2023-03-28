@@ -49,6 +49,7 @@ export class RolesDialogComponent implements OnInit {
 
       this.rolesService.editarRol(idRol, estatus).subscribe(result => {
         // Emitir el rol actualizado y cerrar el diálogo
+        Util.successMessage(result.mensaje);
         this.dialogRef.close(result);
         window.location.reload();
       });
