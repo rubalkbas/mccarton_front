@@ -210,10 +210,18 @@ export class AdminService {
     );
   }
 
-}
+
 
 
 //SERVICIOS DE PREGUNTAS FRECUENTES
 
-
+public crearPreguntaFrecuente(pregunta, respuesta): Observable<any> {
+  const url = `${this.urlAdmin}/preguntaFrecuente/guardar`;
+  const body = {
+    pregunta: pregunta,
+    respuesta: respuesta
+  };
+  return this.http.post(url, body);
+}
+}
 //PREGUNTAS FRECUENTES
