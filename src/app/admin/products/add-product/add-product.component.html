@@ -7,7 +7,7 @@
             <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off" fxLayout="row wrap">
                 <div fxFlex="40" class="px-2"> 
                     <p class="mt-1"><span class="uppercase fw-500">Fotos</span><span class="text-muted px-1">(máximo 8 imágenes)</span></p>  
-                    <input-file formControlName="images" fileLimit="8" fileAccept="image/*"></input-file>  
+                    <input-file formControlName="images" sizeLimit="1000" fileLimit="8" fileAccept="image/*" (change)="handleFileInput()" (deletedFile)="handleImageRemoved($event)" (rejectedFile)="handleImageRejected($event)"></input-file>  
                 </div>
                 <div fxFlex="60" class="px-2">
                     <div fxLayout="row wrap">
@@ -18,7 +18,7 @@
                                 <mat-error *ngIf="form.controls.name.errors?.required">El nombre es requerido</mat-error>
                                 <mat-error *ngIf="form.controls.name.hasError('minlength')">El nombre no es lo suficientemente largo, mínimo 4 caracteres</mat-error>
                             </mat-form-field>
-                        </div>
+                        </div> 
                         <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>Categoría</mat-label>
@@ -90,7 +90,7 @@
 
                         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Peso</mat-label>
+                                <mat-label>Peso (Kg)</mat-label>
                                 <input matInput formControlName="weight" type="number"> 
                             </mat-form-field>
                         </div> 
