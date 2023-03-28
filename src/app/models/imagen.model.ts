@@ -1,7 +1,7 @@
 export class Imagen{
-    nombreImagen?: string;
+    nombreImagen?: String;
     imagen?: String;
-    tipoImagen?: string;
+    tipoImagen?: String;
     estatus?: number;
     imagenPredeterminado?: number;
 }

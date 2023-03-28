@@ -1,3 +1,4 @@
+import { ImagenResponse } from 'src/app/models/imagen-response.model';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
@@ -7,6 +8,7 @@ import { Producto } from "../models/producto.model";
 import { Category } from "../app.models";
 import { SingleResponse } from "../models/response.model";
 import { Cliente } from '../models/cliente.model';
+import { Imagen } from "../models/imagen.model";
 
 @Injectable({
   providedIn: "root",
@@ -194,4 +196,18 @@ export class AdminService {
       this.httpOptions
     );
   }
+
+  eliminarImagenes(productoImg: ImagenResponse): Observable<SingleResponse<string>> {
+    const url = `${this.urlAdmin}/ProductosImg/elimina`;
+    return this.http.delete<SingleResponse<string>>(url, { body: productoImg });
+  }
+
+  public agregarImagenesProducto(productoImg: any): Observable<any> {
+    return this.http.post(
+      `${this.urlAdmin}/ProductosImg/agregarImagen`,
+      productoImg,
+      this.httpOptions
+    );
+  }
+
 }
