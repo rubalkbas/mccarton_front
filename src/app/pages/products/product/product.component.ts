@@ -179,6 +179,13 @@ export class ProductComponent implements OnInit {
     if (this.form.valid) {
       //email sent
     }
+    //Lista de Deseos 
   }
+  guardarlista(){
+    this.adminService.guardarDeseo
+  }
+
+
+  //Fin de lista de deseos 
 
 }

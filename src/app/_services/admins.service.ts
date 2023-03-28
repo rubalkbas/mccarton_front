@@ -185,5 +185,17 @@ export class AdminService {
       producto,
       this.httpOptions
     );
+  } 
+    //Lista de Deseos 
+    public guardarDeseo(
+      idCliente,
+      idProducto
+    ): Observable<any> {
+      const url = `${this.urlAdmin}/listaDeseos/guardarListaDeseos`;
+      const body = {
+        idCliente: idCliente,
+        idProducto: idProducto
+      };
+      return this.http.post(url, body);
   }
 }
