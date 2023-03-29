@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { emailValidator } from '../../theme/utils/app-validators';
+import { AdminService } from '../../_services/admins.service';
 
 @Component({
   selector: 'app-contact',
@@ -10,7 +11,8 @@ import { emailValidator } from '../../theme/utils/app-validators';
 export class ContactComponent implements OnInit {
   contactForm: UntypedFormGroup;
   preguntasFrecuentes:[];
-  constructor(public formBuilder: UntypedFormBuilder) { }
+  constructor(public formBuilder: UntypedFormBuilder,
+    public adminService:AdminService) { }
 
   ngOnInit() {
     this.contactForm = this.formBuilder.group({
@@ -19,6 +21,11 @@ export class ContactComponent implements OnInit {
       phone: ['', Validators.required],
       message: ['', Validators.required]
     });
+    this.adminService.getAllPreguntasActivas().subscribe(resp=>{
+      console.log(resp.response)
+      this.preguntasFrecuentes=resp.response;
+    }, error=>{console.error(error)});
+
   }
 
   public onContactFormSubmit(values:Object):void {
@@ -27,4 +34,12 @@ export class ContactComponent implements OnInit {
     }
   }
 
+  // Concultar Todos Activos 
 }
+
+
+
+ 
+
+
+

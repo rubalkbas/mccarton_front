@@ -247,5 +247,9 @@ public editarPreguntaFrecuente(idPreguntaFrecuente,pregunta, respuesta): Observa
   return this.http.put(url, body);
 }
 
+public getAllPreguntasActivas(): Observable<any> {
+  const url = `${this.urlAdmin}/preguntaFrecuente/consultarTodosActivos`;
+  return this.http.get(url);
+}
 }
 //PREGUNTAS FRECUENTES
