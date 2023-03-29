@@ -241,6 +241,11 @@ public crearPreguntaFrecuente(pregunta, respuesta): Observable<any> {
   };
   return this.http.post(url, body);
 }
+public editarPreguntaFrecuente(idPreguntaFrecuente,pregunta, respuesta): Observable<any>{
+  const url=`${this.urlAdmin}/preguntaFrecuente/actualizar`;
+  const body = { idPreguntaFrecuente,pregunta, respuesta }; 
+  return this.http.put(url, body);
+}
 
 }
 //PREGUNTAS FRECUENTES

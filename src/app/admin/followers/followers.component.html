@@ -1,7 +1,8 @@
 <div class="p-1">
     <mat-card class="p-0"> 
         <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
-            <h2>Followers List</h2>   
+            <h2>Pregunta Frecuente</h2> 
+            <button mat-raised-button color="primary" (click)="openpreguntaFrecuenteDialog(null)">Añadir Pregunta</button>  
         </div>
         <mat-divider></mat-divider>
         <div class="mat-table admin-table">
@@ -18,6 +19,9 @@
                 <div class="mat-cell">{{follower.estatus === 1 ? 'Activo' : 'Inactivo'}}</div>      
                 <div class="mat-cell">
                     <div class="p-1 actions"> 
+                        <button mat-mini-fab color="primary" matTooltip="Edit" (click)="openpreguntaFrecuenteDialog(follower)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
                         <button mat-mini-fab color="warn" matTooltip="Delete" class="mx-1" (click)="remove(follower)">
                             <mat-icon>delete</mat-icon>
                         </button>

@@ -4,6 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FollowersComponent } from './followers.component';
+import { preguntaFrecuenteDialogComponent } from './pregunta-frecuente-dialog/pregunta-frecuente-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 export const routes: Routes = [
   { path: '', component: FollowersComponent, pathMatch: 'full' }
@@ -11,13 +14,16 @@ export const routes: Routes = [
 
 @NgModule({
   declarations: [
-    FollowersComponent
+    FollowersComponent,
+    preguntaFrecuenteDialogComponent
+ 
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes), 
     SharedModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ReactiveFormsModule
   ]
 })
 export class FollowersModule { }

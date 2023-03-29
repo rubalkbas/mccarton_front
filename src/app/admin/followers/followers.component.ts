@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { PreguntaFrecuente } from '../../models/preguntaFrecuente.model';
 import { AdminService } from '../../_services/admins.service';
+import{preguntaFrecuenteDialogComponent} from '../followers/pregunta-frecuente-dialog/pregunta-frecuente-dialog.component'
 
 @Component({
   selector: 'app-followers',
@@ -30,13 +31,13 @@ export class FollowersComponent implements OnInit {
     this.page = event; 
     window.scrollTo(0,0); 
   }
-  /*
-  public openRolesDialog(data:any){
-    const dialogRef = this.dialog.open(RolesDialogComponent,{
+  
+  public openpreguntaFrecuenteDialog(data:any){
+    const dialogRef = this.dialog.open(preguntaFrecuenteDialogComponent,{
       data: data // Pasa la variable data al diálogo
     });
     
-  }*/
+  }
 
   public remove(follower:any){  
 
