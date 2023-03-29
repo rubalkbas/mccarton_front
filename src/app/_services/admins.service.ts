@@ -247,5 +247,14 @@ public editarPreguntaFrecuente(idPreguntaFrecuente,pregunta, respuesta): Observa
   return this.http.put(url, body);
 }
 
+public actualizarEstatusPregunta(idPreguntaFrecuente, estatus): Observable<any> {
+  const url = `${this.urlAdmin}/preguntaFrecuente/actualizarEstatus?idPreguntaFrecuente=${idPreguntaFrecuente}&estatus=${estatus}`;
+  return this.http.put(url, {});
+}
+
+public eliminarPreguntaFrecuente(idPreguntaFrecuente): Observable<any> {
+  const url = `${this.urlAdmin}/preguntaFrecuente/eliminar?idPreguntaFrecuente=${idPreguntaFrecuente}`;
+  return this.http.delete(url, {});
+}
 }
 //PREGUNTAS FRECUENTES

@@ -36,7 +36,7 @@ export class preguntaFrecuenteDialogComponent implements OnInit {
         respuesta: this.data.respuesta,
         estatus: this.data.estatus
       });
-      
+      this.formulario.controls['estatus'].disable();
     }
   }
 
