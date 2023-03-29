@@ -10,56 +10,21 @@
   </div>
   
   
-  <!---->
   <div  fxLayout="row wrap" class="info-acordeon">
     <mat-accordion class="acordeon" >
-      <mat-expansion-panel >
+      <mat-expansion-panel *ngFor="let pregunta of preguntasFrecuentes">
         <mat-expansion-panel-header>
           <mat-panel-title>
-              ¿Lorem ipsum dolor sit amet, consectetur adipiscing elit. ultricies in.?
+              ¿{{pregunta.pregunta}}?
           </mat-panel-title>
-       
-          
         </mat-expansion-panel-header>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus venenatis ex, in congue sapien ultricies
-          in. Maecenas sagittis placerat sagittis. Nunc varius magna lorem, ac dictum quam pellentesque ut. Duis ut nibh
-          nec lacus tincidunt maximus. Nulla facilisi. Aenean eleifend vehicula arcu lacinia elementum. Donec efficitur
-          orci urna, at bibendum nulla molestie quis. Nunc fringilla nibh a facilisis pharetra. Sed malesuada urna ut
-          elementum ornare. Ut quis nisi semper, maximus augue at, vestibulum quam. Cras ac ipsum vel mauris
-          sollicitudin tempus eget a felis.
+          {{pregunta.respuesta}}
         </p>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
-  <!--
-    Aqui va la tabla o el intento 
-  -
-  <mat-card class="p-0"> 
-    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
-        <h2>Pregunta Frecuente</h2>  
-    </div>
-    <mat-divider></mat-divider>
-    <div class="mat-table admin-table">
-        <div class="mat-header-row">  
-            <div class="mat-header-cell image">Pregunta</div>
-            <div class="mat-header-cell">Respuesta</div> 
-            <div class="mat-header-cell">Estatus</div>  
-            <div class="mat-header-cell"></div>
-        </div>
 
-        <div *ngFor="let follower of preguntasFrecuentes | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row">  
-            <div class="mat-cell">{{follower.pregunta}}</div>  
-            <div class="mat-cell">{{follower.respuesta}}</div>  
-            <div class="mat-cell">{{follower.estatus === 1 ? 'Activo' : 'Inactivo'}}</div>      
-            <div class="mat-cell">
-            </div>      
-        </div>
-
-    </div>
-</mat-card>
-
-  <!--Fin de Tabla-->
   <div class="division"></div>
   <div class="contacto-div" fxFlex="100" fxFlex.gt-xs="50">
     <div fxLayout="column" fxLayoutAlign="center center" class="text-center">
