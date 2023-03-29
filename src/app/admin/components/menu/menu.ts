@@ -2,7 +2,7 @@ import { Menu } from './menu.model';
 
 export const menuItems = [ 
     new Menu (10, 'ADMIN_NAV.DASHBOARD', '/admin', null, 'dashboard', null, false, 0),
-    new Menu (20, 'ADMIN_NAV.PRODUCTS', null, null, 'grid_on', null, true, 0),  
+    new Menu (20, 'Productos', null, null, 'grid_on', null, true, 0),  
     new Menu (21, 'ADMIN_NAV.CATEGORIES', '/admin/products/categories', null, 'category', null, false, 20), 
     new Menu (21, 'ADMIN_NAV.COLORS', '/admin/products/colors', null, 'color_lens', null, false, 20),
     new Menu (21, 'ADMIN_NAV.MATERIALS', '/admin/products/materials', null, 'category', null, false, 20), 

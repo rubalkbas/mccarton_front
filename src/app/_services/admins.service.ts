@@ -126,7 +126,7 @@ export class AdminService {
     }    
     */
 
-  //Terminacion CRUD cliente 
+  //CRUD COLORES 
   public listarColores(): Observable<any> {
     return this.http.get(`${this.urlAdmin}/colores/todos`, this.httpOptions);
   }
@@ -153,7 +153,15 @@ export class AdminService {
       this.httpOptions
     );
   }
+  public actualizaColor(color: Colores): Observable<any> {
+    return this.http.put(
+      `${this.urlAdmin}/colores/actualizarColor`,
+      color,
+      this.httpOptions
+    );
+  }
 
+  //CRUD PRODUCTOS
   public crearProducto(producto: Producto): Observable<any> {
     return this.http.post(
       `${this.urlAdmin}/ProductosImg/crearProductoImagen`,

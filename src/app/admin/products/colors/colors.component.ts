@@ -10,6 +10,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ColorDialogComponent } from './color-dialog/color-dialog.component';
 import { Colores } from 'src/app/models/color.model';
+import { Util } from '../../../util/util';
 
 
 
@@ -61,7 +62,7 @@ export class ColorComponent implements OnInit {
   }
 
   listaColores: Colores[] = [];
-  displayedColumns: string[] = ['nombre', 'descripcion', 'estatus'];
+  displayedColumns: string[] = ['nombre', 'descripcion', 'codigo','estatus','acciones'];
   dataSource = new MatTableDataSource<Colores>(this.listaColores);
 
   ngOnInit(): void {

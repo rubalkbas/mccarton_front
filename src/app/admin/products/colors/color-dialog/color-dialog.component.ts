@@ -25,6 +25,7 @@ export class ColorDialogComponent implements OnInit {
     id: new FormControl(0),
     nombre: new FormControl(null, Validators.required),
     descripcion: new FormControl(null, Validators.required),
+    codigoHexadecimal:new FormControl,
     estatus: new FormControl(null, Validators.required),
   });
   color: Colores;
@@ -42,6 +43,7 @@ export class ColorDialogComponent implements OnInit {
       id: 0,
       nombre: [null, Validators.required],
       descripcion: [null, Validators.required],
+      codigoHexadecimal:[null],
       estatus: [null, Validators.required],
     });
 
@@ -56,6 +58,7 @@ export class ColorDialogComponent implements OnInit {
         id: this.color.idColor,
         nombre: this.color.nombreColor,
         descripcion: this.color.descripcionColor,
+        codigoHexadecimal:this.color.codigoHexadecimal,
         estatus: this.color.estatus === 1 ? "Activo" : "Inactivo",
       });
     }
@@ -73,6 +76,7 @@ export class ColorDialogComponent implements OnInit {
       idColor: this.form.value.id,
       nombreColor: this.form.value.nombre,
       descripcionColor: this.form.value.descripcion,
+      codigoHexadecimal:this.form.value.codigoHexadecimal,
       estatus: estatus,
     };
 
@@ -91,7 +95,7 @@ export class ColorDialogComponent implements OnInit {
       });
     } else {
 
-      this.adminService.actualizarColor(color).subscribe({
+      this.adminService.actualizaColor(color).subscribe({
         next: response => {
           util.successMessage(response.mensaje);
           this.dialogRef.close(true);

@@ -7,15 +7,16 @@
                     <mat-label>Nombre</mat-label>
                     <input matInput formControlName="nombre" required>
                 </mat-form-field>
-            </div> 
+            </div>
             <div fxFlex="100">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Descripción</mat-label>
-                    <textarea matInput formControlName="descripcion" maxlength="100" cols="30" rows="10" (input)="updateCharsCount($event.target.value)" required></textarea>
+                    <textarea matInput formControlName="descripcion" maxlength="100" cols="30" rows="5"
+                        (input)="updateCharsCount($event.target.value)" required></textarea>
                     <p class="text-right">{{ charsWritten }}/{{ maxChars }}</p>
                 </mat-form-field>
-            </div> 
-            <div fxFlex="100">   
+            </div>
+            <div fxFlex="48" style="margin-right: 4%;">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Estatus</mat-label>
                     <mat-select formControlName="estatus">
@@ -23,14 +24,20 @@
                         <mat-option value="Inactivo">Inactivo</mat-option>
                     </mat-select>
                 </mat-form-field>
-                
-            </div> 
+
+            </div>
+            <div fxFlex="48">
+                <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Codigo Hexagecimal</mat-label>
+                        <input matInput formControlName="codigoHexadecimal" required>
+                </mat-form-field>
+            </div>
         </div>
     </div>
     <div mat-dialog-actions>
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100"> 
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
             <button mat-raised-button color="warn" type="button" mat-dialog-close>Cancelar</button>
-            <button mat-raised-button color="primary" type="submit" [disabled] = "form.invalid" >Guardar</button>
-        </div> 
+            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
+        </div>
     </div>
 </form>
