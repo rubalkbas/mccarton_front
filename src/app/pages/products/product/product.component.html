@@ -11,9 +11,9 @@
         <div class="small-carousel"> 
             <div class="swiper-container" [swiper]="config">
                 <div class="swiper-wrapper"> 
-                    <div *ngFor="let image of product?.images" class="swiper-slide">
-                        <mat-card  (click)="selectImage(image)" class="p-1 card-producto">
-                            <img  [attr.data-src]="image.small" class="swiper-lazy"/>
+                    <div *ngFor="let image of producto?.imagenes" class="swiper-slide">
+                        <mat-card  (click)="selectImage(image.imagen)" class="p-1 card-producto">
+                            <img  [attr.data-src]="image.imagen" class="swiper-lazy"/>
                             <div class="swiper-lazy-preloader"></div>
                         </mat-card>
                     </div>                    

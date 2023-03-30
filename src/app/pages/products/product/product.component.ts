@@ -14,7 +14,8 @@ import { Colores } from 'src/app/models/color.model';
 import { Materiales } from 'src/app/models/material.model';
 import { Util as util } from "src/app/util/util";
 import { Location } from '@angular/common';
-
+import { Imagen } from '../../../models/imagen.model';
+import { Buffer } from 'buffer';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -32,7 +33,8 @@ export class ProductComponent implements OnInit {
   private sub: any;
   public form: UntypedFormGroup;
   public relatedProducts: Array<Product>;
-
+  selectedImage: string;
+  
   constructor(public appService:AppService, 
     private activatedRoute: ActivatedRoute, 
     public dialog: MatDialog, 
@@ -153,18 +155,62 @@ export class ProductComponent implements OnInit {
     this.adminService.obtenerProducto(producto).subscribe({
       next: (data: any) => {
         this.producto = data.response;
-        this.image = 'assets/images/carousel/caja6.jpg';
-        this.zoomImage = 'assets/images/carousel/caja6.jpg';;
         setTimeout(() => { 
           this.config.observer = true;
          // this.directiveRef.setIndex(0);
         });
+
+        // Obtiene las imágenes del producto
+        this.obtenerImagenesProducto(this.producto);
+
       },
       error: (error: any) => {
         util.errorMessage(error.error.message);
       }
 
     })
+  }
+
+  private obtenerImagenesProducto(producto: Producto) {
+    this.adminService.obtenerImagenesProducto(producto).subscribe({
+      next: response => {
+        console.log(response);
+        let imagenes: Imagen[] = [];
+        response.response.forEach(element => {
+        
+          let imagen: Imagen = {};
+        
+          imagen.estatus = 1;
+          imagen.imagen = `data:image/${element.tipoImagen};base64,${element.imagenBits}`
+          imagen.imagenPredeterminado = element.imagenPredeterminado;
+          imagen.nombreImagen = element.nombreImagen;
+          imagen.tipoImagen = element.tipoImagen;
+
+          imagenes.push(imagen);
+
+        });
+
+        this.producto.imagenes = imagenes;
+        this.image = this.producto.imagenes[0].imagen;
+        this.zoomImage = this.getDataUrlAsFileUrl(this.producto.imagenes[0].imagen.toString());
+
+        //console.log(this.zoomImage);
+
+        setTimeout(() => {
+          this.config.observer = true;
+        });
+      },
+      error: error => {
+        util.errorMessage(error.error.mensaje);
+      }
+    });
+  }
+  getDataUrlAsFileUrl(dataUrl: string) {
+    const base64 = dataUrl.split(',')[1];
+    const buffer = Buffer.from(base64, 'base64');
+    const blob = new Blob([buffer], { type: 'image/jpeg' });
+    const url = URL.createObjectURL(blob);
+    return url;
   }
 
   goBack() {

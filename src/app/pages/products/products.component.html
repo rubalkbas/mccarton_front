@@ -143,7 +143,7 @@
                         <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>
                     </mat-chip-list> -->
                     <a [routerLink]="['/products', product.idProducto, product.nombreProducto]" class="image-link">
-                        <img [src]="imagen" alt="">
+                        <img [src]="product.imagenes?.[0]?.imagen" alt="">
                     </a>
                     <h4 class="category text-muted">{{product.categorias?.nombreCategoria }}</h4>                                                                     
                     <a [routerLink]="['/products', product.idProducto, product.nombreProducto]" class="title text-truncate">
@@ -159,41 +159,6 @@
                     <div class="divider mt-2"></div>
                     <div class="icons">
                         <app-controls [product]="product" (onOpenProductDialog)="openProductDialog(product)"></app-controls>
-                    </div>
-                </mat-card>
-            </div>
-        </div>
-
-        <div *ngIf="viewType == 'list'" fxLayout="row wrap" class="products-wrapper">
-            <div  *ngFor="let product of productosMostrar | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" class="col">
-                <mat-card class="product-item">
-                    <div fxLayout="row wrap">
-                        <div fxFlex="100" fxFlex.gt-xs="40" class="p-2">
-                            <!-- <mat-chip-list *ngIf="product.discount" class="list-view">
-                                <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>
-                            </mat-chip-list> -->
-                            <a [routerLink]="['/products', product.idProducto, product.nombreProducto]" class="image-link">
-                                <img [src]="imagen" alt="">
-                            </a>
-                        </div>
-                        <div fxFlex="100" fxFlex.gt-xs="60" class="p-2">
-                            <h4 class="category text-muted">{{product.categorias?.nombreCategoria }}</h4>                                                                            
-                            <a [routerLink]="['/products', product.idProducto, product.nombreProducto]" class="title">
-                                {{product.nombreProducto}}
-                            </a>
-                            <p class="py-1 text-muted lh">{{product.descripcionBreve}}</p>
-                            <div fxLayout="row" fxLayoutAlign="space-between center" class="prices">
-                                <div fxLayout="column" fxLayoutAlign="center start">
-                                    <!-- <p class="old-price text-muted"><span *ngIf="product.oldPrice">${{product.oldPrice | number : '1.2-2'}}</span></p> -->
-                                    <p class="new-price">{{product.precioVenta | currency}}</p>
-                                </div>
-                                <!-- <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue" [direction]="'column'"></app-rating> -->
-                            </div>                            
-                            <div class="divider"></div>
-                            <div class="icons">
-                                <app-controls [product]="product" (onOpenProductDialog)="openProductDialog(producto)"></app-controls>
-                            </div>
-                        </div>
                     </div>
                 </mat-card>
             </div>
