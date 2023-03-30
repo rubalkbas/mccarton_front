@@ -24,49 +24,47 @@ import { Buffer } from 'buffer';
 export class ProductComponent implements OnInit {
   @ViewChild('zoomViewer', { static: true }) zoomViewer;
   @ViewChild(SwiperDirective, { static: true }) directiveRef: SwiperDirective;
-  public config: SwiperConfigInterface={};
+  public config: SwiperConfigInterface = {};
   public product: Product;
   public producto: Producto;
   public image: any;
   public zoomImage: any;
-  
+
   private sub: any;
   public form: UntypedFormGroup;
   public relatedProducts: Array<Product>;
   selectedImage: string;
-  
-  constructor(public appService:AppService, 
-    private activatedRoute: ActivatedRoute, 
-    public dialog: MatDialog, 
+
+  constructor(public appService: AppService,
+    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog,
     public formBuilder: UntypedFormBuilder,
     private location: Location,
-    private adminService: AdminService) {  }
+    private adminService: AdminService) { }
 
-  ngOnInit() {      
-    this.sub = this.activatedRoute.params.subscribe(params => { 
+  ngOnInit() {
+    this.sub = this.activatedRoute.params.subscribe(params => {
       this.getProductById(params['id']); 
-      this.getProductoById(params['id']);
-    }); 
+    });
 
-    this.form = this.formBuilder.group({ 
-      'review': [null, Validators.required],            
+    this.form = this.formBuilder.group({
+      'review': [null, Validators.required],
       'name': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
       'email': [null, Validators.compose([Validators.required, emailValidator])]
-    }); 
-    this.getRelatedProducts();    
+    });
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.config = {
       observer: false,
       slidesPerView: 4,
-      spaceBetween: 10,      
+      spaceBetween: 10,
       keyboard: true,
       navigation: true,
-      pagination: false,       
-      loop: false, 
+      pagination: false,
+      loop: false,
       preloadImages: false,
-      lazy: true, 
+      lazy: true,
       breakpoints: {
         480: {
           slidesPerView: 2
@@ -77,40 +75,16 @@ export class ProductComponent implements OnInit {
       }
     }
   }
-
-  public getProductById(id){
-    this.appService.getProductById(id).subscribe(data=>{
-      this.product = data;
-      this.image = data.images[0].medium;
-      this.zoomImage = data.images[0].big;
-      setTimeout(() => { 
-        this.config.observer = true;
-       // this.directiveRef.setIndex(0);
-      });
-    });
-  }
-
-  public getRelatedProducts(){
-    this.appService.getProducts('related').subscribe(data => {
-      this.relatedProducts = data;
-    })
-  }
-
-  public selectImage(image){
-    this.image = image.medium;
-    this.zoomImage = image.big;
-  }
-
-  public onMouseMove(e){
-    if(window.innerWidth >= 1280){
+  public onMouseMove(e) {
+    if (window.innerWidth >= 1280) {
       var image, offsetX, offsetY, x, y, zoomer;
-      image = e.currentTarget; 
+      image = e.currentTarget;
       offsetX = e.offsetX;
       offsetY = e.offsetY;
-      x = offsetX/image.offsetWidth*100;
-      y = offsetY/image.offsetHeight*100;
+      x = offsetX / image.offsetWidth * 100;
+      y = offsetY / image.offsetHeight * 100;
       zoomer = this.zoomViewer.nativeElement.children[0];
-      if(zoomer){
+      if (zoomer) {
         zoomer.style.backgroundPosition = x + '% ' + y + '%';
         zoomer.style.display = "block";
         zoomer.style.height = image.height + 'px';
@@ -119,91 +93,70 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  public onMouseLeave(event){
+  public onMouseLeave(event) {
     this.zoomViewer.nativeElement.children[0].style.display = "none";
   }
 
-  public openZoomViewer(){
+  public openZoomViewer() {
     this.dialog.open(ProductZoomComponent, {
       data: this.zoomImage,
       panelClass: 'zoom-dialog'
     });
   }
 
-  public getProductoById(id:any){
-    const producto: Producto = {
-      idProducto: id,
-      codigoReferencia: '',
-      nombreProducto: '',
-      descripcionBreve: '',
-      largoInterior: 0,
-      largoExterior: 0,
-      anchoInterior: 0,
-      anchoExterior: 0,
-      altoInterior: 0,
-      altoExterior: 0,
-      stock: 0,
-      precioCompra: 0,
-      precioVenta: 0,
-      fechaAlta: undefined,
-      fechaModificacion: undefined,
-      peso: 0,
-      material: new Materiales,
-      color: new Colores,
-      categoria: new Categorias
-    };
-    this.adminService.obtenerProducto(producto).subscribe({
-      next: (data: any) => {
-        this.producto = data.response;
-        setTimeout(() => { 
-          this.config.observer = true;
-         // this.directiveRef.setIndex(0);
-        });
+  public getProductById(id: any) {
 
-        // Obtiene las imágenes del producto
-        this.obtenerImagenesProducto(this.producto);
+    const detalleProducto: Producto = {};
+    detalleProducto.idProducto = id;
 
-      },
-      error: (error: any) => {
-        util.errorMessage(error.error.message);
-      }
-
-    })
-  }
-
-  private obtenerImagenesProducto(producto: Producto) {
-    this.adminService.obtenerImagenesProducto(producto).subscribe({
+    this.adminService.obtenerProducto(detalleProducto).subscribe({
       next: response => {
-        console.log(response);
-        let imagenes: Imagen[] = [];
-        response.response.forEach(element => {
-        
-          let imagen: Imagen = {};
-        
-          imagen.estatus = 1;
-          imagen.imagen = `data:image/${element.tipoImagen};base64,${element.imagenBits}`
-          imagen.imagenPredeterminado = element.imagenPredeterminado;
-          imagen.nombreImagen = element.nombreImagen;
-          imagen.tipoImagen = element.tipoImagen;
+        this.producto = response.response;
 
-          imagenes.push(imagen);
+        this.adminService.obtenerImagenesProducto(this.producto).subscribe({
+          next: responseImages => {
 
+            let imagenes: Imagen[] = [];
+            responseImages.response.forEach(element => {
+
+              let imagen: Imagen = {};
+
+              imagen.estatus = 1;
+              imagen.imagen = `data:image/${element.tipoImagen};base64,${element.imagenBits}`
+              imagen.imagenPredeterminado = element.imagenPredeterminado;
+              imagen.nombreImagen = element.nombreImagen;
+              imagen.tipoImagen = element.tipoImagen;
+
+              imagenes.push(imagen);
+
+            });
+
+            this.producto.imagenes = imagenes;
+            this.image = this.producto.imagenes[0].imagen;
+            this.zoomImage = this.getDataUrlAsFileUrl(this.producto.imagenes[0].imagen.toString());
+
+            //console.log(this.zoomImage);
+
+            setTimeout(() => {
+              this.config.observer = true;
+            });
+          },
+          error: error => {
+            util.errorMessage(error.error.mensaje);
+          }
         });
 
-        this.producto.imagenes = imagenes;
-        this.image = this.producto.imagenes[0].imagen;
-        this.zoomImage = this.getDataUrlAsFileUrl(this.producto.imagenes[0].imagen.toString());
-
-        //console.log(this.zoomImage);
-
-        setTimeout(() => {
-          this.config.observer = true;
-        });
-      },
-      error: error => {
+      }, error: error => {
         util.errorMessage(error.error.mensaje);
       }
+
     });
+
+  }
+
+  public selectImage(image) {
+    this.image = image;
+    this.zoomImage = this.getDataUrlAsFileUrl(image);
   }
   getDataUrlAsFileUrl(dataUrl: string) {
     const base64 = dataUrl.split(',')[1];
@@ -219,9 +172,9 @@ export class ProductComponent implements OnInit {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-  } 
+  }
 
-  public onSubmit(values:Object):void {
+  public onSubmit(values: Object): void {
     if (this.form.valid) {
       //email sent
     }
