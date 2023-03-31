@@ -12,6 +12,7 @@ import { Util as util } from "src/app/util/util";
 import { Producto } from 'src/app/models/producto.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Imagen } from '../../models/imagen.model';
 
 
 @Component({
@@ -114,12 +115,39 @@ export class ProductsComponent implements OnInit {
       next: (data) => {
         this.productos = data.response;
         this.productosMostrar = this.productos;
+        this.obtenerImagenesProductos(0);
       },
       error: () => {
         util.errorMessage("Error interno del servidor");
       }
     });
   }
+
+  private obtenerImagenesProductos(index: number) {
+    if (index >= this.productos.length) {
+      return;
+    }
+    const producto = this.productos[index];
+    this.adminService.obtenerImagenesProducto(producto).subscribe({
+      next: response => {
+        let image: Imagen = {};
+        let listImagenes: Imagen[] = [];
+        image.imagen = `data:image/${response.response[0].tipoImagen};base64,${response.response[0].imagenBits}`
+        image.estatus = 0;
+        image.imagenPredeterminado = 1;
+        image.nombreImagen = response.response[0].nombreImagen;
+        image.tipoImagen = response.response[0].tipoImagen;
+        listImagenes.push(image);
+        producto.imagenes = listImagenes;
+        // Llamada recursiva para obtener las imágenes del siguiente producto
+        this.obtenerImagenesProductos(index + 1);
+      },
+      error: error => {
+        util.errorMessage(error.error.mensaje);
+      }
+    });
+  }
+
 
   public getAllProducts(){
     this.appService.getProducts("featured").subscribe(data=>{

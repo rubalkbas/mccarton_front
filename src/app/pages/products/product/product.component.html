@@ -4,68 +4,76 @@
             <!-- <mat-chip-list *ngIf="product?.discount">
                 <mat-chip color="warn" selected="true">{{product?.discount}}% OFF</mat-chip>
             </mat-chip-list> -->
-            <button mat-icon-button (click)="openZoomViewer()" fxHide="false" fxHide.gt-md><mat-icon>fullscreen</mat-icon></button>
-            <img class="img-producto" *ngIf="image" [src]="image" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave($event)"/>
-        </mat-card>       
+            <button mat-icon-button (click)="openZoomViewer()" fxHide="false"
+                fxHide.gt-md><mat-icon>fullscreen</mat-icon></button>
+            <img class="img-producto" *ngIf="image" [src]="image" (mousemove)="onMouseMove($event)"
+                (mouseleave)="onMouseLeave($event)" />
+        </mat-card>
 
-        <div class="small-carousel"> 
+        <div class="small-carousel">
             <div class="swiper-container" [swiper]="config">
-                <div class="swiper-wrapper"> 
-                    <div *ngFor="let image of product?.images" class="swiper-slide">
-                        <mat-card  (click)="selectImage(image)" class="p-1 card-producto">
-                            <img  [attr.data-src]="image.small" class="swiper-lazy"/>
+                <div class="swiper-wrapper">
+                    <div *ngFor="let image of producto?.imagenes" class="swiper-slide">
+                        <mat-card (click)="selectImage(image.imagen)" class="p-1 card-producto">
+                            <img [attr.data-src]="image.imagen" class="swiper-lazy" />
                             <div class="swiper-lazy-preloader"></div>
                         </mat-card>
-                    </div>                    
+                    </div>
                 </div>
-                <button mat-icon-button class="swiper-button-prev swipe-arrow"><mat-icon>keyboard_arrow_left</mat-icon></button>
-                <button mat-icon-button class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button> 
+                <button mat-icon-button
+                    class="swiper-button-prev swipe-arrow"><mat-icon>keyboard_arrow_left</mat-icon></button>
+                <button mat-icon-button
+                    class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button>
             </div>
         </div>
     </div>
     <div fxFlex="100" fxFlex.gt-md="60" fxFlex.md="55" ngClass.gt-sm="px-3 m-0" ngClass.sm="mt-2" ngClass.xs="mt-2">
-        
+
         <div #zoomViewer fxShow="false" fxShow.gt-md>
-            <mat-card *ngIf="zoomImage" class="zoom-viewer mat-elevation-z18" [ngStyle]="{'background-image': 'url(' + zoomImage + ')'}"></mat-card>
+            <mat-card *ngIf="zoomImage" class="zoom-viewer mat-elevation-z18"
+                [ngStyle]="{'background-image': 'url(' + zoomImage + ')'}"></mat-card>
         </div>
 
         <h2 id="product-name">{{producto?.nombreProducto}}</h2>
         <div class="py-1 lh">
-            <p class="descripcion-product"><span class="text-muted fw-500">Categoría: </span><span>{{producto?.categoria?.nombreCategoria }}</span></p>
-            <p class="descripcion-product"><span class="text-muted fw-500">Inventario: </span><span>{{ (producto?.stock > 0) ? (producto?.stock) : 'No disponible'}}</span></p>
-        </div>                 
+            <p class="descripcion-product"><span class="text-muted fw-500">Categoría:
+                </span><span>{{producto?.categoria?.nombreCategoria }}</span></p>
+            <p class="descripcion-product"><span class="text-muted fw-500">Inventario: </span><span>{{ (producto?.stock
+                    > 0) ? (producto?.stock) : 'No disponible'}}</span></p>
+        </div>
         <!-- <div class="py-1">
             <app-rating [ratingsCount]="product?.ratingsCount" [ratingsValue]="product?.ratingsValue" [direction]="'row'"></app-rating>
         </div> -->
-        <p  class="py-1 text-muted lh descripcion-product1">{{producto?.descripcionBreve}}</p>
+        <p class="py-1 text-muted lh descripcion-product1">{{producto?.descripcionBreve}}</p>
 
         <div class="divider mt-1"></div>
         <div class="py-2">
             <!-- <h3 class="old-price text-muted"><span *ngIf="product?.oldPrice">${{product?.oldPrice | number : '1.2-2'}}</span></h3> -->
             <h2 class="new-price">{{producto?.precioVenta | currency}}</h2>
-        </div>        
+        </div>
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="details text-muted py-1">
             <div *ngIf="product?.color" class="color">
                 <span class="fw-500">Selecciona el color:</span>
-                <button mat-raised-button *ngFor="let color of product?.color" [style.background]="color">&nbsp;</button>              
+                <button mat-raised-button *ngFor="let color of product?.color"
+                    [style.background]="color">&nbsp;</button>
             </div>
             <div *ngIf="product?.size" class="size" ngClass.xs="mt-1">
                 <span class="fw-500">Selecciona el tamaño:</span>
                 <button mat-raised-button *ngFor="let size of product?.size">{{size}}</button>
             </div>
         </div>
-<!--Aqui esta el boton del corazon -->
+        <!--Aqui esta el boton del corazon -->
         <div class="py-1">
-            <app-controls [product]="product" [producto]="producto" [type]="'all'"></app-controls> 
+            <app-controls [product]="product" [producto]="producto" [type]="'all'"></app-controls>
         </div>
-<!--Aqui ya se terminaron los botones -->     
+        <!--Aqui ya se terminaron los botones -->
 
 
         <div class="divider"></div>
 
         <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted py-1">
-            <button  mat-button><mat-icon>mail_outline</mat-icon> Enviar por correo</button>
+            <button mat-button><mat-icon>mail_outline</mat-icon> Enviar por correo</button>
             <button mat-icon-button><mat-icon>share</mat-icon></button>
         </div>
 
@@ -201,7 +209,8 @@
                 <div class="">
                     <h3 id="title-des">Descripción</h3>
                 </div>
-                <p id="texto-descripcion">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus venenatis ex, in congue
+                <p id="texto-descripcion">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus venenatis
+                    ex, in congue
                     sapien ultricies in. Maecenas sagittis placerat sagittis. Nunc varius magna lorem, ac dictum quam
                     pellentesque ut. Duis ut nibh nec lacus tincidunt maximus. Nulla facilisi. Aenean eleifend vehicula
                     arcu lacinia elementum. Donec efficitur orci urna, at bibendum nulla molestie quis. Nunc fringilla
@@ -222,7 +231,7 @@
 
 <br>
 <div class="divider">
-<app-cajas></app-cajas>
+    <app-cajas></app-cajas>
 </div>
 
 <div class="py-2 mt-2">

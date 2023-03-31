@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../app.service';
 import { Product } from "../../app.models";
+import { AdminService } from '../../_services/admins.service';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,8 @@ import { Product } from "../../app.models";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  preguntasFrecuentes:[];
 
   public slides = [
     { title: 'LA MAYOR VENTA DEL AÑO', subtitle: 'Ofertas especiales HOY', image: 'assets/images/carousel/caja2.jpg' },
@@ -25,14 +28,24 @@ export class HomeComponent implements OnInit {
   public newArrivalsProducts: Array<Product>;
 
 
-  constructor(public appService:AppService) { }
+  constructor(public appService:AppService,
+    public adminService:AdminService
+    ) { }
 
   ngOnInit() {
     this.getBanners();
     this.getProducts("featured");
     this.getBrands();
+    this.preguntaFrecuente();
+
   }
 
+  public preguntaFrecuente(){
+    this.adminService.getAllPreguntasActivas().subscribe(resp=>{
+      console.log(resp.response)
+      this.preguntasFrecuentes=resp.response;
+    }, error=>{console.error(error)});
+  }
   public onLinkClick(e){
     this.getProducts(e.tab.textLabel.toLowerCase()); 
   }

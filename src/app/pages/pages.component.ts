@@ -107,7 +107,7 @@ export class PagesComponent implements OnInit {
   @HostListener('window:scroll', ['$event'])
   onWindowScroll($event) {
     const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop);   
-    let header_toolbar = document.getElementById('header-toolbar'); 
+    let header_toolbar = document.getElementById('header-toolbar');
     if(header_toolbar){ 
       if(scrollTop >= header_toolbar.clientHeight) {
         this.settings.mainToolbarFixed = true;
@@ -121,7 +121,7 @@ export class PagesComponent implements OnInit {
     else{
       this.settings.mainToolbarFixed = true;
     }  
-    ($event.target.documentElement.scrollTop > 300) ? this.showBackToTop = true : this.showBackToTop = false;  
+    ($event.target.documentElement.scrollTop > 120) ? this.showBackToTop = true : this.showBackToTop = false;  
   }
 
   ngAfterViewInit(){
@@ -133,10 +133,10 @@ export class PagesComponent implements OnInit {
     this.sidenavMenuService.expandActiveSubMenu(this.sidenavMenuService.getSidenavMenuItems());
   }
 
-  public closeSubMenus(){
-    if(window.innerWidth < 960){
-      this.sidenavMenuService.closeAllSubMenus();
-    }    
-  }
+  // public closeSubMenus(){
+  //   if(window.innerWidth < 960){
+  //     this.sidenavMenuService.closeAllSubMenus();
+  //   }    
+  // }
 
 }
