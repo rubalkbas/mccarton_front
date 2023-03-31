@@ -1,28 +1,28 @@
 <div class="p-1">
     <mat-card class="p-0"> 
         <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
-            <h2>Transactions List</h2>  
+            <h2>Lista de Transacción</h2>  
         </div>
         <mat-divider></mat-divider>
         <div class="mat-table admin-table">
             <div class="mat-header-row">
-                <div class="mat-header-cell">OrderId</div>
-                <div class="mat-header-cell">TransactionId</div>
-                <div class="mat-header-cell">Date</div>
-                <div class="mat-header-cell">Payment Method</div>
-                <div class="mat-header-cell">Status</div>
-                <div class="mat-header-cell">Amount</div>
-                <div class="mat-header-cell"></div>
+                <div class="mat-header-cell" id="columnas">IdOrden</div>
+                <div class="mat-header-cell" id="columnas">IdTransacción</div>
+                <div class="mat-header-cell" id="columnas">Fecha</div>
+                <div class="mat-header-cell" id="columnas">Metodo de Pago</div>
+                <div class="mat-header-cell" id="columnas">Estatus</div>
+                <div class="mat-header-cell" id="columnas">Importe</div>
+                <div class="mat-header-cell" id="columnas">Acciones</div>
             </div>
             <div *ngFor="let tran of transactions | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row">
-                <div class="mat-cell"><span class="order">{{tran.orderId}}</span></div>
-                <div class="mat-cell">{{tran.transactionId}}</div>
-                <div class="mat-cell">{{tran.date}}</div>
-                <div class="mat-cell">{{tran.paymentMethod}}</div>
-                <div class="mat-cell">{{tran.status}}</div>
-                <div class="mat-cell">{{tran.amount}}</div>     
-                <div class="mat-cell">
-                    <div class="p-1 actions">          
+                <div class="mat-cell"><span class="order" id="columnas2">{{tran.orderId}}</span></div>
+                <div class="mat-cell" id="columnas2"id="columnas2">{{tran.transactionId}}</div>
+                <div class="mat-cell" id="columnas2">{{tran.date}}</div>
+                <div class="mat-cell" id="columnas2">{{tran.paymentMethod}}</div>
+                <div class="mat-cell" id="columnas2">{{tran.status}}</div>
+                <div class="mat-cell" id="columnas2">{{tran.amount}}</div>     
+                <div class="mat-cell" id="columnas2">
+                    <div class="p-1 actions" id="columnas2">          
                         <button mat-mini-fab color="primary" matTooltip="View">
                             <mat-icon>remove_red_eye</mat-icon>
                         </button> 

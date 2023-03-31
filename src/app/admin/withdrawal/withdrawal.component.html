@@ -1,32 +1,32 @@
 <div class="p-1">
     <mat-card class="p-0"> 
         <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
-            <h2>Withdrawal Requests</h2>  
+            <h2>Solicitud de retirada</h2>  
         </div>
         <mat-divider></mat-divider>
         <div class="mat-table admin-table">
             <div class="mat-header-row"> 
-                <div class="mat-header-cell">Invoice ID</div>
-                <div class="mat-header-cell">Order IDs</div> 
-                <div class="mat-header-cell">Store</div>
-                <div class="mat-header-cell">Amount</div>  
-                <div class="mat-header-cell">Charges</div>  
-                <div class="mat-header-cell">Payment</div>  
-                <div class="mat-header-cell">Date</div>
-                <div class="mat-header-cell"></div>
+                <div class="mat-header-cell" id="columnas">Id Factura</div>
+                <div class="mat-header-cell" id="columnas">Id Orden</div> 
+                <div class="mat-header-cell" id="columnas">Tienda</div>
+                <div class="mat-header-cell" id="columnas">Importe</div>  
+                <div class="mat-header-cell" id="columnas">Cargos</div>  
+                <div class="mat-header-cell" id="columnas">Pago</div>  
+                <div class="mat-header-cell" id="columnas">Fecha</div>
+                <div class="mat-header-cell" id="columnas">Acciones</div>
             </div>
             <div *ngFor="let item of withdrawal | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row"> 
                 <div class="mat-cell">{{item.invoiceId}}</div> 
                 <div class="mat-cell">
                     <span class="primary-text" *ngFor="let order of item.orderIds; let last=last">{{order}}<span *ngIf="!last">, </span></span>
                 </div> 
-                <div class="mat-cell">{{ ( stores | filterById : item.storeId )?.name }}</div> 
-                <div class="mat-cell">${{item.amount.toFixed(2)}}</div> 
-                <div class="mat-cell">${{item.charges.toFixed(2)}}</div> 
-                <div class="mat-cell">${{item.payment.toFixed(2)}}</div>  
-                <div class="mat-cell">{{item.date | date:"dd MMMM, yyyy 'at' HH:mm"}}</div>     
+                <div class="mat-cell" id="columnas2">{{ ( stores | filterById : item.storeId )?.name }}</div> 
+                <div class="mat-cell" id="columnas2">${{item.amount.toFixed(2)}}</div> 
+                <div class="mat-cell" id="columnas2">${{item.charges.toFixed(2)}}</div> 
+                <div class="mat-cell" id="columnas2">${{item.payment.toFixed(2)}}</div>  
+                <div class="mat-cell" id="columnas2">{{item.date | date:"dd MMMM, yyyy 'at' HH:mm"}}</div>     
                 <div class="mat-cell">
-                    <div class="p-1 actions">          
+                    <div class="p-1 actions" id="columnas2">          
                         <button mat-mini-fab color="primary" matTooltip="Approve">
                             <mat-icon>check</mat-icon>
                         </button>

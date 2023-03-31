@@ -1,23 +1,24 @@
 <div class="p-1">
-    <mat-card class="p-0"> 
+    <mat-card class="p-0">
         <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
-            <h2>Lista de Categorias</h2>  
+            <h2>Lista de Categorias</h2>
             <button mat-raised-button color="primary" (click)="openCategoryDialog(null)">Añadir Categoria</button>
         </div>
         <mat-divider></mat-divider>
         <div class="mat-table admin-table">
-            <div class="mat-header-row">
-                <div class="mat-header-cell">Nombre</div>
-                <div class="mat-header-cell">Descripcion</div> 
-                <div class="mat-header-cell">Estatus</div>
+            <div class="mat-header-row" id="tabla">
+                <div class="mat-header-cell" id="columnas">Nombre</div>
+                <div class="mat-header-cell" id="columnas">Descripcion</div>
+                <div class="mat-header-cell" id="columnas">Estatus</div>
                 <div class="mat-header-cell"></div>
             </div>
-            <div *ngFor="let categoria of categorias | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row">
-                <div class="mat-cell">{{categoria.nombreCategoria}}</div>
-                <div class="mat-cell">{{categoria.descripcionCategoria}}</div>
-                <div class="mat-cell">{{categoria.estatus === 1 ? 'Activo' : 'Inactivo'}}</div>
+            <div *ngFor="let categoria of categorias | paginate: { itemsPerPage: count, currentPage: page }"
+                class="mat-row">
+                <div class="mat-cell" id="columnas2">{{categoria.nombreCategoria}}</div>
+                <div class="mat-cell" id="columnas2">{{categoria.descripcionCategoria}}</div>
+                <div class="mat-cell" id="columnas2">{{categoria.estatus === 1 ? 'Activo' : 'Inactivo'}}</div>
                 <div class="mat-cell">
-                    <div class="p-1 actions">          
+                    <div class="p-1 actions">
                         <button mat-mini-fab color="primary" matTooltip="Edit" (click)="openCategoryDialog(categoria)">
                             <mat-icon>edit</mat-icon>
                         </button>
@@ -26,15 +27,16 @@
                         </button>
                     </div>
                 </div>
-                </div>      
             </div>
-        
+        </div>
+
     </mat-card>
 
     <div *ngIf="categorias.length > 0" fxLayout="row wrap">
-        <div fxFlex="100"> 
-            <mat-card class="p-0 text-center">           
-                <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
+        <div fxFlex="100">
+            <mat-card class="p-0 text-center">
+                <pagination-controls class="product-pagination" autoHide="true" maxSize="5"
+                    (pageChange)="onPageChanged($event)"></pagination-controls>
             </mat-card>
         </div>
     </div>

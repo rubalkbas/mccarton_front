@@ -6,18 +6,18 @@
         <mat-divider></mat-divider>
         <div class="mat-table admin-table">
             <div class="mat-header-row">
-                <div class="mat-header-cell">Nombre</div>
-                <div class="mat-header-cell">Apellidos</div>
-                <div class="mat-header-cell">Correo electronico</div>
-                <div class="mat-header-cell">Telefono</div>
-                <div class="mat-header-cell"></div>
+                <div class="mat-header-cell" id="columnas" >Nombre</div>
+                <div class="mat-header-cell" id="columnas">Apellidos</div>
+                <div class="mat-header-cell" id="columnas">Correo electronico</div>
+                <div class="mat-header-cell" id="columnas">Telefono</div>
+                <div class="mat-header-cell" id="columnas">Acciones</div>
             </div>
             <div *ngFor="let client of cliente | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row">
-                <div class="mat-cell">{{client.nombre}}</div>
-                <div class="mat-cell">{{client.apellidoPaterno}} {{client.apellidoMaterno}}</div>
-                <div class="mat-cell">{{client.correoElectronico}}</div>
-                <div class="mat-cell">{{ client.telefono}}</div>
-                <div class="mat-cell">
+                <div class="mat-cell" id="columnas2" >{{client.nombre}}</div>
+                <div class="mat-cell" id="columnas2">{{client.apellidoPaterno}} {{client.apellidoMaterno}}</div>
+                <div class="mat-cell" id="columnas2">{{client.correoElectronico}}</div>
+                <div class="mat-cell" id="columnas2">{{ client.telefono}}</div>
+                <div class="mat-cell" id="columnas2">
                     <button mat-mini-fab color="warn" matTooltip="Delete" class="mx-1" (click)="remove(client)">
                         <mat-icon>delete</mat-icon>
                     </button>
