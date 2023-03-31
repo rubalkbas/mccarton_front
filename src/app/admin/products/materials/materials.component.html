@@ -7,12 +7,6 @@
         <mat-divider></mat-divider>
 
         <div class="table-responsive">
-            <div class="form-group">
-                <mat-form-field class="w-25">
-                    <mat-label>Buscar</mat-label>
-                    <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Cartón" #input>
-                </mat-form-field>
-            </div>
             <div class="example-container mat-elevation-z8 mat-table admin-table">
                 <table mat-table [dataSource]="dataSource" class="table">
                     <caption hidden>Materiales</caption>
@@ -51,12 +45,12 @@
                     </ng-container> -->
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="openCategoryDialog(row)"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="openCategoryDialog(row)">
+                    </tr>
 
                 </table>
-                <mat-paginator class="paginator" showFirstLastButtons [pageIndex]="0"
-                                            [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"
-                                            aria-label="Select page"></mat-paginator>
+                <mat-paginator class="paginator" showFirstLastButtons [pageIndex]="0" [pageSize]="5"
+                    [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page"></mat-paginator>
             </div>
         </div>
 

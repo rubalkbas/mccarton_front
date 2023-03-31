@@ -7,19 +7,19 @@
         <mat-divider></mat-divider>
         <div class="mat-table admin-table">
             <div class="mat-header-row">  
-                <div class="mat-header-cell">Pregunta</div>
-                <div class="mat-header-cell">Respuesta</div> 
-                <div class="mat-header-cell">Estatus</div>  
-                <div class="mat-header-cell"></div>
+                <div class="mat-header-cell" id="columnas">Pregunta</div>
+                <div class="mat-header-cell" id="columnas">Respuesta</div> 
+                <div class="mat-header-cell" id="columnas">Estatus</div>  
+                <div class="mat-header-cell" id="columnas">Acciones</div>
             </div>
 
             <div *ngFor="let follower of preguntasFrecuentes | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row">  
-                <div class="mat-cell">{{follower.pregunta}}</div>  
-                <div class="mat-cell">{{follower.respuesta}}</div>  
-                <div class="mat-cell"><button class="button-estatus" [ngClass]="{'activo': follower.estatus === 1, 'inactivo': follower.estatus === 0}" (click)="cambiarestatus(follower)">{{follower.estatus === 1 ? 'Activo' : 'Inactivo'}}</button>
+                <div class="mat-cell" id="columnas2">{{follower.pregunta}}</div>  
+                <div class="mat-cell" id="columnas2">{{follower.respuesta}}</div>  
+                <div class="mat-cell" id="columnas2"><button class="button-estatus" [ngClass]="{'activo': follower.estatus === 1, 'inactivo': follower.estatus === 0}" (click)="cambiarestatus(follower)">{{follower.estatus === 1 ? 'Activo' : 'Inactivo'}}</button>
                 </div>      
-                <div class="mat-cell">
-                    <div class="p-1 actions"> 
+                <div class="mat-cell" id="columnas2">
+                    <div class="p-1 actions" id="columnas2"> 
                         <button mat-mini-fab color="primary" matTooltip="Edit" (click)="openpreguntaFrecuenteDialog(follower)">
                             <mat-icon>edit</mat-icon>
                         </button>

@@ -1,4 +1,4 @@
-table {
+/*table {
     width: 100%;
     border-collapse: collapse;
     
@@ -22,21 +22,7 @@ table {
   }
   
   
-  #columnas{
-    
-    color: #fff;
-    text-align: center;
-    
-}
-#columnas2{
-text-align: center;
 
-}
-.mat-header-row
-{
-  background-color: #1877d2;
-  
-}
    .mat-row {
     display: flex;
     flex-wrap: wrap;
@@ -59,7 +45,7 @@ text-align: center;
   td.mat-cell,
   td.mat-footer-cell {
     padding: 0;
-    /* border-bottom-width: 1px; */
+   
     border-bottom-style: unset;
   }
   
@@ -86,4 +72,20 @@ text-align: center;
   .input-buscar{
     background-color: #fff !important;
   }
+  */
+    #columnas{
+    
+    color: #fff;
+    text-align: center;
+    
+}
+#columnas2{
+text-align: center;
+
+}
+.mat-header-row
+{
+  background-color: #1877d2;
+  
+}
   
