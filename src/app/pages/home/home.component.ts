@@ -12,15 +12,16 @@ import { ImagenBannerService } from 'src/app/_services/imagen-banner.service';
 export class HomeComponent implements OnInit {
 
   preguntasFrecuentes:[];
+  mostrarCarruzel:boolean=false;
 
-  public slides = [
-    { title: 'LA MAYOR VENTA DEL AÑO', subtitle: 'Ofertas especiales HOY', image: 'assets/images/carousel/caja2.jpg' },
-    { title: 'Colección de Verano', subtitle: 'Nuevos productos en venta', image: 'assets/images/carousel/caja5.jpg' },
-    { title: 'LA MAYOR VENTA DEL AÑO', subtitle: 'Ofertas especiales HOY', image: 'assets/images/carousel/caja4.jpg' },
-    { title: 'Colección de Verano', subtitle: 'Nuevos productos en venta', image: 'assets/images/carousel/caja1.png' },
-    { title: 'LA MAYOR VENTA DEL AÑO', subtitle: 'Ofertas especiales HOY', image: 'assets/images/carousel/caja6.jpg' }
-  ];
-  // public slides;
+  // public slides = [
+  //   { title: 'LA MAYOR VENTA DEL AÑO', subtitle: 'Ofertas especiales HOY', image: 'assets/images/carousel/caja2.jpg' },
+  //   { title: 'Colección de Verano', subtitle: 'Nuevos productos en venta', image: 'assets/images/carousel/caja5.jpg' },
+  //   { title: 'LA MAYOR VENTA DEL AÑO', subtitle: 'Ofertas especiales HOY', image: 'assets/images/carousel/caja4.jpg' },
+  //   { title: 'Colección de Verano', subtitle: 'Nuevos productos en venta', image: 'assets/images/carousel/caja1.png' },
+  //   { title: 'LA MAYOR VENTA DEL AÑO', subtitle: 'Ofertas especiales HOY', image: 'assets/images/carousel/caja6.jpg' }
+  // ];
+  public slides= [];
 
   public brands = [];
   public banners = [];
@@ -40,8 +41,7 @@ export class HomeComponent implements OnInit {
     this.getProducts("featured");
     this.getBrands();
     this.preguntaFrecuente();
-    // this.listarBanners();
-
+    this.listarBanners();
   }
 
   public preguntaFrecuente(){
@@ -102,7 +102,10 @@ export class HomeComponent implements OnInit {
             { title: data.descripcion, subtitle: data.descripcion, image: this.bytesToImageUrl(data.imagenBits, data.tipoArchivo)}
           )
         })
+        this.mostrarCarruzel=true;
         console.log(this.slides);
+      }, error:error=>{
+        console.error(error);
       }
     })
   }

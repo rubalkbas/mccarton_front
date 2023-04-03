@@ -16,6 +16,7 @@ export const menuItems = [
     new Menu (50, 'Clientes', '/admin/customers', null, 'supervisor_account', null, false, 0),  
     new Menu (60, 'Cupones', '/admin/coupons', null, 'card_giftcard', null, false, 0),  
     new Menu (60, 'Roles', '/admin/roles', null, 'card_giftcard', null, false, 0),  
+    new Menu (61, 'Banner', '/admin/banner', null, 'photo_library', null, false, 0),  
     new Menu (70, 'Retirar', '/admin/withdrawal', null, 'credit_card', null, false, 0), 
     new Menu (80, 'Análisis', '/admin/analytics', null, 'multiline_chart', null, false, 0), 
     new Menu (90, 'Reembolso', '/admin/refund', null, 'restore', null, false, 0),  

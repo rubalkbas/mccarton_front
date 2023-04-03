@@ -1,0 +1,24 @@
+#columnas{
+    
+    color: #fff;
+    text-align: center;
+    
+}
+#columnas2{
+text-align: center;
+
+}
+.mat-header-row
+{
+  background-color: #1877d2;
+  
+}
+
+.img{
+  border-radius: 5%;
+  width: 200px;
+  // height: 140px;
+  &.blocked{
+      opacity: 0.5;
+  }
+}
