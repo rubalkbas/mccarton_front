@@ -21,20 +21,20 @@ export class ImagenBannerService {
     return this.http.get<SingleResponse<ImagenBanner>>(`${this.API_SERVER}/imagenbanner/todos`, this.httpOptions);
   }
   //Guardar Banner
-  public guardarBanner(imagen:ImagenBanner): Observable<SingleResponse<ImagenBanner>>{
+  public guardarBanner(imagen:FormData): Observable<SingleResponse<ImagenBanner>>{
     return this.http.post<SingleResponse<ImagenBanner>>(`${this.API_SERVER}/imagenbanner/guardar`, imagen, this.httpOptions);
   }
   //Actualizar Banner
-  public actualizarBanner(imagen:ImagenBanner): Observable<SingleResponse<ImagenBanner>>{
+  public actualizarBanner(imagen:FormData): Observable<SingleResponse<ImagenBanner>>{
     return this.http.put<SingleResponse<ImagenBanner>>(`${this.API_SERVER}/imagenbanner/actualizar`, imagen, this.httpOptions);
   }
   //Eliminar Banner
   public eliminarBanner(id:number): Observable<SingleResponse<ImagenBanner>>{
-    return this.http.delete<SingleResponse<ImagenBanner>>(`${this.API_SERVER}/imagenbanner/eliminar`, this.httpOptions);
+    return this.http.delete<SingleResponse<ImagenBanner>>(`${this.API_SERVER}/imagenbanner/eliminar?idImagenBanner=${id}`, this.httpOptions);
   }
   //Actualizar Estatus Banner.
-  public actualizarEstatusBanner(idImagenBanner:number, estatus:number): Observable<SingleResponse<ImagenBanner>>{
-    return this.http.put<SingleResponse<ImagenBanner>>(`${this.API_SERVER}/imagenbanner/actualizarEstatus`, this.httpOptions);
+  public actualizarEstatusBanner(imagen:FormData): Observable<SingleResponse<ImagenBanner>>{
+    return this.http.put<SingleResponse<ImagenBanner>>(`${this.API_SERVER}/imagenbanner/actualizarEstatus/${imagen}`, this.httpOptions);
   }
   //Consultar Todos Banner.
   public mostrarBannersActivos(): Observable<SingleResponse<ImagenBanner>>{

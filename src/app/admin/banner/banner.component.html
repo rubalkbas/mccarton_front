@@ -1,0 +1,47 @@
+<div class="p-1">
+    <mat-card class="p-0"> 
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
+            <h2>Lista de Benners</h2>  
+            <button mat-raised-button color="primary" (click)="openBannerDialog(null)">Añadir Banner</button>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="mat-table admin-table">
+            <div class="mat-header-row">
+                <div class="mat-header-cell" id="columnas">Imagen</div>
+                <div class="mat-header-cell" id="columnas">Nombre</div>
+                <div class="mat-header-cell" id="columnas">Descripción</div> 
+                <div class="mat-header-cell" id="columnas">Estatus</div>
+                <div class="mat-header-cell" id="columnas">Acciones</div>
+            </div>
+            <div *ngFor="let banner of bannersArray | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row">
+                <div class="mat-cell" id="columnas2">
+                    <!-- {{bytesToImageUrl(banner.imagenBits, banner.tipoArchivo)}} -->
+                    <img src="{{bytesToImageUrl(banner.imagenBits, banner.tipoArchivo)}}" class="img" (click)="openDialog(bytesToImageUrl(banner.imagenBits, banner.tipoArchivo))">
+                    <!-- <img [src]="bytesToImageUrl(banner.imagenBits, banner.tipoArchivo)" class="transition-2" [class.blocked]="user.estatus==0"> -->
+                </div>
+                <div class="mat-cell" id="columnas2">{{banner.nombreArchivo}}</div>
+                <div class="mat-cell" id="columnas2">{{banner.descripcion}}</div>
+                <div class="mat-cell" id="columnas2">{{banner.estatus === 1 ? 'Activo' : 'Inactivo'}}</div>
+                <div class="mat-cell" >
+                    <div class="p-1 actions"id="columnas2">          
+                        <button mat-mini-fab color="primary" matTooltip="Edit" (click)="openBannerDialog(banner)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-mini-fab color="warn" matTooltip="Delete" class="mx-1" (click)="eliminarBanner(banner.idBanner)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                </div>      
+            </div>
+        
+    </mat-card>
+
+    <div *ngIf="bannersArray.length > 0" fxLayout="row wrap">
+        <div fxFlex="100"> 
+            <mat-card class="p-0 text-center">           
+                <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
+            </mat-card>
+        </div>
+    </div>
+</div>
