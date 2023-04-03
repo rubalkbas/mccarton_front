@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../app.service';
 import { Product } from "../../app.models";
 import { AdminService } from '../../_services/admins.service';
+import { ImagenBannerService } from 'src/app/_services/imagen-banner.service';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit {
     { title: 'Colección de Verano', subtitle: 'Nuevos productos en venta', image: 'assets/images/carousel/caja1.png' },
     { title: 'LA MAYOR VENTA DEL AÑO', subtitle: 'Ofertas especiales HOY', image: 'assets/images/carousel/caja6.jpg' }
   ];
+  // public slides;
 
   public brands = [];
   public banners = [];
@@ -29,7 +31,8 @@ export class HomeComponent implements OnInit {
 
 
   constructor(public appService:AppService,
-    public adminService:AdminService
+    public adminService:AdminService,
+    private imagenBannerService: ImagenBannerService
     ) { }
 
   ngOnInit() {
@@ -37,6 +40,7 @@ export class HomeComponent implements OnInit {
     this.getProducts("featured");
     this.getBrands();
     this.preguntaFrecuente();
+    // this.listarBanners();
 
   }
 
@@ -82,6 +86,25 @@ export class HomeComponent implements OnInit {
 
   public getBrands(){
     this.brands = this.appService.getBrands();
+  }
+
+  public bytesToImageUrl(bytes: Uint8Array, tipoImagen:string): string {
+    return `data:${tipoImagen};base64,${bytes}`;
+  }
+
+
+  public listarBanners(){
+    this.imagenBannerService.listarBanners().subscribe({
+      next: response =>{
+        this.slides=[];
+        response.response.forEach(data=>{
+          this.slides.push(
+            { title: data.descripcion, subtitle: data.descripcion, image: this.bytesToImageUrl(data.imagenBits, data.tipoArchivo)}
+          )
+        })
+        console.log(this.slides);
+      }
+    })
   }
 
 }
