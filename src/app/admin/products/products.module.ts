@@ -16,6 +16,8 @@ import { CategoryDialogComponent } from './categories/category-dialog/category-d
 import { MaterialComponent } from './materials/materials.component';
 import { ColorComponent } from './colors/colors.component';
 import { MaterialDialogComponent } from './materials/material-dialog/material-dialog.component';
+import { FollowersComponent } from '../followers/followers.component';
+import { OfertaDialogComponent } from './product-list/product-dialog/product-dialog.component';
 
 export const routes: Routes = [ 
   { path: '', redirectTo: 'product-list', pathMatch: 'full'},
@@ -26,7 +28,8 @@ export const routes: Routes = [
   { path: 'add-product', component: AddProductComponent, data: { breadcrumb: 'Add Product' } },
   { path: 'add-product/:id', component: AddProductComponent, data: { breadcrumb: 'Edit Product' } }, 
   { path: 'materials', component: MaterialComponent, data: { breadcrumb: 'Materials' } },
-  { path: 'colors', component: ColorComponent, data: { breadcrumb: 'Colors' } }
+  { path: 'colors', component: ColorComponent, data: { breadcrumb: 'Colors' } },
+  
 ];
 
 @NgModule({
@@ -40,7 +43,9 @@ export const routes: Routes = [
     MaterialComponent,
     ColorComponent,
     ColorDialogComponent,
-    MaterialDialogComponent
+    MaterialDialogComponent,
+    
+    OfertaDialogComponent
   ],
   imports: [
     CommonModule,

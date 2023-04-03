@@ -4,8 +4,10 @@ import { Product } from 'src/app/app.models';
 import { MatDialog } from '@angular/material/dialog';
 import { Producto } from 'src/app/models/producto.model';
 import { AdminService } from 'src/app/_services/admins.service';
-import { Util as util } from "src/app/util/util";
+import { Util, Util as util } from "src/app/util/util";
 import { Imagen } from 'src/app/models/imagen.model';
+import { OfertaDialogComponent } from './product-dialog/product-dialog.component';
+import { OfertaProducto } from 'src/app/models/ofertaProducto';
 
 @Component({
   selector: 'app-product-list',
@@ -13,13 +15,20 @@ import { Imagen } from 'src/app/models/imagen.model';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
+  public ofertaProducto: OfertaProducto[] = [];
   public products: Array<Product> = [];
   public productos: Producto[] = [];
   public viewCol: number = 25;
   public page: any;
   public count = 12;
   public imagen: any;
-  constructor(public appService:AppService, public dialog: MatDialog, private adminService: AdminService, private el: ElementRef) { }
+
+  constructor
+  (public appService:AppService, 
+    public dialog: MatDialog, 
+    private adminService: AdminService, 
+    private el: ElementRef
+    ){ }
 
   ngOnInit(): void {
     if(window.innerWidth < 1280){
@@ -27,6 +36,30 @@ export class ProductListComponent implements OnInit {
     };
     //this.getAllProducts(); 
     this.obtenerProductos();    
+  }
+
+  // Ofeta de producto 
+  public openOfretaDialog(data:any){
+    const dialogRef = this.dialog.open(OfertaDialogComponent,{
+      data: data // Pasa la variable data al diálogo
+    });
+  }
+  public cambiarestatus(follower: any) {
+    const idOferta = follower.idOferta;
+    let estatus = follower.estatus;
+    console.log(idOferta, estatus);
+
+    // Invierte el valor de estatus usando una expresión condicional if
+    if (estatus === 1) {
+      estatus = 0;
+    } else {
+      estatus = 1;
+    }
+
+    this.adminService.actualizarEstatusPregunta(idOferta, estatus).subscribe(resp => {
+      Util.successMessage(resp.mensaje);
+      window.location.reload();
+    });
   }
 
   // public obtenerProductos() {
@@ -177,4 +210,6 @@ export class ProductListComponent implements OnInit {
   //   }); 
   // }
 
+
 }
+

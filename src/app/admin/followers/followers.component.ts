@@ -4,7 +4,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 import { PreguntaFrecuente } from '../../models/preguntaFrecuente.model';
 import { AdminService } from '../../_services/admins.service';
 import { Util } from '../../util/util';
-import { preguntaFrecuenteDialogComponent } from '../followers/pregunta-frecuente-dialog/pregunta-frecuente-dialog.component'
+import { preguntaFrecuenteDialogComponent } from '../followers/pregunta-frecuente-dialog/pregunta-frecuente-dialog.component';
 
 @Component({
   selector: 'app-followers',

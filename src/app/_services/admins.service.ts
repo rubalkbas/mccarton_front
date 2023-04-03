@@ -271,5 +271,49 @@ public eliminarPreguntaFrecuente(idPreguntaFrecuente): Observable<any> {
   return this.http.delete(url, {});
  
 }
-}
 //PREGUNTAS FRECUENTES
+
+
+//Ofrerta de Producto 
+
+
+public crearOferta(
+  
+  tipoOferta,
+  descuentoEnPorcentaje,
+  fechaInicio,fechaFin,
+  descripcion,
+  condicionesOferta,
+  numeroUso 
+  ):
+  Observable<any>{
+  const url=`${this.urlAdmin}/oferta/actualizar?idProducto=1`;
+  const body ={
+    tipoOferta: tipoOferta,
+    descuentoEnPorcentaje: descuentoEnPorcentaje,
+    fechaInicio: fechaInicio,
+    fechaFin: fechaFin,
+    descripcion:descripcion,
+    condicionesOferta: condicionesOferta,
+    numeroUso: numeroUso 
+  };
+  return this.http.post(url, body);
+}
+
+
+public editarOferta(idOferta,tipoOferta,descuentoEnPorcentaje,fechaInicio,fechaFin,descripcion,condicionesOferta,numeroUso ): Observable<any>{
+  const url=`${this.urlAdmin}/oferta/actualizar?idProducto=1`;
+  const body = { idOferta,tipoOferta,descuentoEnPorcentaje,fechaInicio,fechaFin,descripcion,condicionesOferta,numeroUso }; 
+  return this.http.put(url, body);
+}
+
+public getAllOfertasActivas(): Observable<any> {
+  const url = `${this.urlAdmin}/oferta/consultarTodosActivos`;
+  return this.http.get(url);
+}
+//Fin de Oferta Pregunta
+}
+
+
+
+
