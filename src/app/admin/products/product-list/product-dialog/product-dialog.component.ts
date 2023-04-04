@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Util } from 'src/app/util/util';
 import { OfertaProducto } from '../../../../models/ofertaProducto';
 import { map } from 'rxjs';
+import { until } from 'protractor';
 
 @Component({
   selector: 'app-product-dialog',
@@ -46,12 +47,11 @@ export class OfertaDialogComponent implements OnInit {
         this.data = resp.response
         console.log(this.data)
         this.modoEditar = true;
+
         this.formulario.patchValue({
           idOferta: this.data.idOferta,
           tipoOferta: this.data.tipoOferta,
-
         });
-        console.log(this.data.tipoOferta)
 
       }
     });
