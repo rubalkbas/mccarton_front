@@ -6,6 +6,7 @@ import { AdminService } from 'src/app/_services/admins.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Util } from 'src/app/util/util';
 import { OfertaProducto } from '../../../../models/ofertaProducto';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-product-dialog',
@@ -15,8 +16,9 @@ import { OfertaProducto } from '../../../../models/ofertaProducto';
 export class OfertaDialogComponent implements OnInit {
   public formulario: FormGroup;
   public modoEditar: boolean = false;
-  public idProducto=this.data.idProducto
-  public oferta: OfertaProducto [] = [];
+  public idProducto = this.data.idProducto
+
+
   constructor(public dialogRef: MatDialogRef<OfertaDialogComponent>,
     private AdminService: AdminService,
     private formBuilder: FormBuilder,
@@ -24,17 +26,6 @@ export class OfertaDialogComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-    this.AdminService.getAllOfertas().subscribe(resp => {
-      console.log(resp)
-
-      this.oferta = resp.response.filter(oferta => oferta.producto.idProducto === this.idProducto);
-      console.log(this.oferta)
-
-  
-  });
-
-    console.log(this.idProducto)
     this.formulario = this.formBuilder.group({
       idOferta: 0,
       tipoOferta: ['', Validators.required],
@@ -48,23 +39,40 @@ export class OfertaDialogComponent implements OnInit {
       estatus: 1
 
     });
+
+    this.AdminService.buscarOfertaId(this.idProducto).subscribe(resp => {
+      if (resp!) {
+        console.log(resp)
+        this.data = resp.response
+        console.log(this.data)
+        this.modoEditar = true;
+        this.formulario.patchValue({
+          idOferta: this.data.idOferta,
+          tipoOferta: this.data.tipoOferta,
+
+        });
+        console.log(this.data.tipoOferta)
+
+      }
+    });
+
   }
 
   public onSubmit() {
-      const tipoOferta = this.formulario.get('tipoOferta')?.value;
-      const descuentoEnPorcentaje = this.formulario.get('descuentoEnPorcentaje')?.value;
-      const fechaInicio = this.formulario.get('fechaInicio')?.value;
-      const fechaFin = this.formulario.get('fechaFin')?.value;
-      const descripcion = this.formulario.get('descripcion')?.value;
-      const condicionesOferta = this.formulario.get('condicionesOferta')?.value;
-      const codigoOferta = this.formulario.get('codigoOferta')?.value;
-      const numeroUso = this.formulario.get('numeroUso')?.value;
-      this.AdminService.crearOferta( this.idProducto, tipoOferta,codigoOferta, descuentoEnPorcentaje, fechaInicio, fechaFin, descripcion, condicionesOferta, numeroUso).subscribe(result => {
-        console.log(result)
-        Util.successMessage(result.mensaje);
-        this.dialogRef.close(result);
-        window.location.reload();
-      });
+    const tipoOferta = this.formulario.get('tipoOferta')?.value;
+    const descuentoEnPorcentaje = this.formulario.get('descuentoEnPorcentaje')?.value;
+    const fechaInicio = this.formulario.get('fechaInicio')?.value;
+    const fechaFin = this.formulario.get('fechaFin')?.value;
+    const descripcion = this.formulario.get('descripcion')?.value;
+    const condicionesOferta = this.formulario.get('condicionesOferta')?.value;
+    const codigoOferta = this.formulario.get('codigoOferta')?.value;
+    const numeroUso = this.formulario.get('numeroUso')?.value;
+    this.AdminService.crearOferta(this.idProducto, tipoOferta, codigoOferta, descuentoEnPorcentaje, fechaInicio, fechaFin, descripcion, condicionesOferta, numeroUso).subscribe(result => {
+      console.log(result)
+      Util.successMessage(result.mensaje);
+      this.dialogRef.close(result);
+      window.location.reload();
+    });
 
   }
 }
