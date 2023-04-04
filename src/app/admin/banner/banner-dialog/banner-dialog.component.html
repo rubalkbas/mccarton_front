@@ -1,1 +1,32 @@
-<p>banner-dialog works!</p>
+<h1 mat-dialog-title>Rol</h1>
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()" autocomplete="off" class="user-form">
+    <div mat-dialog-content>
+
+        <div fxLayout="row wrap" class="mt-2">
+                <input-file formControlName="imagen" fileLimit="1" fileAccept="image/*" required *ngIf="!modoEditar"></input-file>  
+                <img *ngIf="modoEditar" src="{{bytesToImageUrl(data.banner.imagenBits, data.banner.tipoArchivo)}}" class="img">
+
+            <div fxFlex="50" fxFlex.gt-md="50" class="px-1 formulario" >
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Estatus</mat-label>
+                    <mat-select formControlName="estatus" required>
+                        <mat-option [value]="1">Activo</mat-option>
+                        <mat-option *ngIf="modoEditar" [value]="0">Inactivo</mat-option>
+                      </mat-select>                      
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Descripcion</mat-label>
+                    <input class="inputRol" matInput formControlName="descripcion" required>
+                </mat-form-field>
+            </div>
+
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+            <button mat-raised-button color="warn" type="button" mat-dialog-close>Close</button>
+            <button mat-raised-button color="primary" type="submit">Save</button>
+        </div>
+    </div>
+</form>
