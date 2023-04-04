@@ -22,6 +22,7 @@ export class ProductListComponent implements OnInit {
   public page: any;
   public count = 12;
   public imagen: any;
+  public oferta: [] = [];
 
   constructor
   (public appService:AppService, 
@@ -29,6 +30,7 @@ export class ProductListComponent implements OnInit {
     private adminService: AdminService, 
     private el: ElementRef
     ){ }
+
 
   ngOnInit(): void {
     if(window.innerWidth < 1280){
@@ -42,6 +44,8 @@ export class ProductListComponent implements OnInit {
   public openOfretaDialog(data:any){
     const dialogRef = this.dialog.open(OfertaDialogComponent,{
       data: data // Pasa la variable data al diálogo
+      
+      
     });
   }
   public cambiarestatus(follower: any) {
@@ -60,6 +64,7 @@ export class ProductListComponent implements OnInit {
       Util.successMessage(resp.mensaje);
       window.location.reload();
     });
+
   }
 
   // public obtenerProductos() {

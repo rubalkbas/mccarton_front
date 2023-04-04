@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { AdminService } from 'src/app/_services/admins.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Util } from 'src/app/util/util';
+import { OfertaProducto } from '../../../../models/ofertaProducto';
 
 @Component({
   selector: 'app-product-dialog',
@@ -15,12 +16,24 @@ export class OfertaDialogComponent implements OnInit {
   public formulario: FormGroup;
   public modoEditar: boolean = false;
   public idProducto=this.data.idProducto
+  public oferta: OfertaProducto [] = [];
   constructor(public dialogRef: MatDialogRef<OfertaDialogComponent>,
     private AdminService: AdminService,
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
+
+
+    this.AdminService.getAllOfertas().subscribe(resp => {
+      console.log(resp)
+
+      this.oferta = resp.response.filter(oferta => oferta.producto.idProducto === this.idProducto);
+      console.log(this.oferta)
+
+  
+  });
+
     console.log(this.idProducto)
     this.formulario = this.formBuilder.group({
       idOferta: 0,
@@ -31,7 +44,7 @@ export class OfertaDialogComponent implements OnInit {
       fechaFin: ['', Validators.required],
       descripcion: ['', Validators.required],
       condicionesOferta: ['', Validators.required],
-      numeroUso: ['', Validators.required],
+      numeroUso: [0, Validators.required],
       estatus: 1
 
     });

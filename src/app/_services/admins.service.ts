@@ -305,13 +305,18 @@ public crearOferta(
 
 
 public editarOferta(idOferta,tipoOferta,descuentoEnPorcentaje,fechaInicio,fechaFin,descripcion,condicionesOferta,numeroUso ): Observable<any>{
-  const url=`${this.urlAdmin}/oferta/actualizar?idProducto=1`;
+  const url=`${this.urlAdmin}/oferta/actualizar?idProducto=`;
   const body = { idOferta,tipoOferta,descuentoEnPorcentaje,fechaInicio,fechaFin,descripcion,condicionesOferta,numeroUso }; 
   return this.http.put(url, body);
 }
 
 public getAllOfertasActivas(): Observable<any> {
   const url = `${this.urlAdmin}/oferta/consultarTodosActivos`;
+  return this.http.get(url);
+}
+
+public getAllOfertas(): Observable<any> {
+  const url = `${this.urlAdmin}/oferta/consultarTodos`;
   return this.http.get(url);
 }
 //Fin de Oferta Pregunta
