@@ -1,0 +1,18 @@
+.formulario{
+  padding: 5% 20px !important;
+}
+
+
+.img{
+  border-radius: 5%;
+  width: 100%; 
+  max-width: 350px; 
+  /* height: 140px; */ /* Comentado para permitir que la imagen se ajuste automáticamente a la relación de aspecto original */
+  &.blocked{
+      opacity: 0.5;
+  }
+  
+  @media only screen and (max-width: 767px) {
+    max-width: 100%;
+  }
+}

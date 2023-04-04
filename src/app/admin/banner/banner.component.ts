@@ -4,6 +4,7 @@ import { ImagenBannerService } from 'src/app/_services/imagen-banner.service';
 import { ImagenBanner } from 'src/app/models/imagen-banner.model';
 import { Util } from 'src/app/util/util';
 import { ImagenDialogComponent } from './imagen-dialog/imagen-dialog.component';
+import { BannerDialogComponent } from './banner-dialog/banner-dialog.component';
 
 @Component({
   selector: 'app-banner',
@@ -30,33 +31,20 @@ export class BannerComponent implements OnInit {
       this.bannersArray=response.response;
       console.log(this.bannersArray);
     }, error:error=>{
-      Util.errorMessage(error.error);
-    }})
-  }
-
-  guardarBanner(){
-    let enviar:FormData;
-    this.bannerService.guardarBanner(enviar).subscribe({next:response=>{
-      Util.successMessage(response.mensaje);
-    }, error:error=>{
-      Util.errorMessage(error.error);
-    }})
-  }
-
-  actualizarBanner(){
-    let enviar:FormData;
-    this.bannerService.actualizarBanner(enviar).subscribe({next:response=>{
-      Util.successMessage(response.mensaje);
-    }, error:error=>{
-      Util.errorMessage(error.error);
+      console.log(error);
+      Util.errorMessage(error.error.mensaje);
     }})
   }
 
   eliminarBanner(id:number){
     this.bannerService.eliminarBanner(id).subscribe({next:response=>{
       Util.successMessage(response.mensaje);
+      this.listarBanners();
+
     }, error:error=>{
-      Util.errorMessage(error.error);
+      Util.errorMessage(error.error.mensaje);
+      this.listarBanners();
+
     }})
   }
 
@@ -65,7 +53,7 @@ export class BannerComponent implements OnInit {
     this.bannerService.actualizarEstatusBanner(enviar).subscribe({next:response=>{
       Util.successMessage(response.mensaje);
     }, error:error=>{
-      Util.errorMessage(error.error);
+      Util.errorMessage(error.error.mensaje);
     }})
   }
 
@@ -73,11 +61,22 @@ export class BannerComponent implements OnInit {
     this.bannerService.mostrarBannersActivos().subscribe({next:response=>{
       this.bannersArrayActivos=response.response;
     },error:error=>{
-      Util.errorMessage(error.error);
+      Util.errorMessage(error.error.mensaje);
     }})
   }
 
   openBannerDialog(banner:ImagenBanner){
+    const dialogRef= this.dialog.open(BannerDialogComponent,{
+      width: 'auto',
+      height: 'auto',
+      data:{
+        banner: banner
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(()=>{
+      this.listarBanners();
+    })
 
   }
 
@@ -87,9 +86,9 @@ export class BannerComponent implements OnInit {
   }
 
   openDialog(imagenBase64) {
-    const dialogRef = this.dialog.open(ImagenDialogComponent, {
+    this.dialog.open(ImagenDialogComponent, {
       width: 'auto',
-      height: 'auto',
+      height: '75%',
       data:{
         imagen:imagenBase64
       }
