@@ -54,7 +54,7 @@ export class CajasComponent implements AfterViewInit {
     let model: THREE.Object3D;
 
     const gltfloader = new GLTFLoader();
-    gltfloader.load('assets/images/caja/caja4/caja1.gltf', function (gltf) {
+    gltfloader.load('assets/images/caja/untitled.gltf', function (gltf) {
       model = gltf.scene;
       model.scale.set(1, 1, 1);
       model.traverse(function (child) {
@@ -68,7 +68,7 @@ export class CajasComponent implements AfterViewInit {
       console.log(animations)
       for (const animation of animations) {
         const action = mixer.clipAction(animation);
-        if (animation.name === "KeyAction.002") {
+        if (animation.name === "KeyAction") {
           action.name = 'Animacion1';
           action.loop = THREE.LoopRepeat;
           action.clampWhenFinished = true;

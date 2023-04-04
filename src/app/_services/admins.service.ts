@@ -319,6 +319,12 @@ public getAllOfertas(): Observable<any> {
   const url = `${this.urlAdmin}/oferta/consultarTodos`;
   return this.http.get(url);
 }
+
+public buscarOfertaId(idProducto): Observable<any> {
+  const url = `${this.urlAdmin}/oferta/consultarPorIdProducto?=${idProducto}`;
+  return this.http.get(url, {});
+ 
+}
 //Fin de Oferta Pregunta
 }
 
