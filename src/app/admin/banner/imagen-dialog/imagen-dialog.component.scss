@@ -8,6 +8,7 @@
     height: 100%;
 }
 
-::ng-deep .mat-dialog-container{
-    padding: 0px;
-}
+.my-dialog-class .mat-dialog-container {
+    padding: 0px !important;
+  }
+  

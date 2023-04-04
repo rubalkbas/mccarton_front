@@ -7,6 +7,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { BannerComponent } from './banner.component';
 import { ImagenDialogComponent } from './imagen-dialog/imagen-dialog.component';
 import { BannerDialogComponent } from './banner-dialog/banner-dialog.component';
+import { InputFileModule } from 'ngx-input-file';
 
 export const routes: Routes = [
   { path: '', component: BannerComponent, pathMatch: 'full' }
@@ -23,7 +24,8 @@ export const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     SharedModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    InputFileModule
   ]
 })
 export class BannerModule { }
