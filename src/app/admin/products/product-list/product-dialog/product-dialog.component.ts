@@ -70,7 +70,6 @@ export class OfertaDialogComponent implements OnInit {
   public onSubmit() {
     
     if(this.modoEditar==false){
-      console.log("entrando....")
       const tipoOferta = this.formulario.get('tipoOferta')?.value;
         const descuentoEnPorcentaje = this.formulario.get('descuentoEnPorcentaje')?.value;
         const fechaInicio = this.formulario.get('fechaInicio')?.value;
@@ -81,6 +80,7 @@ export class OfertaDialogComponent implements OnInit {
         const numeroUso = this.formulario.get('numeroUso')?.value;
         const estatus=this.formulario.get('estatus')?.value;
         
+        console.log(fechaInicio)
         this.AdminService.crearOferta
         (this.idProducto,
           tipoOferta, codigoOferta,
