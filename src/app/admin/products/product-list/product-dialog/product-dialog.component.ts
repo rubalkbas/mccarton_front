@@ -47,28 +47,59 @@ export class OfertaDialogComponent implements OnInit {
         this.data = resp.response
         console.log(this.data)
         this.modoEditar = true;
-
         this.formulario.patchValue({
           idOferta: this.data.idOferta,
           tipoOferta: this.data.tipoOferta,
           descuentoEnPorcentaje: this.data.descuentoEnPorcentaje,
           codigoOferta: this.data.codigoOferta,
-          fechaInicio: this.data.fechaFin,
+          fechaInicio: this.data.fechaInicio,
+          fechaFin: this.data.fechaFin,
           descripcion: this.data.descripcion,
           condicionesOferta: this.data.condicionesOferta,
           numeroUso: this.data.numeroUso,
           estatus: this.data.estatus
         });
-
+        this.formulario.controls['estatus'].disable();
       }
     });
 
+    console.log(this.modoEditar)
   }
+  
 
   public onSubmit() {
     
-    if (this.modoEditar){
+    if(this.modoEditar==false){
+      console.log("entrando....")
+      const tipoOferta = this.formulario.get('tipoOferta')?.value;
+        const descuentoEnPorcentaje = this.formulario.get('descuentoEnPorcentaje')?.value;
+        const fechaInicio = this.formulario.get('fechaInicio')?.value;
+        const fechaFin = this.formulario.get('fechaFin')?.value;
+        const descripcion = this.formulario.get('descripcion')?.value;
+        const condicionesOferta = this.formulario.get('condicionesOferta')?.value;
+        const codigoOferta = this.formulario.get('codigoOferta')?.value;
+        const numeroUso = this.formulario.get('numeroUso')?.value;
+        const estatus=this.formulario.get('estatus')?.value;
+        
+        this.AdminService.crearOferta
+        (this.idProducto,
+          tipoOferta, codigoOferta,
+           descuentoEnPorcentaje,
+            fechaInicio, fechaFin,
+            descripcion, condicionesOferta,
+             numeroUso, estatus)
+             .subscribe(result => {
+          console.log(result)
+          Util.successMessage(result.mensaje);
+          this.dialogRef.close(result);
+          window.location.reload();
+        });
+    }
+    
+    else if (this.modoEditar==true){
       //Debe de actualizar la oferta existente
+    const idProducto=this.idProducto;
+    const idOferta=this.formulario.get('idOferta')?.value;
     const tipoOferta = this.formulario.get('tipoOferta')?.value;
     const descuentoEnPorcentaje = this.formulario.get('descuentoEnPorcentaje')?.value;
     const fechaInicio = this.formulario.get('fechaInicio')?.value;
@@ -78,42 +109,14 @@ export class OfertaDialogComponent implements OnInit {
     const codigoOferta = this.formulario.get('codigoOferta')?.value;
     const numeroUso = this.formulario.get('numeroUso')?.value;
 
-
-    this.AdminService.crearOferta
-    (this.idProducto, 
-      tipoOferta, codigoOferta,
-       descuentoEnPorcentaje,
-        fechaInicio, fechaFin, 
-        descripcion, condicionesOferta,
-         numeroUso)
-         .subscribe(result => {
-          //Debe de Emitir la Oferta Actualizada y cerrar el dialogo
-      console.log(result)
+    this.AdminService.editarOferta(idProducto,idOferta,tipoOferta,descuentoEnPorcentaje,fechaInicio,fechaFin,descripcion,condicionesOferta,codigoOferta,numeroUso).subscribe(result=>{
       Util.successMessage(result.mensaje);
       this.dialogRef.close(result);
       window.location.reload();
     });
+ 
   }
-else{
-  const tipoOferta = this.formulario.get('tipoOferta')?.value;
-    const descuentoEnPorcentaje = this.formulario.get('descuentoEnPorcentaje')?.value;
-    const fechaInicio = this.formulario.get('fechaInicio')?.value;
-    const fechaFin = this.formulario.get('fechaFin')?.value;
-    const descripcion = this.formulario.get('descripcion')?.value;
-    const condicionesOferta = this.formulario.get('condicionesOferta')?.value;
-    const codigoOferta = this.formulario.get('codigoOferta')?.value;
-    const numeroUso = this.formulario.get('numeroUso')?.value;
-    (this.idProducto, 
-      tipoOferta, codigoOferta,
-       descuentoEnPorcentaje,
-        fechaInicio, fechaFin, 
-        descripcion, condicionesOferta,
-         numeroUso).subscribe(result => {
-    console.log(result)
-    Util.successMessage(result.mensaje);
-    this.dialogRef.close(result);
-    window.location.reload();
-  });
-}
+
+
 }
 }

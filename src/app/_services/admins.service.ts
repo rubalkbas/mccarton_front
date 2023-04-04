@@ -285,7 +285,8 @@ public crearOferta(
   fechaInicio,fechaFin,
   descripcion,
   condicionesOferta,
-  numeroUso 
+  numeroUso ,
+  estatus
   ):
   Observable<any>{
   const url=`${this.urlAdmin}/oferta/guardar?idProducto=${idProducto}`;
@@ -298,7 +299,8 @@ public crearOferta(
     fechaFin: fechaFin,
     descripcion:descripcion,
     condicionesOferta: condicionesOferta,
-    numeroUso: numeroUso 
+    numeroUso: numeroUso,
+    estatus:estatus
   };
   return this.http.post(url, body);
 }
@@ -312,6 +314,7 @@ public editarOferta(
   fechaInicio,fechaFin,
   descripcion,
   condicionesOferta,
+  codigoOferta,
   numeroUso 
   ):
    Observable<any>{
@@ -323,6 +326,7 @@ public editarOferta(
     fechaInicio,fechaFin,
     descripcion,
     condicionesOferta,
+    codigoOferta,
     numeroUso 
   }; 
   return this.http.put(url, body);
