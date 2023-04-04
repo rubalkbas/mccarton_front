@@ -304,9 +304,27 @@ public crearOferta(
 }
 
 
-public editarOferta(idOferta,tipoOferta,descuentoEnPorcentaje,fechaInicio,fechaFin,descripcion,condicionesOferta,numeroUso ): Observable<any>{
-  const url=`${this.urlAdmin}/oferta/actualizar?idProducto=`;
-  const body = { idOferta,tipoOferta,descuentoEnPorcentaje,fechaInicio,fechaFin,descripcion,condicionesOferta,numeroUso }; 
+public editarOferta(
+  idProducto,
+  idOferta,
+  tipoOferta
+  ,descuentoEnPorcentaje,
+  fechaInicio,fechaFin,
+  descripcion,
+  condicionesOferta,
+  numeroUso 
+  ):
+   Observable<any>{
+  const url=`${this.urlAdmin}/oferta/actualizar?idProducto=${idProducto}`;
+  const body = 
+  { idOferta,
+    tipoOferta,
+    descuentoEnPorcentaje,
+    fechaInicio,fechaFin,
+    descripcion,
+    condicionesOferta,
+    numeroUso 
+  }; 
   return this.http.put(url, body);
 }
 
