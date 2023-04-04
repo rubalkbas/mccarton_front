@@ -19,6 +19,7 @@ import { MaterialDialogComponent } from './materials/material-dialog/material-di
 import { FollowersComponent } from '../followers/followers.component';
 import { OfertaDialogComponent } from './product-list/product-dialog/product-dialog.component';
 
+
 export const routes: Routes = [ 
   { path: '', redirectTo: 'product-list', pathMatch: 'full'},
   { path: 'categories', component: CategoriesComponent, data: { breadcrumb: 'Categories' } },

@@ -278,8 +278,9 @@ public eliminarPreguntaFrecuente(idPreguntaFrecuente): Observable<any> {
 
 
 public crearOferta(
-  
+  idProducto,
   tipoOferta,
+  codigoOferta,
   descuentoEnPorcentaje,
   fechaInicio,fechaFin,
   descripcion,
@@ -287,9 +288,11 @@ public crearOferta(
   numeroUso 
   ):
   Observable<any>{
-  const url=`${this.urlAdmin}/oferta/actualizar?idProducto=1`;
+  const url=`${this.urlAdmin}/oferta/guardar?idProducto=${idProducto}`;
   const body ={
+
     tipoOferta: tipoOferta,
+    codigoOferta:codigoOferta,
     descuentoEnPorcentaje: descuentoEnPorcentaje,
     fechaInicio: fechaInicio,
     fechaFin: fechaFin,

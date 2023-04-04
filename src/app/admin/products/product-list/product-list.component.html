@@ -21,7 +21,7 @@
                 <a [routerLink]="['/admin/products/add-product', product.idProducto]" mat-mini-fab color="primary" matTooltip="Editar"><mat-icon>edit</mat-icon></a>
                 <span class="px-1"> <a [routerLink]="['/admin/products/product-detail', product.idProducto]" mat-mini-fab color="primary" matTooltip="Ver">
                     <mat-icon>remove_red_eye</mat-icon></a></span>
-                    <button mat-mini-fab color="primary" (click)="openOfretaDialog(product.idProducto)"><mat-icon>add</mat-icon></button>
+                    <button mat-mini-fab color="primary" (click)="openOfretaDialog(product)"><mat-icon>add</mat-icon></button>
                 <!-- <button mat-mini-fab color="warn" matTooltip="Remove" (click)="remove(product)"><mat-icon>delete</mat-icon></button> 
                  <button mat-raised-button color="primary" (click)="openRolesDialog(null)">Añadir Rol</button>
                 -->
