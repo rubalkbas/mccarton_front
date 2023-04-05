@@ -133,6 +133,7 @@ public cambiarestatusoferta(data: any) {
     estatus = 1;
   }
 
+  console.log(estatus)
   this.AdminService.actualizarEstatusOferta(idOferta, estatus).subscribe(resp => {
     Util.successMessage(resp.mensaje);
     window.location.reload();

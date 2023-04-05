@@ -30,6 +30,8 @@ import { Clock } from 'three';
               </mat-tab>
             </mat-tab-group>
           </div>
+          <button id="btnplegar">Plegar</button>
+          <button id="btndesplegar">Desplegar</button>
         </div>
       </div>
     </div>
@@ -54,7 +56,7 @@ export class CajasComponent implements AfterViewInit {
     let model: THREE.Object3D;
 
     const gltfloader = new GLTFLoader();
-    gltfloader.load('assets/images/caja/francia.gltf', function (gltf) {
+    gltfloader.load('assets/images/caja/PLANOS.gltf', function (gltf) {
       model = gltf.scene;
       model.scale.set(1, 1, 1);
       model.traverse(function (child) {
@@ -66,17 +68,48 @@ export class CajasComponent implements AfterViewInit {
 
       const animations = gltf.animations;
       console.log(animations)
+      let action: THREE.AnimationAction;
       for (const animation of animations) {
-        const action = mixer.clipAction(animation);
-        if (animation.name === "Plane.003Action") {
+        action = mixer.clipAction(animation);
+        if (animation.name === "Key.003Action") {
           action.name = 'Animacion1';
-          action.loop = THREE.LoopRepeat;
+          action.setLoop(THREE.LoopRepeat, 1); // Se repetirá 1 vez
+          action.clampWhenFinished = true;
+        }
+        if (animation.name === "Key.003Action.001") {
+          action.name = 'Animacion2';
+          action.setLoop(THREE.LoopRepeat, 1); // Se repetirá 1 vez
           action.clampWhenFinished = true;
         }
       }
+      // Boton Plegar
+      const btnPlegar: HTMLButtonElement = document.getElementById('btnplegar') as HTMLButtonElement;
+      btnPlegar.addEventListener('click', () => {
+        playAnimation('Animacion1');
+        setTimeout(() => {
+          action.timeScale = 0;
+          action.setEffectiveWeight(1);
+          btnPlegar.disabled = true; // Desactivar botón Plegar
+          btnDesplegar.disabled = false; // Activar botón Desplegar
+        }, 4166);
+      });
+
+      // Boton Desplegar
+      const btnDesplegar: HTMLButtonElement = document.getElementById('btndesplegar') as HTMLButtonElement;
+      btnDesplegar.addEventListener('click', () => {
+        playAnimation('Animacion2');
+        setTimeout(() => {
+          action.timeScale = -1;
+          action.setEffectiveWeight(1);
+          const currentTime = action.getClip().duration - (3180 / 30);
+          action.time = currentTime;
+          btnPlegar.disabled = false; // Activar botón Plegar
+          btnDesplegar.disabled = true; // Desactivar botón Desplegar
+        }, 3180);
+      });
+
 
       scene.add(model);
-      playAnimation('Animacion1');
     });
 
     const clock = new THREE.Clock();
@@ -90,6 +123,19 @@ export class CajasComponent implements AfterViewInit {
     };
     animate();
 
+
+    function playAnimation(name: string) {
+      const action = mixer._actions.find(action => action.name === name);
+      if (action) {
+        action.reset();
+        const clip = action._clip;
+        action.setEffectiveTimeScale(1);
+        action.setEffectiveWeight(1);
+        action.play();
+        console.log(clip);
+        model.userData.animations = [clip];
+      }
+    }
     const orbit = new OrbitControls(camera, renderer.domElement);
     orbit.minDistance = 5;
     orbit.maxDistance = 20;
@@ -103,6 +149,8 @@ export class CajasComponent implements AfterViewInit {
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
     }
+
+
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
     scene.add(ambientLight);
 
@@ -115,22 +163,9 @@ export class CajasComponent implements AfterViewInit {
     directionalLight.shadow.camera.far = 500;
     scene.add(directionalLight);
 
-    function playAnimation(name: string) {
-      const action = mixer._actions.find(action => action.name === name);
-      if (action) {
-        const clip = action._clip;
-        action.setEffectiveTimeScale(1);
-        action.setEffectiveWeight(1);
-        action.play();
-        console.log(clip);
-        model.userData.animations = [clip];
-      }
-    }
-
     window.addEventListener('resize', onWindowResize);
     onWindowResize();
   }
-
 
 
 }
