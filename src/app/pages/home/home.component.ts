@@ -94,7 +94,7 @@ export class HomeComponent implements OnInit {
 
 
   public listarBanners(){
-    this.imagenBannerService.listarBanners().subscribe({
+    this.imagenBannerService.mostrarBannersActivos().subscribe({
       next: response =>{
         this.slides=[];
         response.response.forEach(data=>{
