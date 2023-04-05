@@ -331,6 +331,10 @@ public editarOferta(
   }; 
   return this.http.put(url, body);
 }
+public actualizarEstatusOferta(idOferta, estatus): Observable<any> {
+  const url = `${this.urlAdmin}/oferta/actualizarActivo?idOferta=${idOferta}&estatus=${estatus}`;
+  return this.http.put(url, {});
+}
 
 public getAllOfertasActivas(): Observable<any> {
   const url = `${this.urlAdmin}/oferta/consultarTodosActivos`;

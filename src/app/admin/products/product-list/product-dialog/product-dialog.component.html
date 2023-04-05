@@ -11,13 +11,13 @@
             <div fxFlex="600" fxFlex.gt-md="60" class="px-1">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>DescuentoEnPorcentaje</mat-label>
-                    <input class="inputRol" matInput formControlName="descuentoEnPorcentaje" required>
+                    <input class="inputRol" type="number" matInput formControlName="descuentoEnPorcentaje" required>
                 </mat-form-field>
             </div>
             <div fxFlex="600" fxFlex.gt-md="60" class="px-1">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>FechaInicio</mat-label>
-                    <input class="inputRol" matInput formControlName="fechaInicio" required type="datetime-local">
+                    <input class="inputRol"  matInput formControlName="fechaInicio" required type="datetime-local">
                 </mat-form-field>
             </div>
             <div fxFlex="600" fxFlex.gt-md="60" class="px-1">
@@ -47,25 +47,24 @@
             <div fxFlex="600" fxFlex.gt-md="60" class="px-1">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>NumeroUso</mat-label>
-                    <input class="inputRol" matInput formControlName="numeroUso" required>
+                    <input class="inputRol" type="number" matInput formControlName="numeroUso" required>
                 </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.gt-md="40" class="px-1">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Estatus</mat-label>
-                    <mat-select formControlName="estatus" required [value]="formulario.controls['estatus'].value">
-                        <mat-option [value]="1">Activo</mat-option>
-                        <mat-option [value]="0">Inactivo</mat-option>
-                      </mat-select>                      
-                </mat-form-field>
-            </div>
+            
+            
+            
+            
             
         </div>
     </div>
     <div mat-dialog-actions>
         <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
             <button mat-raised-button color="warn" type="button" mat-dialog-close>Close</button>
-            <button mat-raised-button color="primary" type="submit">Save</button>
+            <button  mat-raised-button color="primary" type="submit">Save</button>
+            <button mat-raised-button 
+            [ngClass]="{'activo': data.estatus === 1, 'inactivo': data.estatus === 0}" 
+            (click)="cambiarestatusoferta(data)">{{data.estatus === 1 ? 'Activo' : 'Inactivo'}}</button>
+
         </div>
     </div>
 </form>

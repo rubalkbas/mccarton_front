@@ -8,6 +8,7 @@ import { Util } from 'src/app/util/util';
 import { OfertaProducto } from '../../../../models/ofertaProducto';
 import { map } from 'rxjs';
 import { until } from 'protractor';
+import { Producto } from 'src/app/models/producto.model';
 
 @Component({
   selector: 'app-product-dialog',
@@ -18,6 +19,7 @@ export class OfertaDialogComponent implements OnInit {
   public formulario: FormGroup;
   public modoEditar: boolean = false;
   public idProducto = this.data.idProducto
+  product: Producto;
 
 
   constructor(public dialogRef: MatDialogRef<OfertaDialogComponent>,
@@ -118,5 +120,22 @@ export class OfertaDialogComponent implements OnInit {
   }
 
 
+}
+public cambiarestatusoferta(data: any) {
+  const idOferta = data.idOferta;
+  let estatus = data.estatus;
+  console.log(idOferta, estatus);
+
+  // Invierte el valor de estatus usando una expresión condicional if
+  if (estatus === 1) {
+    estatus = 0;
+  } else {
+    estatus = 1;
+  }
+
+  this.AdminService.actualizarEstatusOferta(idOferta, estatus).subscribe(resp => {
+    Util.successMessage(resp.mensaje);
+    window.location.reload();
+  });
 }
 }
