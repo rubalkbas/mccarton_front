@@ -15,6 +15,7 @@ import { FullScreenComponent } from './components/fullscreen/fullscreen.componen
 import { MessagesComponent } from './components/messages/messages.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { BannerComponent } from './banner/banner.component';
+import { OrdenesComponent } from './ordenes/ordenes.component';
 
 export const routes = [ 
   { 
@@ -34,7 +35,8 @@ export const routes = [
       { path: 'followers', loadChildren: () => import('./followers/followers.module').then(m => m.FollowersModule), data: { breadcrumb: 'Followers' } },
       { path: 'support', loadChildren: () => import('./support/support.module').then(m => m.SupportModule), data: { breadcrumb: 'Support' } },
       { path: 'reviews', loadChildren: () => import('./reviews/reviews.module').then(m => m.ReviewsModule), data: { breadcrumb: 'Reviews' } },  
-      { path: 'banner', loadChildren: () => import('./banner/banner.module').then(m => m.BannerModule), data: { breadcrumb: 'Banner' } }  
+      { path: 'banner', loadChildren: () => import('./banner/banner.module').then(m => m.BannerModule), data: { breadcrumb: 'Banner' } },  
+      { path: 'ordenes', loadChildren: () => import('./ordenes/ordenes.module').then(m => m.OrdenesModule), data: { breadcrumb: 'Ordenes' } }  
     ]
   } 
 ];

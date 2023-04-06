@@ -1,0 +1,19 @@
+export class Ordenes{
+    idOrden:number;
+    calle:string;
+    numeroExterior:string
+    numeroInterior:string;
+    codigoPostal:string;
+    colonia:string;
+    entreCalle1:string;
+    entreCalle2:string;
+    ciudad:string;
+    telefono:string
+    impuesto:number;
+    subTotal:number;
+    total:number;
+    fechaOrden:Date;
+    metodoPago:string;
+    estatusOrden:string;
+    cliente:any;
+}

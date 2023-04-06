@@ -1,0 +1,49 @@
+<div class="p-1">
+    <mat-card class="p-0"> 
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
+            <h2>Lista de Ordenes</h2>  
+        </div>
+        <mat-divider></mat-divider>
+        <div class="mat-table admin-table">
+            <div class="mat-header-row">
+                <div class="mat-header-cell" id="columnas">Calle</div>
+                <div class="mat-header-cell" id="columnas">Numero exterior</div>
+                <div class="mat-header-cell" id="columnas">Numero interior</div>
+                <div class="mat-header-cell" id="columnas">Codigo postal</div>
+                <div class="mat-header-cell" id="columnas">Colonia</div>
+                <div class="mat-header-cell" id="columnas">Entre calle 1</div>
+                <div class="mat-header-cell" id="columnas">Entre calle 2</div>
+                <div class="mat-header-cell" id="columnas">Ciudad</div>
+                <div class="mat-header-cell" id="columnas">Telefono</div>
+                <div class="mat-header-cell" id="columnas">Impuesto</div>
+                <div class="mat-header-cell" id="columnas">SubTotal</div>
+                <div class="mat-header-cell" id="columnas">Total</div>
+                <div class="mat-header-cell" id="columnas">Fecha de orden</div>
+            </div>
+            <div *ngFor="let orden of ordenes | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row">
+                <div class="mat-cell" id="columnas2">{{orden.calle}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.numeroExterior}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.numeroInterior}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.codigoPostal}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.colonia}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.entreCalle1}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.entreCalle2}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.ciudad}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.telefono}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.impuesto}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.subTotal}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.total}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.fechaOrden | date:'dd/MM/yyyy'}}</div>
+                </div>      
+            </div>
+        
+    </mat-card>
+
+    <div *ngIf="ordenes.length > 0" fxLayout="row wrap">
+        <div fxFlex="100"> 
+            <mat-card class="p-0 text-center">           
+                <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
+            </mat-card>
+        </div>
+    </div>
+</div>
