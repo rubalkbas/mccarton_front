@@ -1,37 +1,31 @@
 <div class="p-1">
     <mat-card class="p-0"> 
         <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
-            <h2>Lista de cupones</h2>  
-            <button mat-raised-button color="primary" (click)="openCouponDialog(null)">Añadir cupon</button>
+            <h2>Lista de Ofertas</h2>  
+            <button mat-raised-button color="primary" (click)="openCouponDialog(null)">Añadir Oferta</button>
         </div>
         <mat-divider></mat-divider>
         <div class="mat-table admin-table">
             <div class="mat-header-row">
-                <div class="mat-header-cell" id="columnas">Titulo</div>
-                <div class="mat-header-cell" id="columnas">Codigo</div> 
-                <div class="mat-header-cell" id="columnas">Tipo de Descuento</div>
-                <div class="mat-header-cell" id="columnas">Importe</div>
-                <div class="mat-header-cell" id="columnas">Tienda</div>
-                <div class="mat-header-cell" id="columnas">Límite de uso</div>
-                <div class="mat-header-cell" id="columnas">Fecha de caducidad<caption></caption></div>
-                <div class="mat-header-cell" id="columnas">Acciones</div>
+                <div class="mat-header-cell" id="columnas">Codigo de Oferta</div>
+                <div class="mat-header-cell" id="columnas">Tipo de Oferta</div> 
+                <div class="mat-header-cell" id="columnas">Descuento</div>
+                <div class="mat-header-cell" id="columnas">Descripcion</div>
+                <div class="mat-header-cell" id="columnas">Fecha Fin<caption></caption></div>
+                <div class="mat-header-cell" id="columnas">Estatus</div>
             </div>
-            <div *ngFor="let coupon of coupons | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row">
-                <div class="mat-cell" id="columnas2">{{coupon.title}}</div>
-                <div class="mat-cell" id="columnas2"> Discount <span class="primary-text">{{coupon.code}}</span></div>
-                <div class="mat-cell" id="columnas2">{{ ( discountTypes | filterById : coupon.discountType )?.name }}</div>
-                <div class="mat-cell" id="columnas2">{{coupon.amount}}</div>
-                <div class="mat-cell" id="columnas2">{{ ( stores | filterById : coupon.storeId )?.name }}</div> 
-                <div class="mat-cell" id="columnas2">{{coupon.limit.perCoupon}}</div>
-                <div class="mat-cell" id="columnas2">{{coupon.expiryDate | date:"dd MMMM, yyyy"}}</div>     
+
+            <div *ngFor="let oferta of ofertasProducto | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row">
+                <div class="mat-cell" id="columnas2">{{oferta.codigoOferta}}</div>
+                <div class="mat-cell" id="columnas2">{{oferta.tipoOferta}}</div>
+                <div class="mat-cell" id="columnas2">{{oferta.descuentoEnPorcentaje}}</div>
+                <div class="mat-cell" id="columnas2">{{oferta.descripcion}}</div> 
+                <div class="mat-cell" id="columnas2">{{oferta.fechaFin}}</div> 
                 <div class="mat-cell" id="columnas2">
                     <div class="p-1 actions">          
-                        <button mat-mini-fab color="primary" matTooltip="Edit" (click)="openCouponDialog(coupon)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-mini-fab color="warn" matTooltip="Delete" class="mx-1" (click)="remove(coupon)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
+                        <button class="button-estatus" [ngClass]="{'activo': oferta.estatus === 1, 'inactivo': oferta.estatus === 0}"
+                    (click)="cambiarestatusoferta(oferta)">{{oferta.estatus === 1 ? 'Activa' : 'Inactiva'}}</button> 
+                       
                     </div>
                 </div>      
             </div>

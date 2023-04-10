@@ -23,6 +23,8 @@ export class ProductListComponent implements OnInit {
   public count = 12;
   public imagen: any;
   public oferta: [] = [];
+  //Nuevos Export 
+  
 
   constructor
   (public appService:AppService, 

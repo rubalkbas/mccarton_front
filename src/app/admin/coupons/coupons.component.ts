@@ -6,6 +6,14 @@ import { CouponDialogComponent } from './coupon-dialog/coupon-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { Category } from 'src/app/app.models';
 import { AppSettings, Settings } from 'src/app/app.settings';
+import { OfertaDialogComponent } from '../products/product-list/product-dialog/product-dialog.component';
+import { Util } from 'src/app/util/util';
+import { AdminService } from 'src/app/_services/admins.service';
+import { OfertaProducto } from 'src/app/models/ofertaProducto';
+import { error } from 'console';
+import { Producto } from 'src/app/models/producto.model';
+
+
 
 @Component({
   selector: 'app-coupons',
@@ -13,6 +21,8 @@ import { AppSettings, Settings } from 'src/app/app.settings';
   styleUrls: ['./coupons.component.scss']
 })
 export class CouponsComponent implements OnInit {
+  public ofertasProducto: OfertaProducto[]= [];
+  public productos: Producto[] = [];
   public coupons = [];
   public stores = [
     { id: 1, name: 'Store 1' },
@@ -27,14 +37,27 @@ export class CouponsComponent implements OnInit {
   public page: any;
   public count = 6;
   public settings:Settings;
-  constructor(public appService:AppService, public dialog: MatDialog, public appSettings:AppSettings) {
+
+  constructor(public appService:AppService, 
+    public dialog: MatDialog,
+     public appSettings:AppSettings,
+    private AdminService: AdminService,
+    
+    ) {
     this.settings = this.appSettings.settings;
   }
 
   ngOnInit(): void {
-    this.coupons = coupons; 
-    this.getCategories();
+
+    this.AdminService.getAllOfertas().subscribe(resp =>{
+      console.log(resp.response)
+      this.ofertasProducto = resp.response;
+    }, error => {console.error(error)})
+    
+    //this.coupons = coupons; 
+    //this.getCategories();
   }
+
 
   public getCategories(){   
     this.appService.getCategories().subscribe(data => {
@@ -92,5 +115,22 @@ export class CouponsComponent implements OnInit {
       } 
     }); 
   }
-
-}
+  public cambiarestatusoferta(oferta: any) {
+    const idOferta = oferta.idOferta;
+    let estatus = oferta.estatus;
+    console.log(idOferta, estatus);
+  
+    // Invierte el valor de estatus usando una expresión condicional if
+    if (estatus === 1) {
+      estatus = 0;
+    } else {
+      estatus = 1;
+    }
+  
+    console.log(estatus)
+    this.AdminService.actualizarEstatusOferta(idOferta, estatus).subscribe(resp => {
+      Util.successMessage(resp.mensaje);
+      window.location.reload();
+    });
+  }
+  }
