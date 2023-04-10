@@ -16,6 +16,86 @@
     padding: 10%;  
     background-color: white;
  }
-.card-form{
-  
+ .botones{
+  position: absolute;
+  margin-left: 40%;
+ }
+#btnabrir{
+margin-top: 20px;
+width: 90px;
+height: 40px;
+background-color: #1AD079;
+border-radius: 10px;
+color: #fff;
+border-color: white;
+font-family: IBM Plex Sans;
+font-size: 18px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.001em;
+border: none;
+margin-left: -100px;
 }
+#btncerrar{
+margin-top: 20px;
+width: 90px;
+height: 40px;
+margin-left: 10px;
+background-color: #1AD079;
+border-radius: 10px;
+color: #fff;
+border-color: white;
+font-family: IBM Plex Sans;
+font-size: 18px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.001em;
+text-align: center;
+border: none;
+}
+
+#btnplegar{
+  margin-top: 20px;
+  width: 90px;
+  height: 40px;
+  background-color: #1AD079;
+  border-radius: 10px;
+  color: #fff;
+  border-color: white;
+  font-family: IBM Plex Sans;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.001em;
+  border: none;
+  margin-left: 10px;
+  }
+  #btndesplegar{
+  margin-top: 20px;
+  width: 90px;
+  height: 40px;
+  margin-left: -100px;
+
+  background-color: #1AD079;
+  border-radius: 10px;
+  color: #fff;
+  border-color: white;
+  font-family: IBM Plex Sans;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.001em;
+  text-align: center;
+  border: none;
+  }
+  
+  .btnColo {
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+  
