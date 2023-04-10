@@ -29,7 +29,8 @@ import { Colores } from '../../models/color.model';
               <button id="btnColores" class="btnColo" style="background-color:#427aaf ;" value="427aaf"></button>
               </mat-tab>
               <mat-tab label="Grosores">
-
+              <button id="btnmicro" class="boton-redondo"></button>
+              <button class="boton-redondo" id="btndos" ></button>
               </mat-tab>
             </mat-tab-group>
           </div>
@@ -37,11 +38,11 @@ import { Colores } from '../../models/color.model';
         </div>
       </div>
       <div class="botones">
-      <button id="btnabrir">Abrir</button>
-      <button id="btncerrar">Cerrar</button>
-      <br>
-      <button id="btndesplegar">Desplegar</button>
-      <button id="btnplegar">Plegar</button>
+        <button id="btnabrir">Abrir</button>
+        <button id="btncerrar">Cerrar</button>
+        <br>
+        <button id="btndesplegar">Desplegar</button>
+        <button id="btnplegar">Plegar</button>
       </div>
     </div>
   `,
@@ -132,8 +133,10 @@ export class CajasComponent implements AfterViewInit {
         }
 
       }
-
       // Boton Abrir
+      const btnmicro: HTMLButtonElement = document.getElementById('btnmicro') as HTMLButtonElement;
+      console.log(btnmicro)
+
       const btnAbrir: HTMLButtonElement = document.getElementById('btnabrir') as HTMLButtonElement;
       btnAbrir.addEventListener('click', () => {
         playAnimation('Animacion1', false);
@@ -174,6 +177,7 @@ export class CajasComponent implements AfterViewInit {
         btnCerrar.style.display = 'none';
         btnPlegar.style.display = 'inline-block';
       });
+
       scene.add(model);
     });
 
@@ -194,6 +198,32 @@ export class CajasComponent implements AfterViewInit {
     }
     function playAnimation(name: string, reverse: boolean) {
       stopAllAnimations();
+      const action = mixer._actions.find(action => action.name === name);
+      if (reverse) {
+        if (action) {
+          action.reset();
+          const clip = action._clip;
+          action.setEffectiveTimeScale(-1);
+          action.setEffectiveWeight(1);
+          action.play();
+          console.log(clip);
+          model.userData.animations = [clip];
+          console.log(model)
+        }
+      }
+      else {
+        if (action) {
+          action.reset();
+          const clip = action._clip;
+          action.setEffectiveTimeScale(1);
+          action.setEffectiveWeight(2);
+          action.play();
+          console.log(clip);
+          model.userData.animations = [clip];
+        }
+      }
+    }
+    function playAnimation2(name: string, reverse: boolean) {
       const action = mixer._actions.find(action => action.name === name);
       if (reverse) {
         if (action) {

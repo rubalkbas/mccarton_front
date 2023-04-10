@@ -9,6 +9,8 @@ import { Category } from "../app.models";
 import { SingleResponse } from "../models/response.model";
 import { Cliente } from '../models/cliente.model';
 import { Imagen } from "../models/imagen.model";
+import { map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root",
@@ -19,6 +21,7 @@ export class AdminService {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
+  token:any;
   constructor(private http: HttpClient) { }
 
   public listarMateriales(): Observable<any> {
@@ -103,10 +106,27 @@ export class AdminService {
       return this.http.post<SingleResponse<Cliente>>(`${this.urlAdmin}/registro/cliente`,cliente, { headers: headers });
     }
 
-    public loginCliente(cliente: Cliente): Observable<any> {
-      return this.http.post<any>(`${this.urlAdmin}/clientes/loginCliente`, cliente);
+  
+    public autenticacionCliente(correoElectronico: string, password: string): Observable<Cliente[]> {
+      const complemento = "/loginCliente";
+      const cliente = {
+        correoElectronico:correoElectronico,
+        password: password
+      };
+      return this.http.post<Cliente[]>(this.urlAdmin + complemento, cliente, { observe: 'response' })
+        .pipe(
+          tap(response => {
+            const expiresIn = 60; // tiempo en segundos
+            const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+            this.token = response.headers.get('Authorization');
+            console.log('Token:', this.token);
+            localStorage.setItem('authTokenExpiration', expirationDate.toISOString());
+            localStorage.setItem('access_token', this.token);
+          }),
+          map(response => response.body || [])
+        );
     }
-    
+
     public listarClientes(): Observable<any> {
       return this.http.get(`${this.urlAdmin}/clientes/todos`, this.httpOptions);
     }

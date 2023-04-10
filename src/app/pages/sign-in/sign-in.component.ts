@@ -6,6 +6,7 @@ import { emailValidator, matchingPasswords } from '../../theme/utils/app-validat
 import { AdminService } from '../../_services/admins.service';
 import { Cliente } from '../../models/cliente.model';
 import { Util } from '../../util/util';
+import { until } from 'protractor';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -62,15 +63,10 @@ export class SignInComponent implements OnInit {
     formData.append('correoElectronico', this.cliente.correoElectronico);
     formData.append('password', this.cliente.password);
     
-    this.adminService.loginCliente(this.cliente).subscribe(
+    console.log(this.cliente.correoElectronico,this.cliente.password)
+    this.adminService.autenticacionCliente(this.cliente.correoElectronico,this.cliente.password).subscribe(
       response=>{
-        Util.successMessage(response.mensaje);
-        console.log(response);
-        localStorage.setItem('token', response.response.token);
-        localStorage.setItem('response', response.response);
-        console.log(response.response.token);
-        this.loginForm.reset();
-        this.router.navigate(['/account']);
+       console.log("Buen token")
       }
     )
   }

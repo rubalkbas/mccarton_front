@@ -99,3 +99,20 @@ border: none;
     cursor: pointer;
   }
   
+  .boton-redondo{
+    margin-top: 20px;
+    width:100px;
+    height: 100px;
+    margin-left: 10px;
+    border-radius: 50%;
+  }
+  #btnmicro{
+    background-image: url('../../../assets/images/caja/microplus.png');
+    background-position: center;
+    background-size:cover
+  }
+  #btndos{
+    background-image: url('../../../assets/images/caja/dosondas.png');
+    background-position: center;
+    background-size:cover
+  }
