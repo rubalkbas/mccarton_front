@@ -2,7 +2,8 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { Clock } from 'three';
+import { AdminService } from '../../_services/admins.service';
+import { Colores } from '../../models/color.model';
 
 @Component({
   selector: 'app-cajas',
@@ -20,19 +21,27 @@ import { Clock } from 'three';
           <div class="formularios">
             <mat-tab-group color="green">
               <mat-tab label="Colores">
-
-              </mat-tab>
-              <mat-tab label="Tamaños">
-
+              <button id="btnColores" class="btnColo" style="background-color:#c69d6d ;" value="c69d6d"></button>
+              <button id="btnColores" class="btnColo" style="background-color:#ffffff ;" value="ffffff"></button>
+              <button id="btnColores" class="btnColo" style="background-color:#212121 ;" value="212121"></button>
+              <button id="btnColores" class="btnColo" style="background-color:#c74f62;" value="c74f62"></button>
+              <button id="btnColores" class="btnColo" style="background-color:#5a836f ;" value="5a836f"></button>
+              <button id="btnColores" class="btnColo" style="background-color:#427aaf ;" value="427aaf"></button>
               </mat-tab>
               <mat-tab label="Grosores">
 
               </mat-tab>
             </mat-tab-group>
           </div>
-          <button id="btnplegar">Plegar</button>
-          <button id="btndesplegar">Desplegar</button>
+
         </div>
+      </div>
+      <div class="botones">
+      <button id="btnabrir">Abrir</button>
+      <button id="btncerrar">Cerrar</button>
+      <br>
+      <button id="btndesplegar">Desplegar</button>
+      <button id="btnplegar">Plegar</button>
       </div>
     </div>
   `,
@@ -41,7 +50,10 @@ import { Clock } from 'three';
 export class CajasComponent implements AfterViewInit {
   @ViewChild('threeCanvas') private threeCanvasRef: ElementRef<HTMLCanvasElement>;
 
-  constructor() { }
+  listaColores: Colores[] = [];
+
+  constructor(public adminService: AdminService,
+  ) { }
   public ngAfterViewInit(): void {
     const threeCanvas = this.threeCanvasRef.nativeElement;
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: threeCanvas });
@@ -49,68 +61,122 @@ export class CajasComponent implements AfterViewInit {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(30, threeCanvas.clientWidth / threeCanvas.clientHeight, 0.5, 1500);
-    camera.position.set(-10, 20, 10);
+    camera.position.set(-5, 40, 10);
 
     const mixer = new THREE.AnimationMixer(scene);
 
     let model: THREE.Object3D;
-
+    let exterior = new THREE.Material;
     const gltfloader = new GLTFLoader();
-    gltfloader.load('assets/images/caja/PLANOS.gltf', function (gltf) {
+    gltfloader.load('assets/images/caja/cajita_grosor_2/cajita_grosor_2.gltf', function (gltf) {
       model = gltf.scene;
-      model.scale.set(1, 1, 1);
+      model.scale.set(0.25, 0.25, 0.25);
+
+      // MATERIALES
       model.traverse(function (child) {
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
+          console.log(child.material);
+          if (child.material.name === 'carton_interior') {
+            const texture = new THREE.TextureLoader().load('assets/images/caja/textura.jpg');
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            child.material.map = texture;
+            child.material.bumpMap = texture;
+            child.material.bumpScale = 0.1;
+          }
+          if (child.material.name === 'EXTERIOR') {
+            exterior = child.material
+          }
+          /*
+          if (child.material.name === 'Carton_medio') {
+            const texture = new THREE.TextureLoader().load('assets/images/caja/corrugado.png');
+            texture.wrapS = THREE.RepeatWrapping;
+            child.material.map = texture;
+            child.material.color.set(0xc69d6d)
+          }
+          */
+
         }
       });
-
+      const btnColores = document.querySelectorAll('.btnColo');
+      btnColores.forEach(btnColor => {
+        btnColor.addEventListener('click', () => {
+          const valor = (btnColor as HTMLButtonElement).value;
+          const valorHexadecimal = parseInt("0x" + valor);
+          exterior.color.set(valorHexadecimal)
+          console.log(valor)
+        });
+      });
+      //ANIMACIONES
       const animations = gltf.animations;
       console.log(animations)
       let action: THREE.AnimationAction;
       for (const animation of animations) {
         action = mixer.clipAction(animation);
-        if (animation.name === "Key.003Action") {
+        if (animation.name === "ABIERTA") {
           action.name = 'Animacion1';
           action.setLoop(THREE.LoopRepeat, 1); // Se repetirá 1 vez
           action.clampWhenFinished = true;
         }
-        if (animation.name === "Key.003Action.001") {
+        if (animation.name === "DESPLEGADA_2") {
           action.name = 'Animacion2';
           action.setLoop(THREE.LoopRepeat, 1); // Se repetirá 1 vez
           action.clampWhenFinished = true;
         }
+        if (animation.name === "Key.002Action") {
+          action.name = 'Animacion3';
+          action.setLoop(THREE.LoopRepeat, 1); // Se repetirá 1 vez
+          action.clampWhenFinished = true;
+        }
+
       }
+
+      // Boton Abrir
+      const btnAbrir: HTMLButtonElement = document.getElementById('btnabrir') as HTMLButtonElement;
+      btnAbrir.addEventListener('click', () => {
+        playAnimation('Animacion1', false);
+        btnAbrir.style.display = 'none';
+        btnDesplegar.style.display = 'none';
+        btnCerrar.style.display = 'inline-block';
+        btnPlegar.style.display = 'none';
+      });
+
+      // Boton Cerrar
+      const btnCerrar: HTMLButtonElement = document.getElementById('btncerrar') as HTMLButtonElement;
+      btnCerrar.style.display = 'none'; // Ocultar el botón "cerrar" al principio
+      btnCerrar.addEventListener('click', () => {
+        playAnimation('Animacion1', true);
+        btnAbrir.style.display = 'inline-block';
+        btnDesplegar.style.display = 'inline-block';
+        btnCerrar.style.display = 'none';
+        btnPlegar.style.display = 'none';
+      });
+
       // Boton Plegar
       const btnPlegar: HTMLButtonElement = document.getElementById('btnplegar') as HTMLButtonElement;
+      btnPlegar.style.display = 'none'; // Ocultar el botón "plegar" al principio
       btnPlegar.addEventListener('click', () => {
-        playAnimation('Animacion1');
-        setTimeout(() => {
-          action.timeScale = 0;
-          action.setEffectiveWeight(1);
-          btnPlegar.disabled = true; // Desactivar botón Plegar
-          btnDesplegar.disabled = false; // Activar botón Desplegar
-        }, 4166);
+        playAnimation('Animacion2', true);
+        btnAbrir.style.display = 'inline-block';
+        btnDesplegar.style.display = 'inline-block';
+        btnCerrar.style.display = 'none';
+        btnPlegar.style.display = 'none';
       });
 
       // Boton Desplegar
       const btnDesplegar: HTMLButtonElement = document.getElementById('btndesplegar') as HTMLButtonElement;
       btnDesplegar.addEventListener('click', () => {
-        playAnimation('Animacion2');
-        setTimeout(() => {
-          action.timeScale = -1;
-          action.setEffectiveWeight(1);
-          const currentTime = action.getClip().duration - (3180 / 30);
-          action.time = currentTime;
-          btnPlegar.disabled = false; // Activar botón Plegar
-          btnDesplegar.disabled = true; // Desactivar botón Desplegar
-        }, 3180);
+        playAnimation('Animacion2', false);
+        btnAbrir.style.display = 'none';
+        btnDesplegar.style.display = 'none';
+        btnCerrar.style.display = 'none';
+        btnPlegar.style.display = 'inline-block';
       });
-
-
       scene.add(model);
     });
+
 
     const clock = new THREE.Clock();
 
@@ -123,17 +189,34 @@ export class CajasComponent implements AfterViewInit {
     };
     animate();
 
-
-    function playAnimation(name: string) {
+    function stopAllAnimations() {
+      mixer.stopAllAction();
+    }
+    function playAnimation(name: string, reverse: boolean) {
+      stopAllAnimations();
       const action = mixer._actions.find(action => action.name === name);
-      if (action) {
-        action.reset();
-        const clip = action._clip;
-        action.setEffectiveTimeScale(1);
-        action.setEffectiveWeight(1);
-        action.play();
-        console.log(clip);
-        model.userData.animations = [clip];
+      if (reverse) {
+        if (action) {
+          action.reset();
+          const clip = action._clip;
+          action.setEffectiveTimeScale(-1);
+          action.setEffectiveWeight(1);
+          action.play();
+          console.log(clip);
+          model.userData.animations = [clip];
+          console.log(model)
+        }
+      }
+      else {
+        if (action) {
+          action.reset();
+          const clip = action._clip;
+          action.setEffectiveTimeScale(1);
+          action.setEffectiveWeight(2);
+          action.play();
+          console.log(clip);
+          model.userData.animations = [clip];
+        }
       }
     }
     const orbit = new OrbitControls(camera, renderer.domElement);
@@ -165,9 +248,12 @@ export class CajasComponent implements AfterViewInit {
 
     window.addEventListener('resize', onWindowResize);
     onWindowResize();
+
+    this.adminService.listarColoresActivos().subscribe(colores => {
+      this.listaColores = colores.response;
+      console.log(this.listaColores);
+    })
   }
-
-
 }
 
 
