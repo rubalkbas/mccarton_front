@@ -110,13 +110,13 @@ export class AdminService {
     public autenticacionCliente(correoElectronico: string, password: string): Observable<Cliente[]> {
       const complemento = "/loginCliente";
       const cliente = {
-        correoElectronico:correoElectronico,
+        email:correoElectronico,
         password: password
       };
       return this.http.post<Cliente[]>(this.urlAdmin + complemento, cliente, { observe: 'response' })
         .pipe(
           tap(response => {
-            const expiresIn = 60; // tiempo en segundos
+            const expiresIn = 300; // tiempo en segundos
             const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
             this.token = response.headers.get('Authorization');
             console.log('Token:', this.token);
