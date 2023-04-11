@@ -19,30 +19,29 @@ import { Colores } from '../../models/color.model';
       <div fxFlex.gt-xs="50" fxFlex.gt-md="50" fxFlex="100">
         <div class="card-form" fxLayout="row" fxLayoutAlign="start center">
           <div class="formularios">
-            <mat-tab-group color="green">
-              <mat-tab label="Colores">
+              <h2 class="titulo">Colores</h2>
               <button id="btnColores" class="btnColo" style="background-color:#c69d6d ;" value="c69d6d"></button>
               <button id="btnColores" class="btnColo" style="background-color:#ffffff ;" value="ffffff"></button>
               <button id="btnColores" class="btnColo" style="background-color:#212121 ;" value="212121"></button>
               <button id="btnColores" class="btnColo" style="background-color:#c74f62;" value="c74f62"></button>
               <button id="btnColores" class="btnColo" style="background-color:#5a836f ;" value="5a836f"></button>
               <button id="btnColores" class="btnColo" style="background-color:#427aaf ;" value="427aaf"></button>
-              </mat-tab>
-              <mat-tab label="Grosores">
-              <button id="btnmicro" class="boton-redondo"></button>
-              <button class="boton-redondo" id="btndos" ></button>
-              </mat-tab>
-            </mat-tab-group>
+              <div class="grosor">
+                <h2 class="titulo">Grosores</h2>
+                <button id="btnmicro" class="boton-redondo"></button>
+                <button class="boton-redondo" id="btndos" ></button>
+              </div>
+
           </div>
 
         </div>
       </div>
       <div class="botones">
-        <button id="btnabrir">Abrir</button>
-        <button id="btncerrar">Cerrar</button>
-        <br>
-        <button id="btndesplegar">Desplegar</button>
-        <button id="btnplegar">Plegar</button>
+      <button id="btnabrir">Abrir</button>
+      <button id="btncerrar">Cerrar</button>
+      <br>
+      <button id="btndesplegar">Desplegar</button>
+      <button id="btnplegar">Plegar</button>
       </div>
     </div>
   `,
@@ -71,7 +70,7 @@ export class CajasComponent implements AfterViewInit {
     const gltfloader = new GLTFLoader();
     gltfloader.load('assets/images/caja/cajita_grosor_2/cajita_grosor_2.gltf', function (gltf) {
       model = gltf.scene;
-      model.scale.set(0.25, 0.25, 0.25);
+      model.scale.set(0.3, 0.3, 0.3);
 
       // MATERIALES
       model.traverse(function (child) {
@@ -135,7 +134,13 @@ export class CajasComponent implements AfterViewInit {
       }
       // Boton Abrir
       const btnmicro: HTMLButtonElement = document.getElementById('btnmicro') as HTMLButtonElement;
-      console.log(btnmicro)
+      btnmicro.addEventListener('click', () => {
+        playAnimation2('Animacion3', true);
+      });
+      const btndos: HTMLButtonElement = document.getElementById('btndos') as HTMLButtonElement;
+      btndos.addEventListener('click', () => {
+        playAnimation2('Animacion3', false);
+      });
 
       const btnAbrir: HTMLButtonElement = document.getElementById('btnabrir') as HTMLButtonElement;
       btnAbrir.addEventListener('click', () => {
