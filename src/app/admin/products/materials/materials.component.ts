@@ -89,7 +89,17 @@ export class MaterialComponent implements OnInit {
       }
     });
   }
-  
+  public filtrarTodos() {
+    window.location.reload();
+  }
+  public filtrarActivos() {
+    this.adminService.listarMaterialesActivos().subscribe(resp => {
+      console.log(resp.response)
+      this.listaMateriales = resp.response
+      this.dataSource = new MatTableDataSource<Materiales>(this.listaMateriales);
+    })
+  }
+
   public onPageChanged(event){
     this.page = event; 
     window.scrollTo(0,0); 

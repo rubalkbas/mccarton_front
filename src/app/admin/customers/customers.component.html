@@ -2,6 +2,14 @@
     <mat-card class="p-0">
         <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
             <h2>Lista de Clientes</h2>
+            <div class="checkbox">
+                <input id="checkbox1" type="checkbox" class="styled-checkbox1" (click)="filtrarTodos()"/>
+                <label for="checkbox1" class="styled-label1">Ver Todos</label>
+            </div>
+            <div class="checkbox">
+                <input id="checkbox" type="checkbox" class="styled-checkbox" (click)="filtrarActivos()"/>
+                <label for="checkbox" class="styled-label">Ver Activos</label>
+            </div>
         </div>
         <mat-divider></mat-divider>
         <div class="mat-table admin-table">

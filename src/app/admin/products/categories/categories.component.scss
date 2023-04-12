@@ -87,3 +87,41 @@ text-align: center;
     background-color: #fff !important;
   }
   
+
+  .styled-checkbox {
+    display: none;
+  }
+  .styled-label {
+    display: inline-block;
+    background-color: #f1f1f1;
+    border-radius: 20px;
+    border: 1px solid #d9d9d9;
+    color: #333;
+    padding: 8px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .styled-checkbox:checked + .styled-label {
+    background-color: #1877d2;;
+    border-color: #1877d2;;
+    color: #fff;
+  }
+  
+  .styled-checkbox1 {
+    display: none;
+  }
+  .styled-label1 {
+    display: inline-block;
+    background-color: #f1f1f1;
+    border-radius: 20px;
+    border: 1px solid #d9d9d9;
+    color: #333;
+    padding: 8px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .styled-checkbox1:checked + .styled-label {
+    background-color: #1877d2;;
+    border-color: #1877d2;;
+    color: #fff;
+  }

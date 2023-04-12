@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from 'src/app/app.service'; 
+import { AppService } from 'src/app/app.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomerDialogComponent } from './customer-dialog/customer-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
@@ -8,6 +8,7 @@ import { AppSettings, Settings } from 'src/app/app.settings';
 import { Cliente } from '../../models/cliente.model';
 import { AdminService } from '../../_services/admins.service';
 import { Util } from '../../util/util';
+import { response } from 'express';
 
 @Component({
   selector: 'app-customers',
@@ -15,32 +16,41 @@ import { Util } from '../../util/util';
   styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent implements OnInit {
-  cliente: Cliente[]=[];
+  cliente: Cliente[] = [];
   public customers = [];
   public page: any;
   public count = 6;
   constructor(
-    public adminService:AdminService
-    ) {
+    public adminService: AdminService
+  ) {
 
   }
 
   ngOnInit(): void {
-    this.adminService.listarClientes().subscribe(resp=>{
-      this.cliente=resp.response;
+    this.adminService.listarClientes().subscribe(resp => {
+      this.cliente = resp.response;
       console.log(resp.response)
-    }, error=>{console.error(error)})
+    }, error => { console.error(error) })
   }
 
-  public onPageChanged(event){
-
-  }
-
-  public openCustomerDialog(data:any){
+  public onPageChanged(event) {
 
   }
 
-  public remove(cliente:Cliente):void{
+  public openCustomerDialog(data: any) {
+
+  }
+  public filtrarTodos() {
+    window.location.reload();
+  }
+  public filtrarActivos() {
+    this.adminService.listarClientesActivos().subscribe(resp => {
+      console.log(resp.response)
+      this.cliente = resp.response
+    })
+  }
+
+  public remove(cliente: Cliente): void {
     this.adminService.eliminarCliente(cliente.idCliente).subscribe(
       (response) => {
         Util.successMessage(response.mensaje);

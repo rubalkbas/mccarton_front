@@ -24,6 +24,29 @@ export class AdminService {
   token: any;
   constructor(private http: HttpClient) { }
 
+  //CRUD ROLES
+
+  public getAllRoles(): Observable<any>{
+    const url=`${this.urlAdmin}/roles/todos`;
+    return this.http.get(url);
+  }
+
+  public saveRol(nombreRol, descripcionRol): Observable<any>{
+    const url=`${this.urlAdmin}/roles/nuevoRol`;
+    const body ={nombreRol: nombreRol, descripcionRol: descripcionRol};
+    return this.http.post(url, body);
+  }
+  
+  public editarRol(idRol, estatus): Observable<any>{
+    const url=`${this.urlAdmin}/roles/actualizarEstatusRol`;
+    const body = { idRol, estatus }; 
+    return this.http.put(url, body);
+  }
+  public getRolesActivos(): Observable<any> {
+    const url = `${this.urlAdmin}/roles/todosActivos`;
+    return this.http.get(url);
+  }
+//CRUD MATERIALES
   public listarMateriales(): Observable<any> {
     return this.http.get(`${this.urlAdmin}/Materiales/todos`, this.httpOptions);
   }
@@ -97,7 +120,7 @@ export class AdminService {
     return this.http.put(url, body);
   }
 
-  //Terminacion del CRUD categorias
+
   //Añadiendo el CRUD  Cliente
 
   public saveCliente(cliente): Observable<SingleResponse<Cliente>> {
@@ -137,6 +160,9 @@ export class AdminService {
   public listarClientes(): Observable<any> {
     return this.http.get(`${this.urlAdmin}/clientes/todos`, this.httpOptions);
   }
+  public listarClientesActivos(): Observable<any> {
+    return this.http.get(`${this.urlAdmin}/clientes/listarClientesActivos`, this.httpOptions);
+  }
   public consultarCliente(id: number): Observable<any> {
     const url = `${this.urlAdmin}/clientes/consultarCliente/${id}`;
     return this.http.get(url, this.httpOptions);
@@ -145,17 +171,7 @@ export class AdminService {
   public eliminarCliente(id: number): Observable<SingleResponse<Cliente>> {
     return this.http.delete<SingleResponse<Cliente>>(`${this.urlAdmin}/clientes/eliminarCliente/${id}`, this.httpOptions);
   }
-  /*
-   public saveCliente(cliente: any, file: File): Observable<SingleResponse<Cliente>> {
-     const formData = new FormData();
-     formData.append('cliente', JSON.stringify(cliente));
-     formData.append('file', file);
-   
-     let headers = new HttpHeaders();
-     headers = headers.append('Content-Type', 'multipart/form-data');
-     return this.http.post<SingleResponse<Cliente>>(`${this.urlAdmin}/registro/cliente`, formData, { headers: headers });
-   }    
-   */
+
   //CRUD DIRECCIONES
   public consultarDireccion(id: number): Observable<any> {
     const url = `${this.urlAdmin}/direcciones/consultarDireccionPorCliente/${id}`;

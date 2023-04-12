@@ -81,6 +81,7 @@ export class ColorComponent implements OnInit {
   }
 
 
+
   public getCategories(){   
     this.appService.getCategories().subscribe(data => {
       this.categories = data; 
@@ -101,7 +102,16 @@ export class ColorComponent implements OnInit {
       }
     });
   }
-  
+  public filtrarTodos() {
+    window.location.reload();
+  }
+  public filtrarActivos() {
+    this.adminService.listarColoresActivos().subscribe(resp => {
+      console.log(resp.response)
+      this.listaColores= resp.response
+      this.dataSource = new MatTableDataSource<Colores>(this.listaColores);
+    })
+  }
   public onPageChanged(event){
     this.page = event; 
     window.scrollTo(0,0); 

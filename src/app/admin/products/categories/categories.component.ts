@@ -41,6 +41,15 @@ export class CategoriesComponent implements OnInit {
   }
 
 
+  public filtrarTodos() {
+    window.location.reload();
+  }
+  public filtrarActivos() {
+    this.adminService.getCategoriasActivas().subscribe(resp => {
+      console.log(resp.response)
+      this.categorias = resp.response
+    })
+  }
 
   public onPageChanged(event){
     this.page = event; 
