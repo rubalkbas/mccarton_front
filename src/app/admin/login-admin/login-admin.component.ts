@@ -19,6 +19,8 @@ export class LoginAdminComponent implements OnInit {
   registerForm: FormGroup;
   public password: string = null;
 
+  usuario:any=null;
+
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
@@ -28,6 +30,7 @@ export class LoginAdminComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.verificaSesion();
     this.loginForm = this.formBuilder.group({
       email: ["", Validators.compose([Validators.required, emailValidator])],
       password: [
@@ -83,4 +86,16 @@ export class LoginAdminComponent implements OnInit {
       });
     }
   }
+
+
+  verificaSesion(){
+    this.sessionStorage.getUser().subscribe((user) => {
+      this.usuario = user;
+      console.log(user);
+      if(user){
+        this.router.navigate(["/admin"]);
+      }
+    })
+  }
+
 }
