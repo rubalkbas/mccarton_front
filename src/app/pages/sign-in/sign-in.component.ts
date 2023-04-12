@@ -70,7 +70,6 @@ export class SignInComponent implements OnInit {
             Util.successMessage(response.mensaje);
             console.log(response);
             localStorage.setItem('cliente', response.response.idCliente);
-            
             this.loginForm.reset();
             this.router.navigate(['/account']);
           }
@@ -114,7 +113,7 @@ export class SignInComponent implements OnInit {
     this.adminService.saveCliente(formData).subscribe({next:data=>{
       Util.successMessage(data.mensaje);
       this.registerForm.reset();
-      this.router.navigate(['/account']);
+      this.router.navigate(['/sign-in']);
   }})
 }
 

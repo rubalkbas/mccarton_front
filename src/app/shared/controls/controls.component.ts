@@ -3,6 +3,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Data, AppService } from '../../app.service';
 import { Product } from '../../app.models';
+import { Util } from '../../util/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-controls',
@@ -17,16 +19,20 @@ export class ControlsComponent implements OnInit {
   @Output() onQuantityChange: EventEmitter<any> = new EventEmitter<any>();
   public count:number = 1;
   public align = 'center center';
-  constructor(public appService:AppService, public snackBar: MatSnackBar) { }
+  constructor(public appService:AppService, public snackBar: MatSnackBar,  public router: Router) { }
 
   ngOnInit() {
 
+
+    console.log(this.producto)
     if(this.producto){
       if(this.product.cartCount > 0){
         this.count = this.producto.stock;
       }
     }  
     this.layoutAlign(); 
+
+    console.log("Este es el producto:" , this.producto)
   }
 
   public layoutAlign(){
@@ -75,7 +81,15 @@ export class ControlsComponent implements OnInit {
   }
 
   public addToWishList(product:Product){
-    this.appService.addToWishList(product);
+    const idCliente = localStorage.getItem('cliente');
+
+    if( idCliente){
+      this.appService.addToWishList(product);
+    }else{
+      Util.errorMessage("Necesitas ingresar para poder agregar productos");
+      this.router.navigate(['/sign-in']);
+    }
+
   }
 
   public addToCart(product:Product){
