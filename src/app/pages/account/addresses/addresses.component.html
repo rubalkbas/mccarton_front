@@ -1,40 +1,38 @@
 <div class="p-1">
-  <mat-card class="p-0"> 
-      <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
-          <h2>Lista de Direcciones</h2>  
-          <button mat-raised-button color="blue" (click)="openRolesDialog(null)">Añadir Direccion</button>
-      </div>
-      <mat-divider></mat-divider>
-      <div class="mat-table admin-table">
-          <div class="mat-header-row">
-              <div class="mat-header-cell" id="columnas">Nombre</div>
-              <div class="mat-header-cell" id="columnas">Ciudad</div> 
-              <div class="mat-header-cell" id="columnas">Direccion</div>
-              <div class="mat-header-cell" id="columnas"></div>
-          </div>
-          <div *ngFor="let direccion of direcciones" class="mat-row">
-              <div class="mat-cell" id="columnas2">{{direccion.nombreDireccion}}</div>
-              <div class="mat-cell" id="columnas2">{{direccion.ciudad}}</div>
-              <div class="mat-cell" id="columnas2">{{direccion.calle}} {{direccion.numero}} {{direccion.colonia}} {{direccion.codigoPostal}}</div>
-              <div class="mat-cell" >
-                  <div class="p-1 actions"id="columnas2">          
-                      <button mat-mini-fab color="primary" matTooltip="Edit" (click)="openRolesDialog(direccion)">
-                          <mat-icon>edit</mat-icon>
-                      </button>
-                      <button mat-mini-fab color="warn" matTooltip="Delete" class="mx-1" (click)="remove(rol)">
-                          <mat-icon>delete</mat-icon>
-                      </button>
-                  </div>
-              </div>
-              </div>      
-          </div>
-      
-  </mat-card>
+    <mat-card class="p-0">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
+            <h2>Lista de Direcciones</h2>
+            <button mat-raised-button color="blue" (click)="openRolesDialog(null)">Añadir Direccion</button>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="mat-table admin-table">
+            <div class="mat-header-row">
+                <div class="mat-header-cell" id="columnas">Nombre</div>
+                <div class="mat-header-cell" id="columnas">Ciudad</div>
+                <div class="mat-header-cell" id="columnas">Direccion</div>
+                <div class="mat-header-cell" id="columnas"></div>
+            </div>
+            <div *ngFor="let direccion of direcciones" class="mat-row">
+                <div class="mat-cell" id="columnas2">{{direccion.nombreDireccion}}</div>
+                <div class="mat-cell" id="columnas2">{{direccion.ciudad}}</div>
+                <div class="mat-cell" id="columnas2">{{direccion.calle}} {{direccion.numero}} {{direccion.colonia}}
+                    {{direccion.codigoPostal}}</div>
+                <div class="mat-cell">
+                    <div class="p-1 actions" id="columnas2">
+                        <button mat-mini-fab color="warn" matTooltip="Delete" class="mx-1" (click)="remove(direccion.idDireccion)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  <div fxLayout="row wrap">
-      <div fxFlex="100"> 
-          <mat-card class="p-0 text-center">           
-          </mat-card>
-      </div>
-  </div>
+    </mat-card>
+
+    <div fxLayout="row wrap">
+        <div fxFlex="100">
+            <mat-card class="p-0 text-center">
+            </mat-card>
+        </div>
+    </div>
 </div>

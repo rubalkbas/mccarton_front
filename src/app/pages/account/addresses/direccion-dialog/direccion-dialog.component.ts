@@ -32,18 +32,19 @@ export class DireccionDialogComponent implements OnInit {
       calle: ['', Validators.required],
       ciudad: ['', Validators.required],
       colonia: ['', Validators.required],
-      codigoPostal:0,
+      codigoPostal:[],
       entreCalle1: ['', Validators.required],
       entreCalle2: ['', Validators.required],
       estatus: 1,
       nombreDireccion: ['', Validators.required],
-      numeroExterior: [0, Validators.required],
-      numeroInterior:[0],
+      numeroExterior: [, Validators.required],
+      numeroInterior:[],
       predeterminado:[0],
-      telefono:[0],
+      telefono:[],
       idCliente:this.IdCliente
 
     });
+  
     if (this.data) {
       this.modoEditar = true;
       this.formulario.patchValue({
@@ -85,15 +86,13 @@ export class DireccionDialogComponent implements OnInit {
       const colonia=this.formulario.get('colonia')?.value;
       const entreCalle1=this.formulario.get('entreCalle1')?.value;
       const entreCalle2=this.formulario.get('entreCalle2')?.value;
-      const estatus=this.formulario.get('estatus')?.value;
       const nombreDireccion=this.formulario.get('nombreDireccion')?.value;
       const numeroExterior=this.formulario.get('numeroExterior')?.value;
       const numeroInterior=this.formulario.get('numeroInterior')?.value;
       const telefono=this.formulario.get('telefono')?.value;
       const cliente=this.IdCliente
 
-      this.adminService.crearDireccion(calle,ciudad,codigoPostal,colonia,entreCalle1,entreCalle2,
-        nombreDireccion,numeroExterior,numeroInterior,telefono,estatus,cliente).subscribe(result=>{
+      this.adminService.crearDireccion(calle,numeroExterior,numeroInterior,codigoPostal,nombreDireccion,colonia,entreCalle1,entreCalle2,ciudad,telefono,cliente).subscribe(result=>{
           Util.successMessage(result.mensaje)
           this.dialogRef.close(result);
           window.location.reload();

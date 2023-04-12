@@ -105,8 +105,13 @@ export class AdminService {
     headers = headers.append('enctype', 'multipart/form-data');
     return this.http.post<SingleResponse<Cliente>>(`${this.urlAdmin}/registro/cliente`, cliente, { headers: headers });
   }
-
-
+ 
+  public actualizarCliente(body: FormData): Observable<any> {
+    const headers = new HttpHeaders().append('enctype', 'multipart/form-data');
+    const url = `${this.urlAdmin}/clientes/actualizarCliente`;
+    return this.http.put(url, body, { headers: headers });
+  }
+  
   public autenticacionCliente(correoElectronico: string, password: string): Observable<Cliente[]> {
     const complemento = "/loginCliente";
     const cliente = {
@@ -156,6 +161,10 @@ export class AdminService {
     const url = `${this.urlAdmin}/direcciones/consultarDireccionPorCliente/${id}`;
     return this.http.get(url, this.httpOptions);
   }
+  public eliminarDireccion(id: number): Observable<any> {
+    const url = `${this.urlAdmin}/direcciones/eliminarDireccion/${id}`;
+    return this.http.delete(url, this.httpOptions);
+  }
   public crearDireccion(
     calle,
     numeroExterior,
@@ -165,12 +174,11 @@ export class AdminService {
     colonia,
     entreCalle1,
     entreCalle2,
-    estatus,
     ciudad,
     telefono,
     cliente,
   ): Observable<any> {
-    const url = `${this.urlAdmin}/direcciones/nuevaDireccion/${cliente}`;
+    const url = `${this.urlAdmin}/direcciones/crearDireccion/${cliente}`;
     const body = {
       calle: calle,
       numeroExterior: numeroExterior,
@@ -180,10 +188,8 @@ export class AdminService {
       colonia: colonia,
       entreCalle1: entreCalle1,
       entreCalle2: entreCalle2,
-      estatus: estatus,
       ciudad: ciudad,
       telefono: telefono,
-      cliente:cliente
     };
     return this.http.post(url, body);
   }

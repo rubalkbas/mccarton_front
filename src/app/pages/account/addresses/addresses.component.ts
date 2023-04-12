@@ -6,6 +6,8 @@ import { Direccion } from '../../../models/direccion.model';
 import { AdminService } from '../../../_services/admins.service';
 import { DireccionDialogComponent } from './direccion-dialog/direccion-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { response } from 'express';
+import { Util } from '../../../util/util';
 @Component({
   selector: 'app-addresses',
   templateUrl: './addresses.component.html',
@@ -14,14 +16,15 @@ import { MatDialog } from '@angular/material/dialog';
 export class AddressesComponent implements OnInit {
   billingForm: UntypedFormGroup;
   shippingForm: UntypedFormGroup;
+  idCliente:any;
   countries = [];
   public direcciones: Direccion= new Direccion();
   constructor(public appService:AppService,  public dialog:MatDialog,
     public adminService: AdminService, public formBuilder: UntypedFormBuilder, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    const idCliente=localStorage.getItem('cliente');
-    this.adminService.consultarDireccion(parseInt(idCliente)).subscribe(response=>{
+    this.idCliente=localStorage.getItem('cliente');
+    this.adminService.consultarDireccion(parseInt(this.idCliente)).subscribe(response=>{
       this.direcciones=response.response
       console.log(this.direcciones)
     })
@@ -41,6 +44,15 @@ export class AddressesComponent implements OnInit {
     if (this.shippingForm.valid) {
       this.snackBar.open('Your shipping address information updated successfully!', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });
     }
+  }
+  public remove(idDireccion:any) {
+    console.log(idDireccion)
+    this.adminService.eliminarDireccion(idDireccion).subscribe(response => {
+      Util.successMessage("Se elimino la direccion correctamente")
+      window.location.reload();
+    }, error => {
+      Util.errorMessage
+    });
   }
 
 }
