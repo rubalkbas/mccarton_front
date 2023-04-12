@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AppService } from '../../../app.service';
-
+import { Direccion } from '../../../models/direccion.model';
+import { AdminService } from '../../../_services/admins.service';
+import { DireccionDialogComponent } from './direccion-dialog/direccion-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-addresses',
   templateUrl: './addresses.component.html',
@@ -12,38 +15,22 @@ export class AddressesComponent implements OnInit {
   billingForm: UntypedFormGroup;
   shippingForm: UntypedFormGroup;
   countries = [];
-  constructor(public appService:AppService, public formBuilder: UntypedFormBuilder, public snackBar: MatSnackBar) { }
+  public direcciones: Direccion= new Direccion();
+  constructor(public appService:AppService,  public dialog:MatDialog,
+    public adminService: AdminService, public formBuilder: UntypedFormBuilder, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.countries = this.appService.getCountries();
-    this.billingForm = this.formBuilder.group({
-      'firstName': ['', Validators.required],
-      'lastName': ['', Validators.required],
-      'middleName': '',
-      'company': '',
-      'email': ['', Validators.required],
-      'phone': ['', Validators.required],
-      'country': ['', Validators.required],
-      'city': ['', Validators.required],
-      'state': '',
-      'zip': ['', Validators.required],
-      'address': ['', Validators.required]
-    });
-    this.shippingForm = this.formBuilder.group({
-      'firstName': ['', Validators.required],
-      'lastName': ['', Validators.required],
-      'middleName': '',
-      'company': '',
-      'email': ['', Validators.required],
-      'phone': ['', Validators.required],
-      'country': ['', Validators.required],
-      'city': ['', Validators.required],
-      'state': '',
-      'zip': ['', Validators.required],
-      'address': ['', Validators.required]
-    });
+    const idCliente=localStorage.getItem('cliente');
+    this.adminService.consultarDireccion(parseInt(idCliente)).subscribe(response=>{
+      this.direcciones=response.response
+      console.log(this.direcciones)
+    })
   }
-
+  openRolesDialog(data:any){
+    const dialogRef = this.dialog.open(DireccionDialogComponent,{
+      data:data
+    })
+  }
   public onBillingFormSubmit(values:Object):void {
     if (this.billingForm.valid) {
       this.snackBar.open('Your billing address information updated successfully!', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });

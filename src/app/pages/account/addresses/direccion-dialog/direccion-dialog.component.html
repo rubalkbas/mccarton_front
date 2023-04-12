@@ -1,0 +1,82 @@
+<h1 mat-dialog-title>Direccion</h1>
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()" autocomplete="off" class="user-form">
+    <div mat-dialog-content>
+        <div fxLayout="row wrap" class="mt-2">
+            <div fxFlex="600" fxFlex.gt-md="60" class="px-1">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Nombre Direccion</mat-label>
+                    <input class="inputRol" matInput formControlName="nombreDireccion" required>
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="40" class="px-1">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Estatus</mat-label>
+                    <mat-select formControlName="estatus" required [value]="formulario.controls['estatus'].value">
+                        <mat-option [value]="1">Activa</mat-option>
+                        <mat-option [value]="0">Inactiva</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxFlex="600" fxFlex.gt-md="50" class="px-1">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Ciudad</mat-label>
+                    <input class="inputRol" matInput formControlName="ciudad" required>
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="50" class="px-1">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Colonia</mat-label>
+                    <input class="inputRol" matInput formControlName="colonia" required>
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="50" class="px-1">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Calle</mat-label>
+                    <input class="inputRol" matInput formControlName="calle" required>
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="50" class="px-1">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Telefono</mat-label>
+                    <input class="inputRol" matInput formControlName="telefono" required>
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="33" class="px-1">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Numero</mat-label>
+                    <input class="inputRol" matInput formControlName="numeroExterior" required>
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="33" class="px-1">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Numero interior</mat-label>
+                    <input class="inputRol" matInput formControlName="numeroInterior" >
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="33" class="px-1">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Codigo Postal</mat-label>
+                    <input class="inputRol" matInput formControlName="codigoPostal" required>
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="50" class="px-1">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Entre calle</mat-label>
+                    <input class="inputRol" matInput formControlName="entreCalle1" >
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="50" class="px-1">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Entre calle</mat-label>
+                    <input class="inputRol" matInput formControlName="entreCalle2" >
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+            <button mat-raised-button color="warn" type="button" mat-dialog-close>Close</button>
+            <button mat-raised-button color="primary" type="submit">Save</button>
+        </div>
+    </div>
+</form>
