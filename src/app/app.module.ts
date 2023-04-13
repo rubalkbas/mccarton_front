@@ -35,6 +35,7 @@ import { FooterComponent } from './theme/components/footer/footer.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AuthGuard } from './auth.guard';
 import { JwtInterceptor } from './_services/jwt.interceptor';
+import { LogoutGuard } from './logout.guard';
 
 
 @NgModule({
@@ -71,6 +72,8 @@ import { JwtInterceptor } from './_services/jwt.interceptor';
     AppSettings,
     AppService,
     AuthGuard,
+    LogoutGuard
+    ,
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
     { provide: MAT_MENU_SCROLL_STRATEGY, useFactory: menuScrollStrategy, deps: [Overlay] },
     // { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },

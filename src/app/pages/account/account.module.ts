@@ -9,6 +9,7 @@ import { InformationComponent } from './information/information.component';
 import { AddressesComponent } from './addresses/addresses.component';
 import { OrdersComponent } from './orders/orders.component';
 import { DireccionDialogComponent } from './addresses/direccion-dialog/direccion-dialog.component';
+import { LogoutGuard } from '../../logout.guard';
 
 export const routes: Routes = [
   { 
@@ -18,7 +19,8 @@ export const routes: Routes = [
           { path: 'dashboard', component: DashboardComponent, data: {  breadcrumb: 'Dashboard' } },
           { path: 'information', component: InformationComponent, data: {  breadcrumb: 'Information' } },
           { path: 'addresses', component: AddressesComponent, data: {  breadcrumb: 'Addresses' } },
-          { path: 'orders', component: OrdersComponent, data: {  breadcrumb: 'Orders' } }
+          { path: 'orders', component: OrdersComponent, data: {  breadcrumb: 'Orders' } },
+
       ]
   }
 ];
