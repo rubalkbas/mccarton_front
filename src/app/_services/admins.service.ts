@@ -11,6 +11,8 @@ import { Cliente } from '../models/cliente.model';
 import { Imagen } from "../models/imagen.model";
 import { map } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: "root",
@@ -151,9 +153,17 @@ export class AdminService {
           localStorage.setItem('authTokenExpiration', expirationDate.toISOString());
           localStorage.setItem('access_token', this.token);
         }),
-        map(response => response.body || [])
+        map(response => response.body || []),
+        catchError(error => {
+          if (error.status === 401) { // Unauthorized error
+            localStorage.removeItem('authTokenExpiration');
+            localStorage.removeItem('access_token');
+          }
+          return throwError(error);
+        })
       );
   }
+
   public loginCliente(cliente: Cliente): Observable<any> {
     return this.http.post<any>(`${this.urlAdmin}/clientes/loginCliente`, cliente);
   }
