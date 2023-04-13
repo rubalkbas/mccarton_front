@@ -14,12 +14,12 @@ export class AccountComponent implements OnInit {
     { name: 'Dashboard', href: 'dashboard', icon: 'dashboard' },
     { name: 'Mi Informacion', href: 'information', icon: 'info' },
     { name: 'Direcciones', href: 'addresses', icon: 'location_on' },
-    { name: 'Mis compras', href: 'orders', icon: 'add_shopping_cart' },  
-    { name: 'Logout', href: '/sign-in', icon: 'power_settings_new' },    
+    { name: 'Mis compras', href: 'orders', icon: 'add_shopping_cart' },    
   ];
   constructor(public router:Router) { }
 
   ngOnInit() {
+
     if(window.innerWidth < 960){
       this.sidenavOpen = false;
     };
@@ -38,6 +38,13 @@ export class AccountComponent implements OnInit {
         }
       }                
     });
+  }
+
+  public salir(){
+    localStorage.removeItem('authTokenExpiration');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('cliente');
+    this.router.navigate(['/sign-in']);
   }
 
 }

@@ -51,11 +51,12 @@
                                 <mat-menu #animals="matMenu" [overlapTrigger]="false" class="app-dropdown">
                                     <a mat-menu-item routerLink="/products" routerLinkActive="horizontal-active-link"
                                         [routerLinkActiveOptions]="{exact:true}">Todos los productos</a>
+                                        <a mat-menu-item routerLink="/account/dashboard">Mi cuenta</a>
                                         <a mat-menu-item routerLink="/wishlist">Lista de deseos</a>
                                     <a mat-menu-item routerLink="/contact" routerLinkActive="horizontal-active-link"
                                         [routerLinkActiveOptions]="{exact:true}">Contacto</a>
-                                    <a mat-menu-item routerLink="/sign-in">Inicio sesion / Registro</a>
-                                    <a mat-menu-item routerLink="/admin/login-admin">Inicio de sesión admin</a>
+                                    <a mat-menu-item routerLink="/sign-in">Inicio sesion</a>
+                                    <a mat-menu-item routerLink="/admin/login-admin">Admin</a>
                                 </mat-menu>
                             </div>
                         </div>

@@ -12,7 +12,10 @@
             <button *ngIf="!sidenavOpen" mat-icon-button (click)="sidenav.toggle()">
                 <mat-icon>more_vert</mat-icon>
             </button>
-            <h3>My Account</h3>
+            <h3>Mi Cuenta</h3>
+            <button class="custom-button" (click)="salir()">
+                <mat-icon>power_settings_new</mat-icon> Salir
+              </button>
         </div>
         <div class="account-wrapper mat-elevation-z1">
             <router-outlet></router-outlet>

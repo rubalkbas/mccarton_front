@@ -28,3 +28,15 @@
     }
 }
 
+.custom-button {
+    background-color: #1AD079;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .custom-button:hover {
+    background-color: red;
+  }

@@ -24,7 +24,7 @@ export class SignInComponent implements OnInit {
     private adminService: AdminService,
     public router: Router,
     public snackBar: MatSnackBar
-    ) {
+  ) {
     //inicializador de variables:
     this.cliente.correoElectronico = '';
     this.cliente.password = '';
@@ -34,7 +34,7 @@ export class SignInComponent implements OnInit {
     this.cliente.telefono = '';
     this.cliente.estatus = 1;
     this.cliente.multipartFile = null;
-     }
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -55,21 +55,35 @@ export class SignInComponent implements OnInit {
   }
 
   public onLoginFormSubmit(values: Object): void {
-    this.cliente.correoElectronico=this.loginForm.get('email').value;
-    this.cliente.password=this.loginForm.get('password').value;
+    this.cliente.correoElectronico = this.loginForm.get('email').value;
+    this.cliente.password = this.loginForm.get('password').value;
 
     let formData = new FormData();
     formData.append('correoElectronico', this.cliente.correoElectronico);
     formData.append('password', this.cliente.password);
-    this.adminService.autenticacionCliente(this.cliente.correoElectronico,this.cliente.password).subscribe(
-      response=>{
+
+    let inactivityTimer: any;
+    function startInactivityTimer() {
+      inactivityTimer = setTimeout(function () {
+        localStorage.removeItem('cliente');
+        Util.errorMessage('Tu sesión ha expirado');
+        window.location.reload();
+      });
+    }
+
+
+    this.adminService.autenticacionCliente(this.cliente.correoElectronico, this.cliente.password).subscribe(
+      response => {
         const token = localStorage.getItem('access_token');
         this.adminService.loginCliente(this.cliente).subscribe(
-          response=>{
+          response => {
             Util.successMessage(response.mensaje);
             localStorage.setItem('cliente', response.response.idCliente);
             this.loginForm.reset();
             this.router.navigate(['/account']);
+            setTimeout(function () {
+              startInactivityTimer();
+            }, 15 * 60 * 1000);
           }
         )
       }
@@ -87,7 +101,7 @@ export class SignInComponent implements OnInit {
     };
     reader.readAsDataURL(file);
   }
-  
+
   public onRegisterFormSubmit(values: Object): void {
     this.cliente.correoElectronico = this.registerForm.get('correoElectronico').value;
     this.cliente.password = this.registerForm.get('password').value;
@@ -108,11 +122,12 @@ export class SignInComponent implements OnInit {
     if (this.cliente.multipartFile) {
       formData.append('multipartFile', this.cliente.multipartFile, this.cliente.multipartFile.name);
     }
-    this.adminService.saveCliente(formData).subscribe({next:data=>{
-      Util.successMessage(data.mensaje);
-      this.registerForm.reset();
-      this.router.navigate(['/sign-in']);
-  }})
-}
+    this.adminService.saveCliente(formData).subscribe({
+      next: data => {
+        Util.successMessage(data.mensaje);
+        window.location.reload();
+      }
+    })
+  }
 
 }

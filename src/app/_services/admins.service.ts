@@ -28,27 +28,27 @@ export class AdminService {
 
   //CRUD ROLES
 
-  public getAllRoles(): Observable<any>{
-    const url=`${this.urlAdmin}/roles/todos`;
+  public getAllRoles(): Observable<any> {
+    const url = `${this.urlAdmin}/roles/todos`;
     return this.http.get(url);
   }
 
-  public saveRol(nombreRol, descripcionRol): Observable<any>{
-    const url=`${this.urlAdmin}/roles/nuevoRol`;
-    const body ={nombreRol: nombreRol, descripcionRol: descripcionRol};
+  public saveRol(nombreRol, descripcionRol): Observable<any> {
+    const url = `${this.urlAdmin}/roles/nuevoRol`;
+    const body = { nombreRol: nombreRol, descripcionRol: descripcionRol };
     return this.http.post(url, body);
   }
-  
-  public editarRol(idRol, estatus): Observable<any>{
-    const url=`${this.urlAdmin}/roles/actualizarEstatusRol`;
-    const body = { idRol, estatus }; 
+
+  public editarRol(idRol, estatus): Observable<any> {
+    const url = `${this.urlAdmin}/roles/actualizarEstatusRol`;
+    const body = { idRol, estatus };
     return this.http.put(url, body);
   }
   public getRolesActivos(): Observable<any> {
     const url = `${this.urlAdmin}/roles/todosActivos`;
     return this.http.get(url);
   }
-//CRUD MATERIALES
+  //CRUD MATERIALES
   public listarMateriales(): Observable<any> {
     return this.http.get(`${this.urlAdmin}/Materiales/todos`, this.httpOptions);
   }
@@ -130,13 +130,13 @@ export class AdminService {
     headers = headers.append('enctype', 'multipart/form-data');
     return this.http.post<SingleResponse<Cliente>>(`${this.urlAdmin}/registro/cliente`, cliente, { headers: headers });
   }
- 
+
   public actualizarCliente(body: FormData): Observable<any> {
     const headers = new HttpHeaders().append('enctype', 'multipart/form-data');
     const url = `${this.urlAdmin}/clientes/actualizarCliente`;
     return this.http.put(url, body, { headers: headers });
   }
-  
+
   public autenticacionCliente(correoElectronico: string, password: string): Observable<Cliente[]> {
     const complemento = "/loginCliente";
     const cliente = {
@@ -146,21 +146,20 @@ export class AdminService {
     return this.http.post<Cliente[]>(this.urlAdmin + complemento, cliente, { observe: 'response' })
       .pipe(
         tap(response => {
-          const expiresIn = 300; // tiempo en segundos
+          const expiresIn = 900; // tiempo en segundos
           const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
           this.token = response.headers.get('Authorization');
           console.log('Token:', this.token);
           localStorage.setItem('authTokenExpiration', expirationDate.toISOString());
           localStorage.setItem('access_token', this.token);
-        }),
-        map(response => response.body || []),
-        catchError(error => {
-          if (error.status === 401) { // Unauthorized error
+
+          // Eliminar el token del localStorage cuando expire
+          setTimeout(function () {
             localStorage.removeItem('authTokenExpiration');
             localStorage.removeItem('access_token');
-          }
-          return throwError(error);
-        })
+          }, expiresIn * 1000);
+        }),
+        map(response => response.body || [])
       );
   }
 
@@ -441,7 +440,7 @@ export class AdminService {
 
 
   //LISTA DE DESEOS
-  
+
 
   public guardarDeseo(
     idCliente,
