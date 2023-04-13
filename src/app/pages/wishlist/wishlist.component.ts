@@ -50,11 +50,19 @@ export class WishlistComponent implements OnInit {
   public obtenerimagen(idProducto: any) {
 
   }
+  /*
   public remove(product: Product) {
     const index: number = this.appService.Data.wishList.indexOf(product);
     if (index !== -1) {
       this.appService.Data.wishList.splice(index, 1);
     }
+  }
+  */
+  public remove(idListaDeseo: any) {
+    this.adminService.eliminarDeseo(idListaDeseo).subscribe(resp => {
+      Util.successMessage(resp.mensaje);
+      window.location.reload();
+    });
   }
 
   public clear() {

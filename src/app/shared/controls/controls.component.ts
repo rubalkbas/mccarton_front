@@ -41,9 +41,8 @@ export class ControlsComponent implements OnInit {
     console.log("Este es el producto:" , this.producto)
   }
   //Elimar Deseo 
-  public remove(product: any) {
-    const idProducto = product.idProducto;
-    this.adminService.eliminarDeseo(idProducto).subscribe(resp => {
+  public remove(idListaDeseo: any) {
+    this.adminService.eliminarDeseo(idListaDeseo).subscribe(resp => {
       Util.successMessage(resp.mensaje);
       window.location.reload();
     });

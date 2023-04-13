@@ -455,8 +455,8 @@ export class AdminService {
     const url = `${this.urlAdmin}/listaDeseos/consultarTodos?idCliente=${idCliente}`;
     return this.http.post(url, {});
   }
-  public eliminarDeseo(idProducto): Observable<any> {
-    const url = `${this.urlAdmin}/preguntaFrecuente/eliminarDeseo?idListaDeseo=${idProducto}`;
+  public eliminarDeseo(idListaDeseo): Observable<any> {
+    const url = `${this.urlAdmin}/listaDeseos/eliminarDeseo?idListaDeseo=${idListaDeseo}`;
     return this.http.delete(url, {});
 
   }
