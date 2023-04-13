@@ -16,21 +16,20 @@ export class WishlistComponent implements OnInit {
   public quantity: number = 1;
   deseos: any;
   public productos: Producto[] = [];
-  public imagenSeleccionada: string;
-
+  imagenesProductos: {[idProducto: string]: string} = {};
   constructor(public appService: AppService, public adminService: AdminService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     const idCliente = localStorage.getItem('cliente');
     this.adminService.obtenerDeseos(idCliente).subscribe(result => {
-      Util.successMessage("Lista de deseos Obtenida con exito")
+      Util.successMessage('Lista de deseos Obtenida con exito');
       this.deseos = result.response;
       this.productos = this.deseos.map(deseo => deseo.producto);
       this.productos.forEach(producto => {
         this.adminService.obtenerImagenesProducto(producto).subscribe({
           next: response => {
             const imagen = response.response[0];
-            this.imagenSeleccionada = `data:image/${imagen.tipoImagen};base64,${imagen.imagenBits}`;
+            this.imagenesProductos[producto.idProducto] = `data:image/${imagen.tipoImagen};base64,${imagen.imagenBits}`;
           },
           error: error => {
             Util.errorMessage(error.error.mensaje);

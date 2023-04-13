@@ -14,7 +14,7 @@
       </div>
     </div>
     <div *ngFor="let product of deseos" class="mat-row" >
-      <div class="mat-cell"><img [src]="imagenSeleccionada" alt=""></div>
+      <div class="mat-cell"><img [src]="imagenesProductos[product.producto.idProducto]" alt=""></div>
       <div class="mat-cell"><a class="product-name">{{product.producto.nombreProducto}}</a></div>
       <div class="mat-cell">${{product.producto.precioVenta| number : '1.2-2'}}</div>
       <div class="mat-cell">{{ (product.producto.stock > 0) ? 'Disponible':'No disponible'}}</div>
