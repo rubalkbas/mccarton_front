@@ -1,29 +1,25 @@
-<mat-chip-list *ngIf="appService.Data.wishList.length == 0">
-    <mat-chip color="warn" selected="true">YOU HAVE NO ITEMS IN WISH LIST.</mat-chip>
-</mat-chip-list>
-
-<mat-card *ngIf="appService.Data.wishList?.length > 0" class="p-0">
+<mat-card  class="p-0">
 
   <div class="mat-table wishlist-table">
     <div class="mat-header-row">
-      <div class="mat-header-cell">Product</div>
-      <div class="mat-header-cell">Name</div>
-      <div class="mat-header-cell">Price</div>
-      <div class="mat-header-cell">Availability</div>
-      <div class="mat-header-cell">Quantity</div>
+      <div class="mat-header-cell">Producto</div>
+      <div class="mat-header-cell">Nombre</div>
+      <div class="mat-header-cell">Precio</div>
+      <div class="mat-header-cell">Disponibilidad</div>
+      <div class="mat-header-cell">Cantidad</div>
       <div class="mat-header-cell">
         <div class="px-1">
-          <button mat-raised-button color="warn" (click)="clear()">Clear All</button>
+          <button mat-raised-button color="warn" (click)="clear()">Borrar todos</button>
         </div>
       </div>
     </div>
-    <div *ngFor="let product of appService.Data.wishList" class="mat-row">
-      <div class="mat-cell"><img [src]="product.images[0].small"></div>
-      <div class="mat-cell"><a [routerLink]="['/products', product.id, product.name]" class="product-name">{{product.name}}</a></div>
-      <div class="mat-cell">${{product.newPrice | number : '1.2-2'}}</div>
-      <div class="mat-cell">{{ (product.availibilityCount > 0) ? 'In stock':'Unavailable'}}</div>
+    <div *ngFor="let product of deseos" class="mat-row" >
+      <div class="mat-cell"><img src="{{product.producto}}" alt=""></div>
+      <div class="mat-cell"><a class="product-name">{{product.producto.nombreProducto}}</a></div>
+      <div class="mat-cell">${{product.producto.precioVenta| number : '1.2-2'}}</div>
+      <div class="mat-cell">{{ (product.producto.stock > 0) ? 'Disponible':'No disponible'}}</div>
       <div class="mat-cell text-muted">
-        <app-controls [product]="product" [type]="'wish'" (onQuantityChange)="getQuantity($event)"></app-controls>
+        <app-controls [producto]="product.producto" [type]="'wish'" (onQuantityChange)="getQuantity($event)"></app-controls>
       </div>
       <div class="mat-cell">
         <div class="p-1">          

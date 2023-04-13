@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Data, AppService } from '../../app.service';
 import { Product } from '../../app.models';
+import { AdminService } from '../../_services/admins.service';
+import { Util } from '../../util/util';
+import { response } from 'express';
+import { Producto } from '../../models/producto.model';
 
 @Component({
   selector: 'app-wishlist',
@@ -10,9 +14,20 @@ import { Product } from '../../app.models';
 })
 export class WishlistComponent implements OnInit {
   public quantity:number = 1;
-  constructor(public appService:AppService, public snackBar: MatSnackBar) { }
+  deseos:any;
+
+  constructor(public appService:AppService,public adminService:AdminService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    const idCliente = localStorage.getItem('cliente');
+    this.adminService.obtenerDeseos(idCliente).subscribe(result=>{
+      Util.successMessage("Lista de deseos Obtenida con exito")
+      this.deseos=result.response
+      const idProductos = this.deseos.map(deseo => deseo.producto);
+      this.adminService.obtenerImagenesProducto(idProductos).subscribe(result=>{
+        console.log(result)
+      })
+    })
     this.appService.Data.cartList.forEach(cartProduct=>{
       this.appService.Data.wishList.forEach(product=>{
         if(cartProduct.id == product.id){
@@ -22,6 +37,9 @@ export class WishlistComponent implements OnInit {
     });
   }
 
+  public obtenerimagen(idProducto:any){
+
+  }
   public remove(product:Product) {
     const index: number = this.appService.Data.wishList.indexOf(product);
     if (index !== -1) {

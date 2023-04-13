@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayout.xs="column" [fxLayoutAlign]="align" class="text-muted">
-    <div *ngIf="producto?.stock > 0 && (type=='all' || type=='wish')">
+    <div *ngIf="producto.stock > 0 && (type=='all' || type=='wish')">
         <bdi>
             <span *ngIf="type!='wish'" class="fw-500">Cantidad:</span> 
             <button mat-icon-button matTooltip="Eliminar" (click)="decrement()"><mat-icon>remove</mat-icon></button>
@@ -9,7 +9,7 @@
     </div>
     <div *ngIf="type!='wish'">
         <button mat-icon-button matTooltip="Agregar a lista de deseos" (click)="addToWishList(product)"><mat-icon>favorite</mat-icon></button>
-        <button mat-icon-button matTooltip="Agregar al carrito" *ngIf="product?.availibilityCount > 0" (click)="addToCart(product)"><mat-icon>shopping_cart</mat-icon></button>
+        <button mat-icon-button matTooltip="Agregar al carrito" *ngIf="producto.stock > 0" (click)="addToCart(product)"><mat-icon>shopping_cart</mat-icon></button>
         <button mat-icon-button matTooltip="Comparar" (click)="addToCompare(product)"><mat-icon>compare</mat-icon></button>
         <button *ngIf="type!='all'" mat-icon-button matTooltip="Vista rápida" (click)="openProductDialog(product)"><mat-icon>remove_red_eye</mat-icon></button>
     </div>

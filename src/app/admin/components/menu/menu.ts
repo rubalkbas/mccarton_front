@@ -14,7 +14,7 @@ export const menuItems = [
     new Menu (32, 'Transacción', '/admin/sales/transactions', null, 'local_atm', null, false, 30),  
     new Menu (40, 'Usuarios', '/admin/users', null, 'group_add', null, false, 0),   
     new Menu (50, 'Clientes', '/admin/customers', null, 'supervisor_account', null, false, 0),  
-    new Menu (60, 'Cupones', '/admin/coupons', null, 'card_giftcard', null, false, 0),  
+    new Menu (60, 'Ofertas', '/admin/coupons', null, 'card_giftcard', null, false, 0),  
     new Menu (60, 'Roles', '/admin/roles', null, 'card_giftcard', null, false, 0),  
     new Menu (61, 'Banner', '/admin/banner', null, 'photo_library', null, false, 0),  
     new Menu (62, 'Ordenes', '/admin/ordenes', null, 'shopping_cart', null, false, 0),  

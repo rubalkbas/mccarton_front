@@ -291,17 +291,7 @@ export class AdminService {
     );
   }
   //Lista de Deseos 
-  public guardarDeseo(
-    idCliente,
-    idProducto
-  ): Observable<any> {
-    const url = `${this.urlAdmin}/listaDeseos/guardarListaDeseos`;
-    const body = {
-      idCliente: idCliente,
-      idProducto: idProducto
-    };
-    return this.http.post(url, body);
-  }
+
 
   public obtenerImagenesProducto(producto: Producto): Observable<any> {
     return this.http.post(
@@ -447,7 +437,27 @@ export class AdminService {
 
   }
   //Fin de Oferta Pregunta
+
+
+
+  //LISTA DE DESEOS
+  
+
+  public guardarDeseo(
+    idCliente,
+    idProducto
+  ): Observable<any> {
+    const url = `${this.urlAdmin}/listaDeseos/guardarListaDeseos?idProducto=${idProducto}&idCliente=${idCliente}`;
+    return this.http.post(url, {});
+  }
+  public obtenerDeseos(
+    idCliente
+  ): Observable<any> {
+    const url = `${this.urlAdmin}/listaDeseos/consultarTodos?idCliente=${idCliente}`;
+    return this.http.post(url, {});
+  }
 }
+
 
 
 

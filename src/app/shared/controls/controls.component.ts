@@ -5,6 +5,7 @@ import { Data, AppService } from '../../app.service';
 import { Product } from '../../app.models';
 import { Util } from '../../util/util';
 import { Router } from '@angular/router';
+import { AdminService } from '../../_services/admins.service';
 
 @Component({
   selector: 'app-controls',
@@ -19,12 +20,12 @@ export class ControlsComponent implements OnInit {
   @Output() onQuantityChange: EventEmitter<any> = new EventEmitter<any>();
   public count:number = 1;
   public align = 'center center';
-  constructor(public appService:AppService, public snackBar: MatSnackBar,  public router: Router) { }
+  public idProducto:any;
+  constructor(public appService:AppService,public adminService:AdminService, public snackBar: MatSnackBar,  public router: Router) { }
 
   ngOnInit() {
 
-
-    console.log(this.producto)
+    this.idProducto=this.producto.idProducto
     if(this.producto){
       if(this.product.cartCount > 0){
         this.count = this.producto.stock;
@@ -83,8 +84,10 @@ export class ControlsComponent implements OnInit {
   public addToWishList(product:Product){
     const idCliente = localStorage.getItem('cliente');
 
-    if( idCliente){
-      this.appService.addToWishList(product);
+    if(idCliente){
+      this.adminService.guardarDeseo(idCliente, this.idProducto).subscribe(result=>{
+        Util.successMessage("Deseo Agregado!!")
+      })
     }else{
       Util.errorMessage("Necesitas ingresar para poder agregar productos");
       this.router.navigate(['/sign-in']);
