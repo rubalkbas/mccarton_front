@@ -8,6 +8,7 @@ import { BannerComponent } from './banner.component';
 import { ImagenDialogComponent } from './imagen-dialog/imagen-dialog.component';
 import { BannerDialogComponent } from './banner-dialog/banner-dialog.component';
 import { InputFileModule } from 'ngx-input-file';
+import { FormsModule } from '@angular/forms';
 
 export const routes: Routes = [
   { path: '', component: BannerComponent, pathMatch: 'full' }
@@ -25,7 +26,8 @@ export const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     NgxPaginationModule,
-    InputFileModule
+    InputFileModule,
+    FormsModule
   ]
 })
 export class BannerModule { }

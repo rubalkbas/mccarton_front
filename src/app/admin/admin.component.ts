@@ -26,6 +26,8 @@ export class AdminComponent implements OnInit {
   usuario:any=null;
 
   ngOnInit() {  
+    this.verificaSesion();
+
     if(window.innerWidth <= 960){ 
       this.settings.adminSidenavIsOpened = false;
       this.settings.adminSidenavIsPinned = false;
@@ -48,7 +50,6 @@ export class AdminComponent implements OnInit {
         this.sidenav.close(); 
       }                
     });  
-    this.verificaSesion();
   } 
 
   public toggleSidenav(){

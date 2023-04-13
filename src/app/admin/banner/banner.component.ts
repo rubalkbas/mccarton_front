@@ -14,7 +14,9 @@ import { BannerDialogComponent } from './banner-dialog/banner-dialog.component';
 export class BannerComponent implements OnInit {
 
   bannersArray:ImagenBanner[]=[];
-  bannersArrayActivos:ImagenBanner[]=[];
+  // bannersArrayActivos:ImagenBanner[]=[];
+  verActivos:boolean=false;
+  verTodos:boolean=false;
 
   public count : 6;
   public page: any;
@@ -59,7 +61,7 @@ export class BannerComponent implements OnInit {
 
   mostrarBannersActivos(){
     this.bannerService.mostrarBannersActivos().subscribe({next:response=>{
-      this.bannersArrayActivos=response.response;
+      this.bannersArray=response.response;
     },error:error=>{
       Util.errorMessage(error.error.mensaje);
     }})
@@ -94,5 +96,22 @@ export class BannerComponent implements OnInit {
       }
     });
   }
+
+  deseleccionarOtroCheckbox(checkboxId: string) {
+    if (checkboxId === 'checkbox1') {
+      this.listarBanners();
+
+      if (this.verActivos) {
+        this.verActivos = false;
+      }
+    } else if (checkboxId === 'checkbox2') {
+      this.mostrarBannersActivos();
+
+      if (this.verTodos) {
+        this.verTodos = false;
+      }
+    }
+  }
+  
 
 }
