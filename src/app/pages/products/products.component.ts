@@ -13,6 +13,7 @@ import { Producto } from 'src/app/models/producto.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Imagen } from '../../models/imagen.model';
+import { Colores } from 'src/app/models/color.model';
 
 
 @Component({
@@ -23,6 +24,7 @@ import { Imagen } from '../../models/imagen.model';
 export class ProductsComponent implements OnInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen:boolean = true;
+  listaColores: Colores[] = [];
   private sub: any;
   public categorias: Categorias[] = [];
   public selectionCategoria = new SelectionModel<Categorias>(true, []);
@@ -104,7 +106,10 @@ export class ProductsComponent implements OnInit {
     if(window.innerWidth < 1280){
       this.viewCol = 33.3;
     };
-
+    this.adminService.listarColoresActivos().subscribe(colores => {
+      this.listaColores = colores.response;
+      localStorage.setItem('colores', JSON.stringify(colores.response));
+    })
     // this.getCategories();
     // this.getBrands();
     // this.getAllProducts();   

@@ -2,7 +2,7 @@
     <div fxLayout="row wrap">
         <div fxFlex="100" fxFlex.gt-sm="100" class="p-2">
             <h2 class="text-muted text-center">Iniciar Sesión</h2>
-            <form [formGroup]="loginForm" (ngSubmit)="onLoginFormSubmit(loginForm.value)">
+            <form [formGroup]="loginForm" (ngSubmit)="onLoginFormSubmit()">
                 <mat-form-field appearance="outline" class="w-100 mt-2">
                     <mat-label>Email</mat-label>
                     <input matInput placeholder="Email" formControlName="email" required>
@@ -19,7 +19,7 @@
                 </mat-form-field>
                 <div class="text-center mt-2">
                     <button mat-fab color="primary" class="mat-elevation-z6"
-                        (click)="onLoginFormSubmit(loginForm.value)">
+                        (click)="onLoginFormSubmit()">
                         <mat-icon>exit_to_app</mat-icon>
                     </button>
                 </div>

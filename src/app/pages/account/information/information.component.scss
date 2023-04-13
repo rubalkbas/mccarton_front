@@ -1,0 +1,29 @@
+#previewImage {
+    display: block;
+    margin-top: 10px;
+    max-width: 100%;
+  }
+  .image-upload-container {
+    position: relative;
+    display: inline-block;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  input[type="file"] {
+    position: absolute;
+    left: -9999px;
+  }
+
+  label[for="multipartFile"] {
+    display: inline-block;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  label i {
+    margin-right: 8px;
+  }

@@ -9,6 +9,8 @@ import { Category } from "../app.models";
 import { SingleResponse } from "../models/response.model";
 import { Cliente } from '../models/cliente.model';
 import { Imagen } from "../models/imagen.model";
+import { map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root",
@@ -19,8 +21,32 @@ export class AdminService {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
+  token: any;
   constructor(private http: HttpClient) { }
 
+  //CRUD ROLES
+
+  public getAllRoles(): Observable<any>{
+    const url=`${this.urlAdmin}/roles/todos`;
+    return this.http.get(url);
+  }
+
+  public saveRol(nombreRol, descripcionRol): Observable<any>{
+    const url=`${this.urlAdmin}/roles/nuevoRol`;
+    const body ={nombreRol: nombreRol, descripcionRol: descripcionRol};
+    return this.http.post(url, body);
+  }
+  
+  public editarRol(idRol, estatus): Observable<any>{
+    const url=`${this.urlAdmin}/roles/actualizarEstatusRol`;
+    const body = { idRol, estatus }; 
+    return this.http.put(url, body);
+  }
+  public getRolesActivos(): Observable<any> {
+    const url = `${this.urlAdmin}/roles/todosActivos`;
+    return this.http.get(url);
+  }
+//CRUD MATERIALES
   public listarMateriales(): Observable<any> {
     return this.http.get(`${this.urlAdmin}/Materiales/todos`, this.httpOptions);
   }
@@ -94,37 +120,95 @@ export class AdminService {
     return this.http.put(url, body);
   }
 
-  //Terminacion del CRUD categorias
-   //Añadiendo el CRUD  Cliente
 
-    public saveCliente(cliente): Observable<SingleResponse<Cliente>>{
-      let headers = new HttpHeaders();
-      headers = headers.append('enctype', 'multipart/form-data');
-      return this.http.post<SingleResponse<Cliente>>(`${this.urlAdmin}/registro/cliente`,cliente, { headers: headers });
-    }
+  //Añadiendo el CRUD  Cliente
 
-    public loginCliente(cliente: Cliente): Observable<any> {
-      return this.http.post<any>(`${this.urlAdmin}/clientes/loginCliente`, cliente);
-    }
-    
-    public listarClientes(): Observable<any> {
-      return this.http.get(`${this.urlAdmin}/clientes/todos`, this.httpOptions);
-    }
-    
-    public eliminarCliente(id: number): Observable<SingleResponse<Cliente>> {
-      return this.http.delete<SingleResponse<Cliente>>(`${this.urlAdmin}/clientes/eliminarCliente/${id}`, this.httpOptions);
-    }
-   /*
-    public saveCliente(cliente: any, file: File): Observable<SingleResponse<Cliente>> {
-      const formData = new FormData();
-      formData.append('cliente', JSON.stringify(cliente));
-      formData.append('file', file);
-    
-      let headers = new HttpHeaders();
-      headers = headers.append('Content-Type', 'multipart/form-data');
-      return this.http.post<SingleResponse<Cliente>>(`${this.urlAdmin}/registro/cliente`, formData, { headers: headers });
-    }    
-    */
+  public saveCliente(cliente): Observable<SingleResponse<Cliente>> {
+    let headers = new HttpHeaders();
+    headers = headers.append('enctype', 'multipart/form-data');
+    return this.http.post<SingleResponse<Cliente>>(`${this.urlAdmin}/registro/cliente`, cliente, { headers: headers });
+  }
+ 
+  public actualizarCliente(body: FormData): Observable<any> {
+    const headers = new HttpHeaders().append('enctype', 'multipart/form-data');
+    const url = `${this.urlAdmin}/clientes/actualizarCliente`;
+    return this.http.put(url, body, { headers: headers });
+  }
+  
+  public autenticacionCliente(correoElectronico: string, password: string): Observable<Cliente[]> {
+    const complemento = "/loginCliente";
+    const cliente = {
+      email: correoElectronico,
+      password: password
+    };
+    return this.http.post<Cliente[]>(this.urlAdmin + complemento, cliente, { observe: 'response' })
+      .pipe(
+        tap(response => {
+          const expiresIn = 300; // tiempo en segundos
+          const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+          this.token = response.headers.get('Authorization');
+          console.log('Token:', this.token);
+          localStorage.setItem('authTokenExpiration', expirationDate.toISOString());
+          localStorage.setItem('access_token', this.token);
+        }),
+        map(response => response.body || [])
+      );
+  }
+  public loginCliente(cliente: Cliente): Observable<any> {
+    return this.http.post<any>(`${this.urlAdmin}/clientes/loginCliente`, cliente);
+  }
+  public listarClientes(): Observable<any> {
+    return this.http.get(`${this.urlAdmin}/clientes/todos`, this.httpOptions);
+  }
+  public listarClientesActivos(): Observable<any> {
+    return this.http.get(`${this.urlAdmin}/clientes/listarClientesActivos`, this.httpOptions);
+  }
+  public consultarCliente(id: number): Observable<any> {
+    const url = `${this.urlAdmin}/clientes/consultarCliente/${id}`;
+    return this.http.get(url, this.httpOptions);
+  }
+
+  public eliminarCliente(id: number): Observable<SingleResponse<Cliente>> {
+    return this.http.delete<SingleResponse<Cliente>>(`${this.urlAdmin}/clientes/eliminarCliente/${id}`, this.httpOptions);
+  }
+
+  //CRUD DIRECCIONES
+  public consultarDireccion(id: number): Observable<any> {
+    const url = `${this.urlAdmin}/direcciones/consultarDireccionPorCliente/${id}`;
+    return this.http.get(url, this.httpOptions);
+  }
+  public eliminarDireccion(id: number): Observable<any> {
+    const url = `${this.urlAdmin}/direcciones/eliminarDireccion/${id}`;
+    return this.http.delete(url, this.httpOptions);
+  }
+  public crearDireccion(
+    calle,
+    numeroExterior,
+    numeroInterior,
+    codigoPostal,
+    nombreDireccion,
+    colonia,
+    entreCalle1,
+    entreCalle2,
+    ciudad,
+    telefono,
+    cliente,
+  ): Observable<any> {
+    const url = `${this.urlAdmin}/direcciones/crearDireccion/${cliente}`;
+    const body = {
+      calle: calle,
+      numeroExterior: numeroExterior,
+      numeroInterior: numeroInterior,
+      codigoPostal: codigoPostal,
+      nombreDireccion: nombreDireccion,
+      colonia: colonia,
+      entreCalle1: entreCalle1,
+      entreCalle2: entreCalle2,
+      ciudad: ciudad,
+      telefono: telefono,
+    };
+    return this.http.post(url, body);
+  }
 
   //CRUD COLORES 
   public listarColores(): Observable<any> {
@@ -195,18 +279,18 @@ export class AdminService {
       producto,
       this.httpOptions
     );
-  } 
-    //Lista de Deseos 
-    public guardarDeseo(
-      idCliente,
-      idProducto
-    ): Observable<any> {
-      const url = `${this.urlAdmin}/listaDeseos/guardarListaDeseos`;
-      const body = {
-        idCliente: idCliente,
-        idProducto: idProducto
-      };
-      return this.http.post(url, body);
+  }
+  //Lista de Deseos 
+  public guardarDeseo(
+    idCliente,
+    idProducto
+  ): Observable<any> {
+    const url = `${this.urlAdmin}/listaDeseos/guardarListaDeseos`;
+    const body = {
+      idCliente: idCliente,
+      idProducto: idProducto
+    };
+    return this.http.post(url, body);
   }
 
   public obtenerImagenesProducto(producto: Producto): Observable<any> {
@@ -233,125 +317,126 @@ export class AdminService {
 
 
 
-//SERVICIOS DE PREGUNTAS FRECUENTES
+  //SERVICIOS DE PREGUNTAS FRECUENTES
 
-public getAllPreguntas(): Observable<any> {
-  const url = `${this.urlAdmin}/preguntaFrecuente/consultarTodos`;
-  return this.http.get(url);
-}
-
-
-public crearPreguntaFrecuente(pregunta, respuesta): Observable<any> {
-  const url = `${this.urlAdmin}/preguntaFrecuente/guardar`;
-  const body = {
-    pregunta: pregunta,
-    respuesta: respuesta
-  };
-  return this.http.post(url, body);
-}
-public editarPreguntaFrecuente(idPreguntaFrecuente,pregunta, respuesta): Observable<any>{
-  const url=`${this.urlAdmin}/preguntaFrecuente/actualizar`;
-  const body = { idPreguntaFrecuente,pregunta, respuesta }; 
-  return this.http.put(url, body);
-}
+  public getAllPreguntas(): Observable<any> {
+    const url = `${this.urlAdmin}/preguntaFrecuente/consultarTodos`;
+    return this.http.get(url);
+  }
 
 
-public getAllPreguntasActivas(): Observable<any> {
-  const url = `${this.urlAdmin}/preguntaFrecuente/consultarTodosActivos`;
-  return this.http.get(url);
-}
-
-public actualizarEstatusPregunta(idPreguntaFrecuente, estatus): Observable<any> {
-  const url = `${this.urlAdmin}/preguntaFrecuente/actualizarEstatus?idPreguntaFrecuente=${idPreguntaFrecuente}&estatus=${estatus}`;
-  return this.http.put(url, {});
-}
-
-public eliminarPreguntaFrecuente(idPreguntaFrecuente): Observable<any> {
-  const url = `${this.urlAdmin}/preguntaFrecuente/eliminar?idPreguntaFrecuente=${idPreguntaFrecuente}`;
-  return this.http.delete(url, {});
- 
-}
-//PREGUNTAS FRECUENTES
+  public crearPreguntaFrecuente(pregunta, respuesta): Observable<any> {
+    const url = `${this.urlAdmin}/preguntaFrecuente/guardar`;
+    const body = {
+      pregunta: pregunta,
+      respuesta: respuesta
+    };
+    return this.http.post(url, body);
+  }
+  public editarPreguntaFrecuente(idPreguntaFrecuente, pregunta, respuesta): Observable<any> {
+    const url = `${this.urlAdmin}/preguntaFrecuente/actualizar`;
+    const body = { idPreguntaFrecuente, pregunta, respuesta };
+    return this.http.put(url, body);
+  }
 
 
-//Ofrerta de Producto 
+  public getAllPreguntasActivas(): Observable<any> {
+    const url = `${this.urlAdmin}/preguntaFrecuente/consultarTodosActivos`;
+    return this.http.get(url);
+  }
+
+  public actualizarEstatusPregunta(idPreguntaFrecuente, estatus): Observable<any> {
+    const url = `${this.urlAdmin}/preguntaFrecuente/actualizarEstatus?idPreguntaFrecuente=${idPreguntaFrecuente}&estatus=${estatus}`;
+    return this.http.put(url, {});
+  }
+
+  public eliminarPreguntaFrecuente(idPreguntaFrecuente): Observable<any> {
+    const url = `${this.urlAdmin}/preguntaFrecuente/eliminar?idPreguntaFrecuente=${idPreguntaFrecuente}`;
+    return this.http.delete(url, {});
+
+  }
+  //PREGUNTAS FRECUENTES
 
 
-public crearOferta(
-  idProducto,
-  tipoOferta,
-  codigoOferta,
-  descuentoEnPorcentaje,
-  fechaInicio,fechaFin,
-  descripcion,
-  condicionesOferta,
-  numeroUso ,
-  estatus
-  ):
-  Observable<any>{
-  const url=`${this.urlAdmin}/oferta/guardar?idProducto=${idProducto}`;
-  const body ={
-
-    tipoOferta: tipoOferta,
-    codigoOferta:codigoOferta,
-    descuentoEnPorcentaje: descuentoEnPorcentaje,
-    fechaInicio: fechaInicio,
-    fechaFin: fechaFin,
-    descripcion:descripcion,
-    condicionesOferta: condicionesOferta,
-    numeroUso: numeroUso,
-    estatus:estatus
-  };
-  return this.http.post(url, body);
-}
+  //Ofrerta de Producto 
 
 
-public editarOferta(
-  idProducto,
-  idOferta,
-  tipoOferta
-  ,descuentoEnPorcentaje,
-  fechaInicio,fechaFin,
-  descripcion,
-  condicionesOferta,
-  codigoOferta,
-  numeroUso 
-  ):
-   Observable<any>{
-  const url=`${this.urlAdmin}/oferta/actualizar?idProducto=${idProducto}`;
-  const body = 
-  { idOferta,
+  public crearOferta(
+    idProducto,
     tipoOferta,
+    codigoOferta,
     descuentoEnPorcentaje,
-    fechaInicio,fechaFin,
+    fechaInicio, fechaFin,
+    descripcion,
+    condicionesOferta,
+    numeroUso,
+    estatus
+  ):
+    Observable<any> {
+    const url = `${this.urlAdmin}/oferta/guardar?idProducto=${idProducto}`;
+    const body = {
+
+      tipoOferta: tipoOferta,
+      codigoOferta: codigoOferta,
+      descuentoEnPorcentaje: descuentoEnPorcentaje,
+      fechaInicio: fechaInicio,
+      fechaFin: fechaFin,
+      descripcion: descripcion,
+      condicionesOferta: condicionesOferta,
+      numeroUso: numeroUso,
+      estatus: estatus
+    };
+    return this.http.post(url, body);
+  }
+
+
+  public editarOferta(
+    idProducto,
+    idOferta,
+    tipoOferta
+    , descuentoEnPorcentaje,
+    fechaInicio, fechaFin,
     descripcion,
     condicionesOferta,
     codigoOferta,
-    numeroUso 
-  }; 
-  return this.http.put(url, body);
-}
-public actualizarEstatusOferta(idOferta, estatus): Observable<any> {
-  const url = `${this.urlAdmin}/oferta/actualizarActivo?idOferta=${idOferta}&estatus=${estatus}`;
-  return this.http.put(url, {});
-}
+    numeroUso
+  ):
+    Observable<any> {
+    const url = `${this.urlAdmin}/oferta/actualizar?idProducto=${idProducto}`;
+    const body =
+    {
+      idOferta,
+      tipoOferta,
+      descuentoEnPorcentaje,
+      fechaInicio, fechaFin,
+      descripcion,
+      condicionesOferta,
+      codigoOferta,
+      numeroUso
+    };
+    return this.http.put(url, body);
+  }
+  public actualizarEstatusOferta(idOferta, estatus): Observable<any> {
+    const url = `${this.urlAdmin}/oferta/actualizarActivo?idOferta=${idOferta}&estatus=${estatus}`;
+    return this.http.put(url, {});
+  }
 
-public getAllOfertasActivas(): Observable<any> {
-  const url = `${this.urlAdmin}/oferta/consultarTodosActivos`;
-  return this.http.get(url);
-}
+  public getAllOfertasActivas(): Observable<any> {
+    const url = `${this.urlAdmin}/oferta/consultarTodosActivos`;
+    return this.http.get(url);
+  }
 
-public getAllOfertas(): Observable<any> {
-  const url = `${this.urlAdmin}/oferta/consultarTodos`;
-  return this.http.get(url);
-}
+  public getAllOfertas(): Observable<any> {
+    const url = `${this.urlAdmin}/oferta/consultarTodos`;
+    return this.http.get(url);
+  }
 
-public buscarOfertaId(idProducto): Observable<any> {
-  const url = `${this.urlAdmin}/oferta/consultarPorIdProducto?idProducto=${idProducto}`;
-  return this.http.get(url, {});
- 
-}
-//Fin de Oferta Pregunta
+  public buscarOfertaId(idProducto): Observable<any> {
+    const url = `${this.urlAdmin}/oferta/consultarPorIdProducto?idProducto=${idProducto}`;
+    return this.http.get(url, {});
+
+  }
+  //Fin de Oferta Pregunta
 }
 
 

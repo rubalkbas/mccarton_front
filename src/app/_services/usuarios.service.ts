@@ -3,12 +3,13 @@ import { Usuario } from './../admin/users/user.model';
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
 
+  token:any;
 
     private urlAdmin = "http://localhost:8090";
     private httpOptions = {
@@ -51,7 +52,29 @@ export class UsuariosService {
     this.httpOptions);
   }
 
-  public loginUsuario(usuario):Observable<SingleResponse<Usuario>>{
+  public loginUsuario(usuario):Observable<Usuario[]>{
+
+    const usuarioLogin={
+      email: usuario.correoElectronico,
+      password: usuario.password
+    }
+
+
+    return this.http.post<Usuario[]>(`${this.urlAdmin}/loginUsuario`, usuarioLogin, { observe: 'response' }).pipe(
+      tap(response => {
+        console.log(response)
+        const expiresIn = 300; // tiempo en segundos
+        const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+        this.token = response.headers.get('Authorization');
+        console.log('Token:', this.token);
+        localStorage.setItem('authTokenExpiration', expirationDate.toISOString());
+        localStorage.setItem('access_token', this.token);
+      }),
+      map(response => response.body || [])
+    );;
+  }
+
+  public loginUsuario2(usuario):Observable<SingleResponse<Usuario>>{
     return this.http.post<SingleResponse<Usuario>>(`${this.urlAdmin}/usuarios/loginUsuario`, usuario, this.httpOptions);
   }
 

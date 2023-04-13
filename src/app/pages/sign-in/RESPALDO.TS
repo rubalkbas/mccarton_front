@@ -1,3 +1,5 @@
+/*
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -61,20 +63,18 @@ export class SignInComponent implements OnInit {
     let formData = new FormData();
     formData.append('correoElectronico', this.cliente.correoElectronico);
     formData.append('password', this.cliente.password);
-    this.adminService.autenticacionCliente(this.cliente.correoElectronico,this.cliente.password).subscribe(
+    
+    this.adminService.loginCliente(this.cliente).subscribe(
       response=>{
-        const token = localStorage.getItem('access_token');
-        this.adminService.loginCliente(this.cliente).subscribe(
-          response=>{
-            Util.successMessage(response.mensaje);
-            localStorage.setItem('cliente', response.response.idCliente);
-            this.loginForm.reset();
-            this.router.navigate(['/account']);
-          }
-        )
+        Util.successMessage(response.mensaje);
+        console.log(response);
+        localStorage.setItem('token', response.response.token);
+        localStorage.setItem('response', response.response);
+        console.log(response.response.token);
+        this.loginForm.reset();
+        this.router.navigate(['/account']);
       }
     )
-
   }
 
   onFileSelected(event: any) {
@@ -111,8 +111,9 @@ export class SignInComponent implements OnInit {
     this.adminService.saveCliente(formData).subscribe({next:data=>{
       Util.successMessage(data.mensaje);
       this.registerForm.reset();
-      this.router.navigate(['/sign-in']);
+      this.router.navigate(['/account']);
   }})
 }
 
 }
+*/

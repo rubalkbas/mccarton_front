@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { InformationComponent } from './information/information.component';
 import { AddressesComponent } from './addresses/addresses.component';
 import { OrdersComponent } from './orders/orders.component';
+import { DireccionDialogComponent } from './addresses/direccion-dialog/direccion-dialog.component';
 
 export const routes: Routes = [
   { 
@@ -34,7 +35,8 @@ export const routes: Routes = [
     DashboardComponent,
     InformationComponent,
     AddressesComponent,
-    OrdersComponent
+    OrdersComponent,
+    DireccionDialogComponent
   ]
 })
 export class AccountModule { }

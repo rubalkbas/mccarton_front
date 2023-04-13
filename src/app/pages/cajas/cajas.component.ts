@@ -19,19 +19,16 @@ import { Colores } from '../../models/color.model';
       <div fxFlex.gt-xs="50" fxFlex.gt-md="50" fxFlex="100">
         <div class="card-form" fxLayout="row" fxLayoutAlign="start center">
           <div class="formularios">
-            <mat-tab-group color="green">
-              <mat-tab label="Colores">
-              <button id="btnColores" class="btnColo" style="background-color:#c69d6d ;" value="c69d6d"></button>
-              <button id="btnColores" class="btnColo" style="background-color:#ffffff ;" value="ffffff"></button>
-              <button id="btnColores" class="btnColo" style="background-color:#212121 ;" value="212121"></button>
-              <button id="btnColores" class="btnColo" style="background-color:#c74f62;" value="c74f62"></button>
-              <button id="btnColores" class="btnColo" style="background-color:#5a836f ;" value="5a836f"></button>
-              <button id="btnColores" class="btnColo" style="background-color:#427aaf ;" value="427aaf"></button>
-              </mat-tab>
-              <mat-tab label="Grosores">
+              <h2 class="titulo">Colores</h2>
+              <div class="colores">
+              <button *ngFor="let colores of listaColores" id="btnColores" class="btnColo" style="background-color:#{{colores.codigoHexadecimal}};" value="{{colores.codigoHexadecimal}}"></button>
+              </div>
+              <div class="grosor">
+                <h2 class="titulo">Grosores</h2>
+                <button id="btnmicro" class="boton-redondo"></button>
+                <button class="boton-redondo" id="btndos" ></button>
+              </div>
 
-              </mat-tab>
-            </mat-tab-group>
           </div>
 
         </div>
@@ -48,13 +45,21 @@ import { Colores } from '../../models/color.model';
   styleUrls: ['./cajas.component.scss']
 })
 export class CajasComponent implements AfterViewInit {
+
   @ViewChild('threeCanvas') private threeCanvasRef: ElementRef<HTMLCanvasElement>;
 
   listaColores: Colores[] = [];
 
   constructor(public adminService: AdminService,
   ) { }
+  ngOnInit() {
+    const coloresString = localStorage.getItem('colores');
+    if (coloresString) {
+      this.listaColores = JSON.parse(coloresString);
+    }
+  }
   public ngAfterViewInit(): void {
+
     const threeCanvas = this.threeCanvasRef.nativeElement;
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: threeCanvas });
     renderer.setClearColor(0xCBE6D2);
@@ -70,7 +75,7 @@ export class CajasComponent implements AfterViewInit {
     const gltfloader = new GLTFLoader();
     gltfloader.load('assets/images/caja/cajita_grosor_2/cajita_grosor_2.gltf', function (gltf) {
       model = gltf.scene;
-      model.scale.set(0.25, 0.25, 0.25);
+      model.scale.set(0.3, 0.3, 0.3);
 
       // MATERIALES
       model.traverse(function (child) {
@@ -132,8 +137,16 @@ export class CajasComponent implements AfterViewInit {
         }
 
       }
-
       // Boton Abrir
+      const btnmicro: HTMLButtonElement = document.getElementById('btnmicro') as HTMLButtonElement;
+      btnmicro.addEventListener('click', () => {
+        playAnimation2('Animacion3', true);
+      });
+      const btndos: HTMLButtonElement = document.getElementById('btndos') as HTMLButtonElement;
+      btndos.addEventListener('click', () => {
+        playAnimation2('Animacion3', false);
+      });
+
       const btnAbrir: HTMLButtonElement = document.getElementById('btnabrir') as HTMLButtonElement;
       btnAbrir.addEventListener('click', () => {
         playAnimation('Animacion1', false);
@@ -174,6 +187,7 @@ export class CajasComponent implements AfterViewInit {
         btnCerrar.style.display = 'none';
         btnPlegar.style.display = 'inline-block';
       });
+
       scene.add(model);
     });
 
@@ -194,6 +208,32 @@ export class CajasComponent implements AfterViewInit {
     }
     function playAnimation(name: string, reverse: boolean) {
       stopAllAnimations();
+      const action = mixer._actions.find(action => action.name === name);
+      if (reverse) {
+        if (action) {
+          action.reset();
+          const clip = action._clip;
+          action.setEffectiveTimeScale(-1);
+          action.setEffectiveWeight(1);
+          action.play();
+          console.log(clip);
+          model.userData.animations = [clip];
+          console.log(model)
+        }
+      }
+      else {
+        if (action) {
+          action.reset();
+          const clip = action._clip;
+          action.setEffectiveTimeScale(1);
+          action.setEffectiveWeight(2);
+          action.play();
+          console.log(clip);
+          model.userData.animations = [clip];
+        }
+      }
+    }
+    function playAnimation2(name: string, reverse: boolean) {
       const action = mixer._actions.find(action => action.name === name);
       if (reverse) {
         if (action) {
@@ -249,10 +289,7 @@ export class CajasComponent implements AfterViewInit {
     window.addEventListener('resize', onWindowResize);
     onWindowResize();
 
-    this.adminService.listarColoresActivos().subscribe(colores => {
-      this.listaColores = colores.response;
-      console.log(this.listaColores);
-    })
+
   }
 }
 

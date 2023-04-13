@@ -20,7 +20,7 @@
                 <div class="mat-header-cell" id="columnas">Total</div>
                 <div class="mat-header-cell" id="columnas">Fecha de orden</div>
             </div>
-            <div *ngFor="let orden of ordenes | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row">
+            <div *ngFor="let orden of ordenes | paginate: { itemsPerPage: sizePage, currentPage: page, totalItems:_totalElementos}" class="mat-row">
                 <div class="mat-cell" id="columnas2">{{orden.calle}}</div>
                 <div class="mat-cell" id="columnas2">{{orden.numeroExterior}}</div>
                 <div class="mat-cell" id="columnas2">{{orden.numeroInterior}}</div>
@@ -42,7 +42,7 @@
     <div *ngIf="ordenes.length > 0" fxLayout="row wrap">
         <div fxFlex="100"> 
             <mat-card class="p-0 text-center">           
-                <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
+                <pagination-controls  [(page)]="page" [totalItems]="_totalElementos" class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
             </mat-card>
         </div>
     </div>
