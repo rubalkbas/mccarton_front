@@ -21,7 +21,12 @@ export class ControlsComponent implements OnInit {
   public count:number = 1;
   public align = 'center center';
   public idProducto:any;
-  constructor(public appService:AppService,public adminService:AdminService, public snackBar: MatSnackBar,  public router: Router) { }
+  constructor(public appService:AppService,
+    public adminService:AdminService, 
+    public snackBar: MatSnackBar, 
+    public router: Router
+
+     ) { }
 
   ngOnInit() {
 
@@ -35,7 +40,15 @@ export class ControlsComponent implements OnInit {
 
     console.log("Este es el producto:" , this.producto)
   }
-
+  //Elimar Deseo 
+  public remove(product: any) {
+    const idProducto = product.idProducto;
+    this.adminService.eliminarDeseo(idProducto).subscribe(resp => {
+      Util.successMessage(resp.mensaje);
+      window.location.reload();
+    });
+  }
+  //Fin de Eliminar deseo 
   public layoutAlign(){
     if(this.type == 'all'){
       this.align = 'space-between center';
