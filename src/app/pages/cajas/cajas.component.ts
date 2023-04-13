@@ -20,12 +20,9 @@ import { Colores } from '../../models/color.model';
         <div class="card-form" fxLayout="row" fxLayoutAlign="start center">
           <div class="formularios">
               <h2 class="titulo">Colores</h2>
-              <button id="btnColores" class="btnColo" style="background-color:#c69d6d ;" value="c69d6d"></button>
-              <button id="btnColores" class="btnColo" style="background-color:#ffffff ;" value="ffffff"></button>
-              <button id="btnColores" class="btnColo" style="background-color:#212121 ;" value="212121"></button>
-              <button id="btnColores" class="btnColo" style="background-color:#c74f62;" value="c74f62"></button>
-              <button id="btnColores" class="btnColo" style="background-color:#5a836f ;" value="5a836f"></button>
-              <button id="btnColores" class="btnColo" style="background-color:#427aaf ;" value="427aaf"></button>
+              <div class="colores">
+              <button *ngFor="let colores of listaColores" id="btnColores" class="btnColo" style="background-color:#{{colores.codigoHexadecimal}};" value="{{colores.codigoHexadecimal}}"></button>
+              </div>
               <div class="grosor">
                 <h2 class="titulo">Grosores</h2>
                 <button id="btnmicro" class="boton-redondo"></button>
@@ -48,13 +45,21 @@ import { Colores } from '../../models/color.model';
   styleUrls: ['./cajas.component.scss']
 })
 export class CajasComponent implements AfterViewInit {
+
   @ViewChild('threeCanvas') private threeCanvasRef: ElementRef<HTMLCanvasElement>;
 
   listaColores: Colores[] = [];
 
   constructor(public adminService: AdminService,
   ) { }
+  ngOnInit() {
+    const coloresString = localStorage.getItem('colores');
+    if (coloresString) {
+      this.listaColores = JSON.parse(coloresString);
+    }
+  }
   public ngAfterViewInit(): void {
+
     const threeCanvas = this.threeCanvasRef.nativeElement;
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: threeCanvas });
     renderer.setClearColor(0xCBE6D2);
@@ -284,10 +289,7 @@ export class CajasComponent implements AfterViewInit {
     window.addEventListener('resize', onWindowResize);
     onWindowResize();
 
-    this.adminService.listarColoresActivos().subscribe(colores => {
-      this.listaColores = colores.response;
-      console.log(this.listaColores);
-    })
+
   }
 }
 

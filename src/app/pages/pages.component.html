@@ -51,14 +51,9 @@
                                 <mat-menu #animals="matMenu" [overlapTrigger]="false" class="app-dropdown">
                                     <a mat-menu-item routerLink="/products" routerLinkActive="horizontal-active-link"
                                         [routerLinkActiveOptions]="{exact:true}">Todos los productos</a>
-                                    <a mat-menu-item [routerLink]="['/products', '2', 'PC All-in-One']"
-                                        routerLinkActive="horizontal-active-link"
-                                        [routerLinkActiveOptions]="{exact:true}">Detalles de producto</a>
                                     <a mat-menu-item routerLink="/contact" routerLinkActive="horizontal-active-link"
                                         [routerLinkActiveOptions]="{exact:true}">Contacto</a>
-                                    <a mat-menu-item routerLink="/sign-in">Registro</a>
-                                    <a mat-menu-item routerLink="/404">404 Error</a>
-                                    <a mat-menu-item routerLink="/landing">Landing</a>
+                                    <a mat-menu-item routerLink="/sign-in">Inicio sesion / Registro</a>
                                     <a mat-menu-item routerLink="/admin/login-admin">Inicio de sesión admin</a>
                                 </mat-menu>
                             </div>

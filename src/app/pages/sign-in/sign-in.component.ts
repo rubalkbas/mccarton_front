@@ -64,11 +64,9 @@ export class SignInComponent implements OnInit {
     this.adminService.autenticacionCliente(this.cliente.correoElectronico,this.cliente.password).subscribe(
       response=>{
         const token = localStorage.getItem('access_token');
-        console.log("Token guardado en localStorage:", token);
         this.adminService.loginCliente(this.cliente).subscribe(
           response=>{
             Util.successMessage(response.mensaje);
-            console.log(response);
             localStorage.setItem('cliente', response.response.idCliente);
             this.loginForm.reset();
             this.router.navigate(['/account']);
