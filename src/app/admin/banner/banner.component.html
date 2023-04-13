@@ -3,6 +3,15 @@
         <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
             <h2>Lista de Benners</h2>  
             <button mat-raised-button color="primary" (click)="openBannerDialog(null)">Añadir Banner</button>
+            <div class="checkbox">
+                <input id="checkbox1" type="checkbox" class="styled-checkbox" [(ngModel)]="verTodos" (click)="deseleccionarOtroCheckbox('checkbox1')" />
+                <label for="checkbox1" class="styled-label">Ver Todos</label>
+              </div>
+              <div class="checkbox">
+                <input id="checkbox2" type="checkbox" class="styled-checkbox" [(ngModel)]="verActivos" (click)="deseleccionarOtroCheckbox('checkbox2')" />
+                <label for="checkbox2" class="styled-label">Ver Activos</label>
+              </div>
+              
         </div>
         <mat-divider></mat-divider>
         <div class="mat-table admin-table">
