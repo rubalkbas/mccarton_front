@@ -3,8 +3,8 @@ export class OfertaProducto {
     tipoOferta:string;
     codigoOferta:string;
     descuentoEnPorcentaje: number;
-    fcehaInicio: Date;
-    fehcaFin: Date;
+    fechaInicio: Date;
+    fechaFin: Date;
     descripcion: string;
     condicionesOferta: string;
     numeroUso: number;

@@ -1,11 +1,12 @@
 <div fxLayout="row wrap">
-    <div *ngFor="let product of productos | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="p-1">
+    <div *ngFor="let product of productos | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100"
+        [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="p-1">
         <mat-card class="product-item product-card text-center">
             <!-- <mat-chip-list *ngIf="product.discount">
                 <mat-chip color="warn" selected="true">{{product.discount}}% de descuento</mat-chip>
             </mat-chip-list>  -->
-            <img [src]="product.imagenes?.[0]?.imagen" alt="imagen" class="product-image"> 
-            <h4 class="category text-muted">{{ product.categoria?.nombreCategoria }}</h4>                                                                     
+            <img [src]="product.imagenes?.[0]?.imagen" alt="imagen" class="product-image">
+            <h4 class="category text-muted">{{ product.categoria?.nombreCategoria }}</h4>
             <div class="title text-truncate">
                 {{product.nombreProducto}}
             </div>
@@ -15,26 +16,78 @@
                     <p class="new-price">{{product.precioVenta | currency}}</p>
                 </div>
                 <!-- <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue" [direction]="'column'"></app-rating> -->
-            </div>                            
-           <div class="divider mt-2"></div>
+            </div>
+            <div class="divider mt-2"></div>
             <div class="icons">
-                <a [routerLink]="['/admin/products/add-product', product.idProducto]" mat-mini-fab color="primary" matTooltip="Editar"><mat-icon>edit</mat-icon></a>
-                <span class="px-1"> <a [routerLink]="['/admin/products/product-detail', product.idProducto]" mat-mini-fab color="primary" matTooltip="Ver">
-                    <mat-icon>remove_red_eye</mat-icon></a></span>
-                    <button mat-mini-fab color="primary" (click)="openOfretaDialog(product)"><mat-icon>add</mat-icon></button>
+                <a [routerLink]="['/admin/products/add-product', product.idProducto]" mat-mini-fab color="primary"
+                    matTooltip="Editar"><mat-icon>edit</mat-icon></a>
+                <span class="px-1"> <a [routerLink]="['/admin/products/product-detail', product.idProducto]"
+                        mat-mini-fab color="primary" matTooltip="Ver">
+                        <mat-icon>remove_red_eye</mat-icon></a></span>
+                <button mat-mini-fab color="primary"
+                    (click)="openOfretaDialog(product)"><mat-icon>add</mat-icon></button>
                 <!-- <button mat-mini-fab color="warn" matTooltip="Remove" (click)="remove(product)"><mat-icon>delete</mat-icon></button> 
                  <button mat-raised-button color="primary" (click)="openRolesDialog(null)">Añadir Rol</button>
                 -->
             </div>
-      
+
         </mat-card>
     </div>
 </div>
 
 <div *ngIf="productos.length > 0" fxLayout="row wrap">
-    <div fxFlex="100" class="p-1"> 
-        <mat-card class="p-0 text-center">           
-            <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
+    <div fxFlex="100" class="p-1">
+        <mat-card class="p-0 text-center">
+            <pagination-controls class="product-pagination" autoHide="true" maxSize="5"
+                (pageChange)="onPageChanged($event)"></pagination-controls>
         </mat-card>
     </div>
 </div>
+<!--
+    Aqui empieza la nueva tabla 
+
+<div class="p-1">
+    <mat-card class="p-0"> 
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
+            <h2>Pregunta Frecuente</h2> 
+            <button mat-raised-button color="primary" (click)="openpreguntaFrecuenteDialog(null)">Añadir Pregunta</button>  
+        </div>
+        <mat-divider></mat-divider>
+        <div class="mat-table admin-table">
+            <div class="mat-header-row">  
+                <div class="mat-header-cell" id="columnas">Pregunta</div>
+                <div class="mat-header-cell" id="columnas">Respuesta</div> 
+                <div class="mat-header-cell" id="columnas">Estatus</div>  
+                <div class="mat-header-cell" id="columnas">Acciones</div>
+            </div>
+
+            <div *ngFor="let follower of preguntasFrecuentes | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row">  
+                <div class="mat-cell" id="columnas2">{{follower.pregunta}}</div>  
+                <div class="mat-cell" id="columnas2">{{follower.respuesta}}</div>  
+                <div class="mat-cell" id="columnas2"><button class="button-estatus" [ngClass]="{'activo': follower.estatus === 1, 'inactivo': follower.estatus === 0}" (click)="cambiarestatus(follower)">{{follower.estatus === 1 ? 'Activo' : 'Inactivo'}}</button>
+                </div>      
+                <div class="mat-cell" id="columnas2">
+                    <div class="p-1 actions" id="columnas2"> 
+                        <button mat-mini-fab color="primary" matTooltip="Edit" (click)="openpreguntaFrecuenteDialog(follower)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-mini-fab color="warn" matTooltip="Delete" class="mx-1" (click)="remove(follower)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>      
+            </div>
+
+        </div>
+    </mat-card>
+
+    <div *ngIf="preguntasFrecuentes.length > 0" fxLayout="row wrap">
+        <div fxFlex="100"> 
+            <mat-card class="p-0 text-center">           
+                <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
+            </mat-card>
+        </div>
+    </div>
+    
+</div>
+-->

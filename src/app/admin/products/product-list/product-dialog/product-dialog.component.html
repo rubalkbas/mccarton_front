@@ -5,56 +5,63 @@
     </h1>
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()" autocomplete="off" class="user-form">
         <div mat-dialog-content>
-            <div fxLayout="row wrap" class="mt-2">
-                <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Tipo Oferta</mat-label>
-                        <input class="inputRol" matInput formControlName="tipoOferta" required>
-                    </mat-form-field>
-                </div>
-                <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>DescuentoEnPorcentaje</mat-label>
-                        <input class="inputRol" type="number" matInput formControlName="descuentoEnPorcentaje" required>
-                    </mat-form-field>
-                </div>
-                <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>FechaInicio</mat-label>
-                        <input class="inputRol" matInput formControlName="fechaInicio" required type="datetime-local">
-                    </mat-form-field>
-                </div>
-                <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>FechaFin</mat-label>
-                        <input class="inputRol" matInput formControlName="fechaFin" required type="datetime-local">
-                    </mat-form-field>
-                </div>
-                <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Codigo de Oferta</mat-label>
-                        <input class="inputRol" matInput formControlName="codigoOferta" required>
-                    </mat-form-field>
-                </div>
-                <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Descripcion</mat-label>
-                        <input class="inputRol" matInput formControlName="descripcion" required>
-                    </mat-form-field>
-                </div>
-                <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>CondicionesOferta</mat-label>
-                        <input class="inputRol" matInput formControlName="condicionesOferta" required>
-                    </mat-form-field>
-                </div>
-                <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>NumeroUso</mat-label>
-                        <input class="inputRol" type="number" matInput formControlName="numeroUso" required>
-                    </mat-form-field>
-                </div>
-            </div>
+            <mat-tab-group class="tab-content-wrapped">
+                <mat-tab>
+                    <div fxLayout="row wrap" class="mt-2">
+                        <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Tipo Oferta</mat-label>
+                                <input class="inputRol" matInput formControlName="tipoOferta" required>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>DescuentoEnPorcentaje</mat-label>
+                                <input class="inputRol" type="number" matInput formControlName="descuentoEnPorcentaje"
+                                    required>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>FechaInicio</mat-label>
+                                <input class="inputRol" matInput formControlName="fechaInicio" required
+                                    type="datetime-local">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>FechaFin</mat-label>
+                                <input class="inputRol" matInput formControlName="fechaFin" required
+                                    type="datetime-local">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Codigo de Oferta</mat-label>
+                                <input class="inputRol" matInput formControlName="codigoOferta" required>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Descripcion</mat-label>
+                                <input class="inputRol" matInput formControlName="descripcion" required>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>CondicionesOferta</mat-label>
+                                <input class="inputRol" matInput formControlName="condicionesOferta" required>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="100" fxFlex.gt-md="100" class="px-1">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>NumeroUso</mat-label>
+                                <input class="inputRol" type="number" matInput formControlName="numeroUso" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
         </div>
         <div mat-dialog-actions>
             <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
