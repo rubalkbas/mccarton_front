@@ -13,63 +13,74 @@ import { Producto } from '../../models/producto.model';
   styleUrls: ['./wishlist.component.scss']
 })
 export class WishlistComponent implements OnInit {
-  public quantity:number = 1;
-  deseos:any;
+  public quantity: number = 1;
+  deseos: any;
+  public productos: Producto[] = [];
+  public imagenSeleccionada: string;
 
-  constructor(public appService:AppService,public adminService:AdminService, public snackBar: MatSnackBar) { }
+  constructor(public appService: AppService, public adminService: AdminService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     const idCliente = localStorage.getItem('cliente');
-    this.adminService.obtenerDeseos(idCliente).subscribe(result=>{
+    this.adminService.obtenerDeseos(idCliente).subscribe(result => {
       Util.successMessage("Lista de deseos Obtenida con exito")
-      this.deseos=result.response
-      const idProductos = this.deseos.map(deseo => deseo.producto);
-      this.adminService.obtenerImagenesProducto(idProductos).subscribe(result=>{
-        console.log(result)
-      })
-    })
-    this.appService.Data.cartList.forEach(cartProduct=>{
-      this.appService.Data.wishList.forEach(product=>{
-        if(cartProduct.id == product.id){
+      this.deseos = result.response;
+      this.productos = this.deseos.map(deseo => deseo.producto);
+      this.productos.forEach(producto => {
+        this.adminService.obtenerImagenesProducto(producto).subscribe({
+          next: response => {
+            const imagen = response.response[0];
+            this.imagenSeleccionada = `data:image/${imagen.tipoImagen};base64,${imagen.imagenBits}`;
+          },
+          error: error => {
+            Util.errorMessage(error.error.mensaje);
+          }
+        });
+      });
+    });
+
+    this.appService.Data.cartList.forEach(cartProduct => {
+      this.appService.Data.wishList.forEach(product => {
+        if (cartProduct.id == product.id) {
           product.cartCount = cartProduct.cartCount;
         }
       });
     });
   }
 
-  public obtenerimagen(idProducto:any){
+  public obtenerimagen(idProducto: any) {
 
   }
-  public remove(product:Product) {
+  public remove(product: Product) {
     const index: number = this.appService.Data.wishList.indexOf(product);
     if (index !== -1) {
-        this.appService.Data.wishList.splice(index, 1);
-    }     
+      this.appService.Data.wishList.splice(index, 1);
+    }
   }
 
-  public clear(){
+  public clear() {
     this.appService.Data.wishList.length = 0;
-  } 
+  }
 
-  public getQuantity(val){
+  public getQuantity(val) {
     this.quantity = val.soldQuantity;
   }
 
-  public addToCart(product:Product){
-    let currentProduct = this.appService.Data.cartList.filter(item=>item.id == product.id)[0];
-    if(currentProduct){
-      if((currentProduct.cartCount + this.quantity) <= product.availibilityCount){
+  public addToCart(product: Product) {
+    let currentProduct = this.appService.Data.cartList.filter(item => item.id == product.id)[0];
+    if (currentProduct) {
+      if ((currentProduct.cartCount + this.quantity) <= product.availibilityCount) {
         product.cartCount = currentProduct.cartCount + this.quantity;
       }
-      else{
+      else {
         this.snackBar.open('You can not add more items than available. In stock ' + product.availibilityCount + ' items and you already added ' + currentProduct.cartCount + ' item to your cart', '×', { panelClass: 'error', verticalPosition: 'top', duration: 5000 });
         return false;
       }
     }
-    else{
+    else {
       product.cartCount = this.quantity;
     }
     this.appService.addToCart(product);
-  } 
+  }
 
 }
