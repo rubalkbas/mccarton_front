@@ -146,10 +146,9 @@ export class AdminService {
     return this.http.post<Cliente[]>(this.urlAdmin + complemento, cliente, { observe: 'response' })
       .pipe(
         tap(response => {
-          const expiresIn = 900; // tiempo en segundos
+          const expiresIn = 600; // tiempo en segundos
           const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
           this.token = response.headers.get('Authorization');
-          console.log('Token:', this.token);
           localStorage.setItem('authTokenExpiration', expirationDate.toISOString());
           localStorage.setItem('access_token', this.token);
 
@@ -157,6 +156,7 @@ export class AdminService {
           setTimeout(function () {
             localStorage.removeItem('authTokenExpiration');
             localStorage.removeItem('access_token');
+            localStorage.removeItem('cliente');
           }, expiresIn * 1000);
         }),
         map(response => response.body || [])

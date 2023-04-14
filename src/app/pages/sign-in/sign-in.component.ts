@@ -66,6 +66,7 @@ export class SignInComponent implements OnInit {
     function startInactivityTimer() {
       inactivityTimer = setTimeout(function () {
         localStorage.removeItem('cliente');
+        localStorage.removeItem('access_token');
         Util.errorMessage('Tu sesión ha expirado');
         window.location.reload();
       });
@@ -74,7 +75,6 @@ export class SignInComponent implements OnInit {
 
     this.adminService.autenticacionCliente(this.cliente.correoElectronico, this.cliente.password).subscribe(
       response => {
-        const token = localStorage.getItem('access_token');
         this.adminService.loginCliente(this.cliente).subscribe(
           response => {
             Util.successMessage(response.mensaje);
@@ -83,7 +83,7 @@ export class SignInComponent implements OnInit {
             this.router.navigate(['/account']);
             setTimeout(function () {
               startInactivityTimer();
-            }, 15 * 60 * 1000);
+            }, 10 * 60 * 1000);
           }
         )
       }

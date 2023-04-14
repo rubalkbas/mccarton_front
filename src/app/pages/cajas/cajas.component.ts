@@ -62,7 +62,7 @@ export class CajasComponent implements AfterViewInit {
 
     const threeCanvas = this.threeCanvasRef.nativeElement;
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: threeCanvas });
-    renderer.setClearColor(0xCBE6D2);
+    renderer.setClearColor(0xb8c7cc);
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(30, threeCanvas.clientWidth / threeCanvas.clientHeight, 0.5, 1500);
@@ -73,7 +73,7 @@ export class CajasComponent implements AfterViewInit {
     let model: THREE.Object3D;
     let exterior = new THREE.Material;
     const gltfloader = new GLTFLoader();
-    gltfloader.load('assets/images/caja/cajita_grosor_2/cajita_grosor_2.gltf', function (gltf) {
+    gltfloader.load('assets/images/caja/cajita/CAJA.gltf', function (gltf) {
       model = gltf.scene;
       model.scale.set(0.3, 0.3, 0.3);
 
@@ -125,12 +125,12 @@ export class CajasComponent implements AfterViewInit {
           action.setLoop(THREE.LoopRepeat, 1); // Se repetirá 1 vez
           action.clampWhenFinished = true;
         }
-        if (animation.name === "DESPLEGADA_2") {
+        if (animation.name === "Desplegada") {
           action.name = 'Animacion2';
           action.setLoop(THREE.LoopRepeat, 1); // Se repetirá 1 vez
           action.clampWhenFinished = true;
         }
-        if (animation.name === "Key.002Action") {
+        if (animation.name === "prueba") {
           action.name = 'Animacion3';
           action.setLoop(THREE.LoopRepeat, 1); // Se repetirá 1 vez
           action.clampWhenFinished = true;

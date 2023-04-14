@@ -125,12 +125,7 @@ export class PagesComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) { 
-        this.sidenav.close(); 
-      }                
-    });
-    this.sidenavMenuService.expandActiveSubMenu(this.sidenavMenuService.getSidenavMenuItems());
+
   }
 
   // public closeSubMenus(){

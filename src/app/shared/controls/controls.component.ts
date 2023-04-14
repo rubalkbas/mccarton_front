@@ -30,7 +30,9 @@ export class ControlsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.idProducto=this.producto.idProducto
+      this.idProducto=this.producto.idProducto
+
+ 
     if(this.producto){
       if(this.product.cartCount > 0){
         this.count = this.producto.stock;
