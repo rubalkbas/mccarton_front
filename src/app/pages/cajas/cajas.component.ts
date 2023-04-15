@@ -62,7 +62,7 @@ export class CajasComponent implements AfterViewInit {
 
     const threeCanvas = this.threeCanvasRef.nativeElement;
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: threeCanvas });
-    renderer.setClearColor(0xb8c7cc);
+    renderer.setClearColor(0x2A2A2A);
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(30, threeCanvas.clientWidth / threeCanvas.clientHeight, 0.5, 1500);
