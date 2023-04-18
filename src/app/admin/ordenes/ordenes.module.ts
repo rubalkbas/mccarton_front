@@ -6,14 +6,17 @@ import { SharedModule } from '../../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { InputFileModule } from 'ngx-input-file';
 import { OrdenesComponent } from './ordenes.component';
+import { OrdenesDetallesComponent } from './ordenes-detalles/ordenes-detalles.component';
 
 export const routes: Routes = [
-  { path: '', component: OrdenesComponent, pathMatch: 'full' }
+  { path: '', component: OrdenesComponent, pathMatch: 'full' },
+  { path: 'ordenes-detalles', component: OrdenesDetallesComponent, data: { breadcrumb: 'Detalles de orden' } }
 ];
 
 @NgModule({
   declarations: [
-    OrdenesComponent
+    OrdenesComponent,
+    OrdenesDetallesComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +24,7 @@ export const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     NgxPaginationModule,
-    InputFileModule
+    InputFileModule,
   ]
 })
 export class OrdenesModule { }

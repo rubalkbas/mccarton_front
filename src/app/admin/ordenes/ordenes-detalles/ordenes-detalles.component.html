@@ -1,0 +1,34 @@
+<div class="p-1">
+    <mat-card class="p-0"> 
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
+            <h2>Detalle de orden</h2>  
+        </div>
+        <mat-divider></mat-divider>
+        
+        <div class="mat-table admin-table">
+            <div class="mat-header-row">
+                <div class="mat-header-cell" id="columnas">Nombre del producto</div>
+                <div class="mat-header-cell" id="columnas">Cantidad</div>
+                <div class="mat-header-cell" id="columnas">Precio</div> 
+                <div class="mat-header-cell" id="columnas">Subtotal</div>
+            </div>
+            <div *ngFor="let orden of _listaDetallaOrdenes | paginate: { itemsPerPage: sizePage, currentPage: page, totalItems: 5}" class="mat-row">
+
+                <div class="mat-cell" id="columnas2">{{orden.producto.nombreProducto}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.cantidad}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.precio}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.subtotal}}</div>
+
+            </div>      
+        </div>
+    </mat-card>
+
+    <div fxLayout="row wrap">
+        <div fxFlex="100"> 
+            <mat-card class="p-0 text-center">           
+                <pagination-controls  class="product-pagination" autoHide="true" maxSize="5"></pagination-controls>
+            </mat-card>
+        </div>
+    </div>
+
+</div>
