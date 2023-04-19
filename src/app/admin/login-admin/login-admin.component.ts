@@ -64,26 +64,28 @@ export class LoginAdminComponent implements OnInit {
         password: this.loginForm.get("password").value,
       };
 
-      this.usuarioService.loginUsuario(usuarioLogin).subscribe((data) => {
+      this.usuarioService.loginUsuario(usuarioLogin).subscribe({next: (data) => {
         console.log(data);
-      });
-
-      this.usuarioService.loginUsuario2(usuarioLogin).subscribe({
-        next: (data) => {
-          if (data.ok) {
-            this.sessionStorage.saveUser(data.response);
-            this.router.navigate(["/admin"]);
-          } else {
-            Util.errorMessage(data.mensaje);
-          }
-          const token = localStorage.getItem("access_token");
-          console.log(token);
-          console.log(data);
-        },
-        error: (error) => {
-          Util.errorMessage(error.error.mensaje);
-        },
-      });
+        this.usuarioService.loginUsuario2(usuarioLogin).subscribe({
+          next: (data) => {
+            if (data.ok) {
+              this.sessionStorage.saveUser(data.response);
+              this.router.navigate(["/admin"]);
+            } else {
+              Util.errorMessage(data.mensaje);
+            }
+            const token = localStorage.getItem("access_token");
+            console.log(token);
+          },
+          error: (error) => {
+            Util.errorMessage(error.error.mensaje);
+          },
+        });
+      },error: (error) =>{
+        if(error.status==401){
+          Util.errorMessage("El correo electrónico o la contraseña son incorrectos");
+        }
+      }});
     }
   }
 
