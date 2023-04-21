@@ -38,7 +38,7 @@ export class OrdenesService {
   }
 
   public eliminarProductoOrdenDetalle(idOrden:number,idOrdenDetalle:number, iva:number):Observable<SingleResponse<OrdenDetalle>>{
-    return this.http.put<SingleResponse<OrdenDetalle>>(`${this.API_SERVER}/ordenes/eliminarProductoOrdenDetalle`, this.httpOptions);
+    return this.http.put<SingleResponse<OrdenDetalle>>(`${this.API_SERVER}/ordenes/eliminarProductoOrdenDetalle?idOrden=${idOrden}&idOrdenDetalle=${idOrdenDetalle}&iva=${iva}`, this.httpOptions);
   }
 
   public eliminarOrden(idOrden:number){
