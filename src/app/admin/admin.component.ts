@@ -100,7 +100,6 @@ export class AdminComponent implements OnInit {
       if(user){
         // this.sidenav.open();
       }
-      console.log(user)
     })
   }
 

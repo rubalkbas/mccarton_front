@@ -16,7 +16,6 @@ import { emailValidator } from 'src/app/theme/utils/app-validators';
 export class LoginAdminComponent implements OnInit {
   loginForm: FormGroup;
 
-  registerForm: FormGroup;
   public password: string = null;
 
   usuario:any=null;
@@ -38,23 +37,6 @@ export class LoginAdminComponent implements OnInit {
         Validators.compose([Validators.required, Validators.minLength(6)]),
       ],
     });
-    this.registerForm = this.formBuilder.group({
-      correoElectronico: [
-        "",
-        Validators.compose([Validators.required, emailValidator]),
-      ],
-      password: [
-        "",
-        Validators.compose([Validators.required, Validators.minLength(6)]),
-      ],
-      nombre: ["", Validators.compose([Validators.required])],
-      apellidoPaterno: ["", Validators.compose([Validators.required])],
-      apellidoMaterno: ["", Validators.compose([Validators.required])],
-      telefono: ["", Validators.compose([Validators.required])],
-      estatus: [0, Validators.compose([Validators.required])],
-      multipartFile: [null],
-      bytesImagen: [null],
-    });
   }
 
   onLoginFormSubmit() {
@@ -65,7 +47,6 @@ export class LoginAdminComponent implements OnInit {
       };
 
       this.usuarioService.loginUsuario(usuarioLogin).subscribe({next: (data) => {
-        console.log(data);
         this.usuarioService.loginUsuario2(usuarioLogin).subscribe({
           next: (data) => {
             if (data.ok) {
@@ -74,8 +55,6 @@ export class LoginAdminComponent implements OnInit {
             } else {
               Util.errorMessage(data.mensaje);
             }
-            const token = localStorage.getItem("access_token");
-            console.log(token);
           },
           error: (error) => {
             Util.errorMessage(error.error.mensaje);
@@ -91,13 +70,12 @@ export class LoginAdminComponent implements OnInit {
 
 
   verificaSesion(){
-    this.sessionStorage.getUser().subscribe((user) => {
-      this.usuario = user;
-      console.log(user);
-      if(user){
-        this.router.navigate(["/admin"]);
-      }
-    })
-  }
+      this.sessionStorage.getUser().subscribe((user) => {
+        this.usuario = user;
+        if(user){
+          this.router.navigate(["/admin"]);
+        }
+      })
+    }
 
 }
