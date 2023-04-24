@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { CarroComprasRequest } from '../models/carro-compras-request.model';
 
 @Injectable({
   providedIn: "root",
@@ -146,9 +147,10 @@ export class AdminService {
     return this.http.post<Cliente[]>(this.urlAdmin + complemento, cliente, { observe: 'response' })
       .pipe(
         tap(response => {
-          const expiresIn = 600; // tiempo en segundos
+          const expiresIn = 900; // tiempo en segundos
           const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
           this.token = response.headers.get('Authorization');
+          console.log('Token:', this.token);
           localStorage.setItem('authTokenExpiration', expirationDate.toISOString());
           localStorage.setItem('access_token', this.token);
 
@@ -156,7 +158,6 @@ export class AdminService {
           setTimeout(function () {
             localStorage.removeItem('authTokenExpiration');
             localStorage.removeItem('access_token');
-            localStorage.removeItem('cliente');
           }, expiresIn * 1000);
         }),
         map(response => response.body || [])
@@ -459,6 +460,24 @@ export class AdminService {
     const url = `${this.urlAdmin}/listaDeseos/eliminarDeseo?idListaDeseo=${idListaDeseo}`;
     return this.http.delete(url, {});
 
+  }
+
+  public agregarProducto(carroComprasRequest:CarroComprasRequest){
+    const url = `${this.urlAdmin}/carroCompras/agregarProducto`;
+    return this.http.post(url,carroComprasRequest);
+  }
+  public listarCarrito(idCliente:number){
+    const url  = `${this.urlAdmin}/carroCompras/listarCarrito/${idCliente}`
+    return this.http.get(url);
+  }
+  public actualizarCantidad(carroComprasRequest:CarroComprasRequest){
+    const url  = `${this.urlAdmin}/carroCompras/actualizarCantidad`
+    return this.http.put(url,carroComprasRequest);
+  }
+
+  public eliminarProducto(idCarrito:number){
+    const url =  `${this.urlAdmin}/carroCompras/eliminarProducto/${idCarrito}`;
+    return this.http.delete(url)
   }
 }
 

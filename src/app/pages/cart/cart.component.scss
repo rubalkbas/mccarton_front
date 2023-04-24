@@ -49,6 +49,18 @@
         }
     }
 }
+.incrementador {
+    display: flex;
+    align-items: center;
+  }
+
+
+// .boton-cuadrado{
+//   width: 100px;
+//   height: 47px;
+//   border-radius: 4px;
+// //   padding: 1px;
+// }
 
 .mat-icon.empty-cart-icon {
     font-size: 150px;
@@ -67,7 +79,7 @@
 
 .titulo-carrito {
     width: 100%;
-    font-family: Calistoga;
+    font-family: 'Roboto', sans-serif;
     font-size: 40px;
     font-weight: 400;
     line-height: 50px;
@@ -83,7 +95,8 @@
 
 #nombre-producto {
     //styleName: Headline Text -H4;
-    font-family: Calistoga;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 30px !important;
     font-size: 32px;
     font-weight: 400;
     line-height: 40px;
@@ -94,12 +107,12 @@
 
 #medidas {
     //styleName: Body 4;
-    font-family: IBM Plex Sans;
-    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
     font-weight: 400;
     line-height: 30px;
-    letter-spacing: 0.10000000149011612px;
-    text-align: left;
+    // letter-spacing: 0.10000000149011612px;
+    // text-align: left;
 }
 
 #producto {
@@ -119,17 +132,30 @@
     letter-spacing: 0px;
 }
 
+.quitar-borde{
+    overflow: unset!important;
+}
 
-
+h3 {
+    font-family: 'Roboto', sans-serif!important;
+  }
+  
 .remover {
-    position: absolute;
-    margin-left: 120px;
-    margin-top: -35px;
+    // display: flex;
+    // position: absolute;
+    // margin-left: auto;
+    // float: initial;
+    // display: flex;
+    justify-content: center;
+    align-items: center;
+    // text-align: center;
+    // margin-top: -35px;
+    // text-align: left;
 }
 
 #items {
-    margin-left: 10px;
-    font-family: IBM Plex Sans;
+    // margin-left: 10px;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 600;
     line-height: 20px;

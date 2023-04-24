@@ -3,7 +3,7 @@
   </div>
 
 
-<div *ngIf="appService.Data.cartList.length == 0" fxLayout="column" fxLayoutAlign="center center"
+<div *ngIf="carritos.length == 0" fxLayout="column" fxLayoutAlign="center center"
   class="text-center py-5">
   <svg viewBox="0 0 24 24" class="mat-icon empty-cart-icon">
     <path
@@ -14,29 +14,58 @@
   <button class="productos-btn" [routerLink]="['/products']"  type="submit">Comprar</button>
 </div>
 
-<div *ngIf="appService.Data.cartList?.length > 0" class="p-0">
+<div *ngIf="carritos?.length > 0" class="p-0">
   <div class="mat-table cart-table">
-    <div *ngFor="let product of appService.Data.cartList" class="mat-row" id="producto">
-      <div class="mat-cell"><img class="img-producto" [src]="product.images[0].small"></div>
-      <div class="mat-cell" id="producto-detail">
-        <h3 id="nombre-producto">{{product.name}}</h3>
-        <p id="medidas">(9cm x 15 cm x 5.5cm, Marrón, 700 impresiones) <b id="items">{{cartItemCountTotal}} unidades</b></p>
+    <div *ngFor="let carrito of carritos"  class="mat-row" id="producto">
+      <div class="mat-cell"><img class="img-producto" [src]="imagenesProductos[carrito.producto.idProducto]"></div>
+      <div  class="mat-cell" id="producto-detail">
+        <h3 class="mat-cell " id="nombre-producto">{{carrito.producto.nombreProducto}}</h3>
+        <p id="medidas">Alto Interior: {{carrito.producto.altoExterior}} Alto interior: {{carrito.producto.altoInterior}} Ancho exterior: {{carrito.producto.anchoExterior}} Ancho Interior: {{carrito.producto.anchoInterior}}</p>
+          <b id="items">Unidades: {{carrito.cantidad}} </b>
         <div class="mat-cell text-muted">
-          <div class="control">
-            <app-controls class="controles" [product]="product" [type]="'wish'" (onQuantityChange)="updateCart($event)"></app-controls>
-          </div>
-        </div>
-        <div class="remover">
-          <button (click)="remove(product)" matTooltip="Clear">
-            <mat-icon>delete</mat-icon>
+          <!-- <div class="control">
+            <app-controls class="controles" [producto]="producto" [type]="'wish'" (onQuantityChange)="updateCart($event)"></app-controls>
+          </div> -->
+          
+        </div>        
+      </div>
+
+      <div>
+        <!-- <mat-slider min="0" max="100" step="1" [(ngModel)]="value"></mat-slider> -->
+        <div class="incrementador">
+          <button mat-icon-button (click)="decrementar()" [disabled]="value === min">
+            <mat-icon>remove</mat-icon>
+          </button>
+          <mat-form-field class="example-full-width">
+          <!-- <mat-label>{{carrito.cantidad}}</mat-label> -->
+          <input matInput type="number" min="1" [max]="carrito.producto.stock" [step]="step" [value]="carrito.cantidad">
+        </mat-form-field>
+          <button mat-icon-button (click)="incrementar()" [disabled]="value === max">
+            <mat-icon>add</mat-icon>
           </button>
         </div>
+      <!-- <mat-form-field appearance ="outline" >
+        <mat-label>Unidades</mat-label>
+        <button mat-mini-fab  class="boton-cuadrado" >
+          <mat-icon>remove</mat-icon>
+        </button>
+        <input matInput [value]="carrito.cantidad" >
+        <button mat-mini-fab class="boton-cuadrado">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-form-field>      -->
+    </div>
+      <div class="mat-cell text-right quitar-borde">      
+        <button mat-mini-fab color ="warn" class="mx-1" (click)="eliminarProducto(carrito)" matTooltip="Eliminar">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
       <div class="mat-cell text-center">
         <div class="p-1">
-          <div class="mat-cell"><h3 id="total">${{total[product.id] | number : '1.2-2'}}</h3></div>
+          <!-- <div class="mat-cell"><h3 id="total">${{total[product.id] | number : '1.2-2'}}</h3></div> -->
         </div>
       </div>
+      
     </div>
     <div class="mat-row">
       <div class="mat-cell"></div>
@@ -53,7 +82,8 @@
         <div fxLayout="column" fxLayoutAlign="center start" class="grand-total finalizar">
           <span >${{ grandTotal | number : '1.2-2'}}</span>
           <span  class="text-muted">15%</span>
-          <h3  class="nuevoprecio">${{ (grandTotal - (grandTotal*0.15)) | number : '1.2-2'}}</h3>
+          <h3  class="nuevoprecio">${{ totalPrecio | number : '1.2-2'}}</h3>
+          <!-- <h3  class="nuevoprecio">${{ (grandTotal - (grandTotal*0.15)) | number : '1.2-2'}}</h3> -->
         </div>
       </div>
     </div>
