@@ -94,7 +94,7 @@
                                     <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted">
                                         <b><span>{{appService.Data.totalCartCount}} ITEM<span
                                                     *ngIf="appService.Data.totalCartCount > 1">S</span></span></b>
-                                        <b><a [routerLink]="['/cart']" class="text-muted">VIEW CART</a></b>
+                                        <b><a [routerLink]="['/cart']" class="text-muted">Ver carrito</a></b>
                                     </div>
                                     <div class="divider mt-1"></div>
                                     <div *ngIf="appService.Data.totalCartCount == 0"
@@ -107,7 +107,7 @@
                                                 <bdi>{{product.cartCount}} x ${{product.newPrice | number :
                                                     '1.2-2'}}</bdi>
                                             </p>
-                                            <img [src]="product.images[0].small" alt="image">
+                                            <img [src]="bytesToImageUrl(product.imagenes[0].imagen,product.imagenes[0].tipoImagen)" alt="image">
                                             <button mat-icon-button color="warn" class="remove"
                                                 (click)="remove(product);stopClickPropagate($event)"
                                                 matTooltip="Remove" matTooltipPosition="before">

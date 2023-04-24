@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Category, Product } from './app.models';
 import { environment } from 'src/environments/environment';  
+import { Producto } from './models/producto.model';
+import { CarroCompras } from './models/carro-compras.model';
 
 export class Data {
     constructor(public categories: Category[],
@@ -24,6 +26,9 @@ export class AppService {
         null, //totalPrice,
         0 //totalCartCount
     )
+    carrito:CarroCompras[] = []
+    precioTotal:number;
+    totalProductos:number;
     
     public url = environment.url + '/assets/data/'; 
 
@@ -73,7 +78,23 @@ export class AppService {
         this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'top', duration: 3000 });
     } 
 
+    public agregarAlCarrito(producto:Producto){
+        console.log(producto)
+        this.precioTotal = 0;
+        this.totalProductos = 0;
+
+        // this.carrito.push(producto);
+
+        // if(this.carrito.filter(item=>item. == product.id)[0]){ 
+        //     let item = this.Data.cartList.filter(item=>item.id == product.id)[0];
+        //     item.cartCount = product.cartCount;  
+        // }
+
+    }
+
     public addToCart(product:Product){
+        console.log(product)
+        console.log(product)
         let message, status;        
        
         this.Data.totalPrice = null;

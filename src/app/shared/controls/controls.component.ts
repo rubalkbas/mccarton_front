@@ -6,6 +6,8 @@ import { Product } from '../../app.models';
 import { Util } from '../../util/util';
 import { Router } from '@angular/router';
 import { AdminService } from '../../_services/admins.service';
+import { CarroComprasRequest } from 'src/app/models/carro-compras-request.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-controls',
@@ -107,6 +109,28 @@ export class ControlsComponent implements OnInit {
       this.router.navigate(['/sign-in']);
     }
 
+  }
+
+  public agregarCarro(producto:Producto){
+
+    const idUsuario = parseInt(localStorage.getItem('cliente'));
+    const idProducto = producto.idProducto;
+
+    const carroCompras = new CarroComprasRequest();
+    carroCompras.idCliente = idUsuario;
+    carroCompras.idProducto = idProducto;
+    carroCompras.cantidad = 1;
+
+
+    this.adminService.agregarProducto(carroCompras).subscribe({
+      next:(data:any)=> {
+        console.log(data)
+        Swal.fire('',data.mensaje,'success')
+      },
+      error: data=>{
+
+      }
+    })
   }
 
   public addToCart(product:Product){
