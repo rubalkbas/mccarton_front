@@ -42,7 +42,7 @@ export class OrdenesService {
   }
 
   public eliminarOrden(idOrden:number){
-    return this.http.delete<SingleResponse<Ordenes>>(`${this.API_SERVER}/ordenes/eliminarOrden/${idOrden}`, this.httpOptions);
+    return this.http.delete<SingleResponse<Ordenes>>(`${this.API_SERVER}/ordenes/eliminarOrden?idOrden=${idOrden}`, this.httpOptions);
   }
 
 }

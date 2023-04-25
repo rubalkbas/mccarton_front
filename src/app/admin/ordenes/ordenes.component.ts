@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { OrdenesService } from 'src/app/_services/ordenes.service';
 import { Ordenes } from 'src/app/models/ordenes.model';
 import { Util } from 'src/app/util/util';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ordenes',
@@ -47,6 +48,28 @@ export class OrdenesComponent implements OnInit {
 
   detalleOrden(id:number){
     this.router.navigate(['/admin/ordenes/ordenes-detalles'], { queryParams: { idOrden: id} });
+  }
+
+  eliminarOrden(idOrden:number){
+    Swal.fire({
+      title: "¿Estas seguro de eliminar esta orden?",
+      showConfirmButton: false,
+      showDenyButton: true,
+      showCancelButton: true,
+      denyButtonText: "SI",
+      cancelButtonText: "NO",
+    }).then((result) => {
+      if (result.isDenied) {
+        this.ordenService.eliminarOrden(idOrden).subscribe({next:data=>{
+          console.log(data);
+          Util.successMessage(data.mensaje);
+          this.listarOrdenesPorPagina(this.page, "idOrden", "asc", "");
+        }, error:error=>{
+          console.log(error);
+          Util.errorMessage(error.error.mensaje)
+        }})
+      }
+    });
   }
 
 }

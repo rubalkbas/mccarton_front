@@ -16,8 +16,8 @@
 
                 <div class="mat-cell" id="columnas2">{{orden.producto.nombreProducto}}</div>
                 <div class="mat-cell" id="columnas2">{{orden.cantidad}}</div>
-                <div class="mat-cell" id="columnas2">{{orden.precio}}</div>
-                <div class="mat-cell" id="columnas2">{{orden.subtotal}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.precio | currency}}</div>
+                <div class="mat-cell" id="columnas2">{{orden.subtotal | currency}}</div>
 
             </div>      
         </div>
