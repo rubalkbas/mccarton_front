@@ -2,9 +2,13 @@
     <h2 class="titulo-carrito"> <mat-icon class="mat-icon-lg icono">shopping_cart</mat-icon>Mi Carrito</h2>
   </div>
 
-
+  <!-- <div class="spinner-container">
+   
+  </div> -->
 <div *ngIf="carritos.length == 0" fxLayout="column" fxLayoutAlign="center center"
   class="text-center py-5">
+  <mat-spinner class="spinner" *ngIf="cargando" diameter="50" color="primary">
+
   <svg viewBox="0 0 24 24" class="mat-icon empty-cart-icon">
     <path
       d="M19 20C19 21.11 18.11 22 17 22C15.89 22 15 21.1 15 20C15 18.89 15.89 18 17 18C18.11 18 19 18.9 19 20M7 18C5.89 18 5 18.89 5 20C5 21.1 5.89 22 7 22C8.11 22 9 21.11 9 20S8.11 18 7 18M7.2 14.63L7.17 14.75C7.17 14.89 7.28 15 7.42 15H19V17H7C5.89 17 5 16.1 5 15C5 14.65 5.09 14.32 5.24 14.04L6.6 11.59L3 4H1V2H4.27L5.21 4H20C20.55 4 21 4.45 21 5C21 5.17 20.95 5.34 20.88 5.5L17.3 11.97C16.96 12.58 16.3 13 15.55 13H8.1L7.2 14.63M8.5 11H10V9H7.56L8.5 11M11 9V11H14V9H11M14 8V6H11V8H14M17.11 9H15V11H16L17.11 9M18.78 6H15V8H17.67L18.78 6M6.14 6L7.08 8H10V6H6.14Z" />
@@ -12,9 +16,12 @@
   <h1 class="mt-3">Tu carrito esta vacio!</h1>
   <p class="text-muted">Ve y compra algunos de nuestros productos</p>
   <button class="productos-btn" [routerLink]="['/products']"  type="submit">Comprar</button>
+</mat-spinner>
 </div>
 
-<div *ngIf="carritos?.length > 0" class="p-0">
+<div *ngIf="carritos?.length > 0" class="p-0 contenedor">
+  <mat-spinner class="spinner" *ngIf="cargando" diameter="50" color="primary">
+  </mat-spinner>
   <div class="mat-table cart-table">
     <div *ngFor="let carrito of carritos"  class="mat-row" id="producto">
       <div class="mat-cell"><img class="img-producto" [src]="imagenesProductos[carrito.producto.idProducto]"></div>
@@ -30,20 +37,23 @@
         </div>        
       </div>
 
-      <div>
         <!-- <mat-slider min="0" max="100" step="1" [(ngModel)]="value"></mat-slider> -->
-        <div class="incrementador">
-          <button mat-icon-button (click)="decrementar()" [disabled]="value === min">
-            <mat-icon>remove</mat-icon>
-          </button>
-          <mat-form-field class="example-full-width">
+        <!-- <div class="incrementador"> -->
+          <!-- [disabled]="value === min" -->
+          <!-- <button [disabled]="cargando" matTooltip="eliminar" mat-icon-button (click)="decrementar(carrito)" > -->
+            <!-- <mat-icon class="eliminar">remove</mat-icon> -->
+          <!-- </button> -->
+
+          <!-- <mat-form-field class="example-full-width"> -->
           <!-- <mat-label>{{carrito.cantidad}}</mat-label> -->
-          <input matInput type="number" min="1" [max]="carrito.producto.stock" [step]="step" [value]="carrito.cantidad">
-        </mat-form-field>
-          <button mat-icon-button (click)="incrementar()" [disabled]="value === max">
-            <mat-icon>add</mat-icon>
-          </button>
-        </div>
+          <!-- <input  id="input-cantidad" matInput [(ngModel)]="carrito.cantidad" (change)="checarCantidad(carrito)" type="number"  class="sin-flechas"> -->
+           <!-- </mat-form-field> -->
+
+        <!-- [disabled]="value === max" -->
+          <!-- <button [disabled]="cargando" matTooltip="agregar"  mat-icon-button (click)="incrementar(carrito)" > -->
+            <!-- <mat-icon class="agregar">add</mat-icon> -->
+          <!-- </button> -->
+        <!-- </div> -->
       <!-- <mat-form-field appearance ="outline" >
         <mat-label>Unidades</mat-label>
         <button mat-mini-fab  class="boton-cuadrado" >
@@ -54,9 +64,21 @@
           <mat-icon>add</mat-icon>
         </button>
       </mat-form-field>      -->
-    </div>
-      <div class="mat-cell text-right quitar-borde">      
-        <button mat-mini-fab color ="warn" class="mx-1" (click)="eliminarProducto(carrito)" matTooltip="Eliminar">
+      <div class="mat-cell quitar-borde incrementador">     
+         <button [disabled]="cargando" matTooltip="eliminar" mat-icon-button (click)="decrementar(carrito)" >
+            <mat-icon class="eliminar">remove</mat-icon>
+          </button>
+
+          <!-- <mat-form-field class="example-full-width"> -->
+          <!-- <mat-label>{{carrito.cantidad}}</mat-label> -->
+          <input  id="input-cantidad" matInput [(ngModel)]="carrito.cantidad" (change)="checarCantidad(carrito)" type="number"  class="sin-flechas">
+           <!-- </mat-form-field> -->
+
+        <!-- [disabled]="value === max" -->
+          <button [disabled]="cargando" matTooltip="agregar"  mat-icon-button (click)="incrementar(carrito)" >
+            <mat-icon class="agregar">add</mat-icon>
+          </button>
+        <button [disabled]="cargando" mat-mini-fab color ="warn" class="mx-1" (click)="eliminarProducto(carrito)" matTooltip="Eliminar">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
@@ -73,22 +95,22 @@
       <div class="mat-cell"></div>
       <div class="mat-cell text-right">
         <div fxLayout="column" fxLayoutAlign="center end" class="grand-total px-2 finalizar">
-          <span >SubTotal:</span>
-          <span  class="text-muted">Envio:</span>
+          <!-- <span >SubTotal:</span>
+          <span  class="text-muted">Envio:</span> -->
           <h3  class="nuevoprecio">Total:</h3>
         </div>
       </div>
       <div class="mat-cell">
         <div fxLayout="column" fxLayoutAlign="center start" class="grand-total finalizar">
-          <span >${{ grandTotal | number : '1.2-2'}}</span>
-          <span  class="text-muted">15%</span>
-          <h3  class="nuevoprecio">${{ totalPrecio | number : '1.2-2'}}</h3>
+          <!-- <span >${{ grandTotal | number : '1.2-2'}}</span>
+          <span  class="text-muted">15%</span> -->
+          <h3  class="nuevoprecio">${{ totalPrecio}}</h3>
           <!-- <h3  class="nuevoprecio">${{ (grandTotal - (grandTotal*0.15)) | number : '1.2-2'}}</h3> -->
         </div>
       </div>
     </div>
     <div class="mat-row btn-comprar">
-      <button class="compra-btn" [routerLink]="['/checkout']"  type="submit">Finalizar Compra</button>
+      <button [disabled]="cargando" class="compra-btn" [routerLink]="['/checkout']"  type="submit">Finalizar Compra</button>
     </div>
   </div>
 

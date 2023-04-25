@@ -49,10 +49,45 @@
         }
     }
 }
+
+
+
 .incrementador {
+    position: absolute;
+    right: 15%;
+    margin-left: auto;
+    /* mueve el elemento a la derecha */
+
+
+}
+
+#input-cantidad {
+    text-align: center;
+    border: 3px solid black;
+    // border-radius: 10px;
+}
+
+.spinner-container {
     display: flex;
+    justify-content: center;
+    /* Centra horizontalmente */
     align-items: center;
-  }
+    /* Centra verticalmente */
+    height: 100%;
+    /* Opcional: ajusta el alto del contenedor según necesidades */
+}
+
+.spinner {
+    display: block;
+    margin: auto;
+}
+
+.sin-flechas::-webkit-inner-spin-button,
+.sin-flechas::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
 
 
 // .boton-cuadrado{
@@ -132,14 +167,14 @@
     letter-spacing: 0px;
 }
 
-.quitar-borde{
-    overflow: unset!important;
+.quitar-borde {
+    overflow: unset !important;
 }
 
 h3 {
-    font-family: 'Roboto', sans-serif!important;
-  }
-  
+    font-family: 'Roboto', sans-serif !important;
+}
+
 .remover {
     // display: flex;
     // position: absolute;
@@ -168,6 +203,17 @@ h3 {
     margin-left: -90px;
 }
 
+.agregar {
+    color: #fff;
+    background-color: #1AD079;
+}
+
+.eliminar {
+    color: #fff;
+    background-color: #1AD079;
+
+}
+
 .compra-btn {
     position: relative;
     margin-left: 72%;
@@ -177,7 +223,7 @@ h3 {
     border-radius: 10px;
     color: #fff;
     border-color: white;
-    font-family: IBM Plex Sans;
+    font-family: 'Roboto', sans-serif !important;
     font-size: 18px;
     font-weight: 600;
     line-height: 24px;
@@ -207,10 +253,12 @@ h3 {
     text-align: left;
 
 }
-.btn-comprar{
+
+.btn-comprar {
     position: relative;
     align-items: end;
 }
+
 .productos-btn {
     position: relative;
     margin-top: 20px;
