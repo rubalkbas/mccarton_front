@@ -45,7 +45,9 @@ export class CartComponent implements OnInit {
     this.adminService.listarCarrito(idCliente).subscribe((data: any) => {
       console.log(data)
       if (data.response === null) {
+        this.totalProcuctos = 0;
         this.carritos = [];
+        this.cargando = false;        
         return;
       }
       this.carritos = data.response.carrito;

@@ -5,9 +5,9 @@
   <!-- <div class="spinner-container">
    
   </div> -->
-<div *ngIf="carritos.length == 0" fxLayout="column" fxLayoutAlign="center center"
+<div *ngIf="totalProcuctos == 0"  fxLayout="column" fxLayoutAlign="center center"
   class="text-center py-5">
-  <mat-spinner class="spinner" *ngIf="cargando" diameter="50" color="primary">
+ 
 
   <svg viewBox="0 0 24 24" class="mat-icon empty-cart-icon">
     <path
@@ -16,12 +16,14 @@
   <h1 class="mt-3">Tu carrito esta vacio!</h1>
   <p class="text-muted">Ve y compra algunos de nuestros productos</p>
   <button class="productos-btn" [routerLink]="['/products']"  type="submit">Comprar</button>
-</mat-spinner>
+
 </div>
+<mat-spinner class="spinner" *ngIf="cargando" diameter="50" color="primary">
+</mat-spinner>
 
 <div *ngIf="carritos?.length > 0" class="p-0 contenedor">
-  <mat-spinner class="spinner" *ngIf="cargando" diameter="50" color="primary">
-  </mat-spinner>
+  <!-- <mat-spinner class="spinner" *ngIf="cargando" diameter="50" color="primary">
+  </mat-spinner> -->
   <div class="mat-table cart-table">
     <div *ngFor="let carrito of carritos"  class="mat-row" id="producto">
       <div class="mat-cell"><img class="img-producto" [src]="imagenesProductos[carrito.producto.idProducto]"></div>
