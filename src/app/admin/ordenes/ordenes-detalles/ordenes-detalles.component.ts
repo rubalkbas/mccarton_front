@@ -3,6 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { AdminService } from 'src/app/_services/admins.service';
 import { OrdenesService } from 'src/app/_services/ordenes.service';
 import { OrdenDetalle } from 'src/app/models/ordenes.model';
+import { Util } from 'src/app/util/util';
+import Swal from 'sweetalert2';
+
+const IVA:number=0.16;
 
 @Component({
   selector: 'app-ordenes-detalles',
@@ -57,6 +61,30 @@ export class OrdenesDetallesComponent implements OnInit {
       })
 
     })
+  }
+
+  eliminarProductoOrdenDetalle(idOrdenDetalle:number){
+    Swal.fire({
+      title: "¿Estas seguro de eliminar este producto?",
+      showConfirmButton: false,
+      showDenyButton: true,
+      showCancelButton: true,
+      denyButtonText: "SI",
+      cancelButtonText: "NO",
+    }).then((result) => {
+      if (result.isDenied) {
+        this.ordenService.eliminarProductoOrdenDetalle(this.idOrden, idOrdenDetalle, IVA).subscribe({
+          next:data=>{
+            Util.successMessage(data.mensaje);
+            console.log(data);
+            this.obtenerDetalleOrden();
+          }, error:error=>{
+            Util.errorMessage(error.error.mensaje);
+            console.log(error);
+          }
+        })
+      }
+    });
   }
 
 }
