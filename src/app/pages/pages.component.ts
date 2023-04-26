@@ -5,6 +5,9 @@ import { AppService } from '../app.service';
 import { Category } from '../app.models';
 import { SidenavMenuService } from '../theme/components/sidenav-menu/sidenav-menu.service';
 import { isPlatformBrowser } from '@angular/common';
+import { AdminService } from '../_services/admins.service';
+import { CarroCompras } from '../models/carro-compras.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pages',
@@ -17,6 +20,16 @@ export class PagesComponent implements OnInit {
   public categories:Category[];
   public category:Category;
   public sidenavMenuItems:Array<any>;
+
+
+  imagenesProductos: { [idProducto: string]: string } = {};
+  carritos: CarroCompras[] = [];
+  totalProcuctos: number;
+  totalPrecio: number = 0;
+
+
+
+
   @ViewChild('sidenav', { static: true }) sidenav:any;
 
   public settings: Settings;
@@ -24,6 +37,7 @@ export class PagesComponent implements OnInit {
               public appService:AppService, 
               public sidenavMenuService:SidenavMenuService,
               public router:Router,
+              public adminService:AdminService,
               @Inject(PLATFORM_ID) private platformId: Object) { 
     this.settings = this.appSettings.settings; 
   }
@@ -34,7 +48,41 @@ export class PagesComponent implements OnInit {
     setTimeout(() => {
       this.settings.theme = 'green'; 
     });
+    setInterval(()=>{
+      this.listarCarrito();
+    },1200)
+    this.listarCarrito();
+    
   } 
+
+  listarCarrito() {
+    // this.cargando = true;
+    const idCliente = parseInt(localStorage.getItem('cliente'));
+    this.adminService.listarCarrito(idCliente).subscribe((data: any) => {
+      console.log(data)
+      if (data.response === null) {
+        this.carritos = [];
+        return;
+      }
+      this.carritos = data.response.carrito;
+      this.totalProcuctos = this.carritos.length;
+      console.log(this.carritos)
+      this.carritos.forEach(carrito => {
+        console.log(carrito.subtotal);
+        this.totalPrecio = data.response.totalEstimado;      
+        this.adminService.obtenerImagenesProducto(carrito.producto).subscribe({
+          next: data => {
+            console.log(data)
+            //Obtener el ultmo elemento de un arreglo
+            const imagen = data.response[data.response.length - 1];
+            this.imagenesProductos[carrito.producto.idProducto] = `data:image/${imagen.tipoImagen};base64,${imagen.imagenBits}`;
+            // this.cargando = false;
+          }
+        })
+      })
+    })
+  } 
+
 
   public getCategories(){    
     this.appService.getCategories().subscribe(data => {
@@ -53,23 +101,61 @@ export class PagesComponent implements OnInit {
     } 
   }
 
-  public remove(product) {
-      const index: number = this.appService.Data.cartList.indexOf(product);
-      if (index !== -1) {
-          this.appService.Data.cartList.splice(index, 1);
-          this.appService.Data.totalPrice = this.appService.Data.totalPrice - product.newPrice*product.cartCount;
-          this.appService.Data.totalCartCount = this.appService.Data.totalCartCount - product.cartCount;
-          this.appService.resetProductCartCount(product);
-      }        
+  public eliminar(producto) {
+    console.log(producto)
+    this.adminService.eliminarProducto(producto.idCarroCompra).subscribe({
+      next: (data: any) => {
+        console.log(data)
+        Swal.fire('', data.mensaje, 'success')
+        this.listarCarrito()
+      },
+      error: data => {
+        this.listarCarrito()
+
+        Swal.fire('', data.mensaje, 'error');
+      }
+    })
+
+      // const index: number = this.appService.Data.cartList.indexOf(product);
+      // if (index !== -1) {
+      //     this.appService.Data.cartList.splice(index, 1);
+      //     this.appService.Data.totalPrice = this.appService.Data.totalPrice - product.newPrice*product.cartCount;
+      //     this.appService.Data.totalCartCount = this.appService.Data.totalCartCount - product.cartCount;
+      //     this.appService.resetProductCartCount(product);
+      // }        
   }
 
   public clear(){
-    this.appService.Data.cartList.forEach(product=>{
-      this.appService.resetProductCartCount(product);
+    let ultimo = 0
+    this.carritos.forEach(data => {
+      this.adminService.eliminarProducto(data.idCarroCompra).subscribe({
+        next: (data: any) => {
+          ultimo ++;
+          // console.log(data)
+
+          
+          if(this.carritos.length = ultimo){
+            Swal.fire('', 'Se elimino el carro por completo', 'success')
+            this.listarCarrito()
+
+          } 
+        },
+        error: data => {
+          this.listarCarrito()
+  
+          Swal.fire('', data.mensaje, 'error');
+        }
+      })
     });
-    this.appService.Data.cartList.length = 0;
-    this.appService.Data.totalPrice = 0;
-    this.appService.Data.totalCartCount = 0;
+
+    
+
+    // this.appService.Data.cartList.forEach(product=>{
+    //   this.appService.resetProductCartCount(product);
+    // });
+    // this.appService.Data.cartList.length = 0;
+    // this.appService.Data.totalPrice = 0;
+    // this.appService.Data.totalCartCount = 0;
   }
  
 
