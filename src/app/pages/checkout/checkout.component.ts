@@ -149,6 +149,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       console.log(data);
       this.paymentStep.completed = true;
       this.horizontalStepper.next();
+      this.listarCarrito();
     }, error:error=>{
       Util.errorMessage(error.error.mensaje)
     }})
