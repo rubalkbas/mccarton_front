@@ -73,13 +73,13 @@
                         <button mat-button [matMenuTriggerFor]="cartMenu" #cartMenuTrigger="matMenuTrigger"
                             class="flex-row-button">
                             <mat-icon class="mat-icon-lg">shopping_cart</mat-icon>
-                            <span *ngIf="totalProcuctos > 0"
-                                class="cart-items-count">{{totalProcuctos}}</span>
+                            <span *ngIf="totalProductos > 0"
+                                class="cart-items-count">{{totalProductos}}</span>
                             <div fxLayout="column" fxLayoutAlign="center center" fxShow="false" fxShow.gt-xs
                                 class="top-cart">
-                                <span *ngIf="totalProcuctos > 0">
-                                    <bdi>{{totalProcuctos}} Producto<span
-                                            *ngIf="totalProcuctos > 1">s</span> -
+                                <span *ngIf="totalProductos > 0">
+                                    <bdi>{{totalProductos}} Producto<span
+                                            *ngIf="totalProductos > 1">s</span> -
                                         $<span>{{totalPrecio | number : '1.2-2'}}</span>
                                     </bdi>
                                 </span>
@@ -92,12 +92,12 @@
                             <ng-template matMenuContent>
                                 <span (mouseleave)="cartMenuTrigger.closeMenu()" class="d-block">
                                     <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted">
-                                        <b><span>{{totalProcuctos}} PRODUCTO<span
-                                                    *ngIf="totalProcuctos > 1">S</span></span></b>
+                                        <b><span>{{totalProductos}} PRODUCTO<span
+                                                    *ngIf="totalProductos > 1">S</span></span></b>
                                         <b><a [routerLink]="['/cart']" class="text-muted">Ver carrito</a></b>
                                     </div>
                                     <div class="divider mt-1"></div>
-                                    <div *ngIf="totalProcuctos == 0"
+                                    <div *ngIf="totalProductos <= 0"
                                         class="py-1 text-muted text-center">No
                                         tienes artículos en tu carrito.</div>
                                     <mat-list>
@@ -116,7 +116,7 @@
                                             </button>
                                         </mat-list-item>
                                     </mat-list>
-                                    <div *ngIf="totalProcuctos > 0" class="cart-dropdown-footer">
+                                    <div *ngIf="totalProductos > 0" class="cart-dropdown-footer">
                                         <div class="divider mt-1"></div>
                                         <div fxLayout="row" fxLayoutAlign="space-between center"
                                             class="text-muted mt-1">

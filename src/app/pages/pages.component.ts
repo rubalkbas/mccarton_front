@@ -24,7 +24,7 @@ export class PagesComponent implements OnInit {
 
   imagenesProductos: { [idProducto: string]: string } = {};
   carritos: CarroCompras[] = [];
-  totalProcuctos: number;
+  totalProductos: number;
   totalPrecio: number = 0;
 
 
@@ -59,20 +59,22 @@ export class PagesComponent implements OnInit {
     // this.cargando = true;
     const idCliente = parseInt(localStorage.getItem('cliente'));
     this.adminService.listarCarrito(idCliente).subscribe((data: any) => {
-      console.log(data)
+      // console.log(data)
       if (data.response === null) {
+        this.totalProductos = 0;
+        
         this.carritos = [];
         return;
       }
       this.carritos = data.response.carrito;
-      this.totalProcuctos = this.carritos.length;
-      console.log(this.carritos)
+      this.totalProductos = this.carritos.length;
+      console.log(this.totalProductos)
       this.carritos.forEach(carrito => {
-        console.log(carrito.subtotal);
+        // console.log(carrito.subtotal);
         this.totalPrecio = data.response.totalEstimado;      
         this.adminService.obtenerImagenesProducto(carrito.producto).subscribe({
           next: data => {
-            console.log(data)
+            // console.log(data)
             //Obtener el ultmo elemento de un arreglo
             const imagen = data.response[data.response.length - 1];
             this.imagenesProductos[carrito.producto.idProducto] = `data:image/${imagen.tipoImagen};base64,${imagen.imagenBits}`;
@@ -127,18 +129,14 @@ export class PagesComponent implements OnInit {
 
   public clear(){
     let ultimo = 0
+    const ultimaPosicion = this.carritos.length - 1; 
     this.carritos.forEach(data => {
       this.adminService.eliminarProducto(data.idCarroCompra).subscribe({
         next: (data: any) => {
-          ultimo ++;
-          // console.log(data)
-
           
-          if(this.carritos.length = ultimo){
-            Swal.fire('', 'Se elimino el carro por completo', 'success')
-            this.listarCarrito()
-
-          } 
+          
+          // console.log(data)
+                    
         },
         error: data => {
           this.listarCarrito()
@@ -147,9 +145,11 @@ export class PagesComponent implements OnInit {
         }
       })
     });
+    if(ultimaPosicion){
+      Swal.fire('', 'Se elimino el carro por completo', 'success')
+      this.listarCarrito()
 
-    
-
+    }     
     // this.appService.Data.cartList.forEach(product=>{
     //   this.appService.resetProductCartCount(product);
     // });
