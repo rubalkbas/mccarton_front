@@ -16,6 +16,8 @@ import { OrdenesService } from "src/app/_services/ordenes.service";
 import { CrearOrdenRequest } from "src/app/models/ordenes.model";
 import { Util } from "src/app/util/util";
 
+const IVA:number=0.16;
+
 @Component({
   selector: "app-checkout",
   templateUrl: "./checkout.component.html",
@@ -140,9 +142,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     ordenRequest.totalProductos=this.totalProductos;
     ordenRequest.metodoPago=this.metodoPago.get('metodoDePago').getRawValue();
     ordenRequest.pagoTotal= this.totalPrecio;
-    ordenRequest.iva=0;
-
-    console.log(ordenRequest);
+    ordenRequest.iva=IVA;
     // return;
 
     this.ordenesServices.crearOrden(ordenRequest).subscribe({next:data=>{

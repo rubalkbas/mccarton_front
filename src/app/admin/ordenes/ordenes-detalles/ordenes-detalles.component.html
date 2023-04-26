@@ -7,13 +7,14 @@
         
         <div class="mat-table admin-table">
             <div class="mat-header-row">
+                <div class="mat-header-cell" id="columnas">Producto</div>
                 <div class="mat-header-cell" id="columnas">Nombre del producto</div>
                 <div class="mat-header-cell" id="columnas">Cantidad</div>
                 <div class="mat-header-cell" id="columnas">Precio</div> 
                 <div class="mat-header-cell" id="columnas">Subtotal</div>
             </div>
-            <div *ngFor="let orden of _listaDetallaOrdenes | paginate: { itemsPerPage: sizePage, currentPage: page, totalItems: 5}" class="mat-row">
-
+            <div *ngFor="let orden of _listaDetalleOrdenes | paginate: { itemsPerPage: sizePage, currentPage: page, totalItems: 5}" class="mat-row">
+                <div class="mat-cell"><img class="imagen" [src]="imagenesProductos[orden.producto.idProducto]"></div>
                 <div class="mat-cell" id="columnas2">{{orden.producto.nombreProducto}}</div>
                 <div class="mat-cell" id="columnas2">{{orden.cantidad}}</div>
                 <div class="mat-cell" id="columnas2">{{orden.precio | currency}}</div>
