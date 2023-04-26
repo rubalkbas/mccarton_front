@@ -29,7 +29,7 @@ export class UserMenuComponent implements OnInit {
   }
 
   cerrarSesion(){
-    this.router.navigate(['admin/login-admin']);
+    this.router.navigate(['login-admin']);
     this.sessionStorage.signOut();
   }
 

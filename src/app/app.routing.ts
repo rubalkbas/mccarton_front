@@ -4,6 +4,7 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { PagesComponent } from './pages/pages.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AuthGuard } from './auth.guard';
+import { AuthAdminGuard } from './authAdmin.guard';
 export const routes: Routes = [
     {
         path: '',
@@ -28,7 +29,8 @@ export const routes: Routes = [
         ]
     },
     { path: 'landing', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) },
-    { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+    { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthAdminGuard]},
+    { path: 'login-admin', loadChildren: () => import('./admin/login-admin/login-admin.module').then(m=> m.LoginAdminModule)},
     { path: '**', component: NotFoundComponent }
 ];
 

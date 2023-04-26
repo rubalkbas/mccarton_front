@@ -4,6 +4,7 @@ export class Util {
   public static errorMessage(mensaje: string) {
     Swal.close();
     Swal.fire({
+      heightAuto: false,
       icon: "error",
       text: mensaje,
       showConfirmButton: true,
@@ -13,6 +14,7 @@ export class Util {
   public static successMessage(mensaje: string) {
     Swal.close();
     Swal.fire({
+      heightAuto: false,
       icon: "success",
       text: mensaje,
       showConfirmButton: true,
@@ -22,6 +24,7 @@ export class Util {
   public static warningMessage(mensaje: string) {
     Swal.close();
     Swal.fire({
+      heightAuto: false,
       icon: "warning",
       text: mensaje,
       showConfirmButton: true,
@@ -30,6 +33,7 @@ export class Util {
 
   public static confirmMessage(mensaje: string, do_) {
     Swal.fire({
+      heightAuto: false,
       title: mensaje,
       showConfirmButton: false,
       showDenyButton: true,
