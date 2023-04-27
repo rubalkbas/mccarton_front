@@ -16,6 +16,8 @@ import { Util as util } from "src/app/util/util";
 import { Location } from '@angular/common';
 import { Imagen } from '../../../models/imagen.model';
 import { Buffer } from 'buffer';
+import { CarroService } from '../../../_services/carro.service';
+import { MatSelectChange } from '@angular/material/select';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -34,12 +36,14 @@ export class ProductComponent implements OnInit {
   public form: UntypedFormGroup;
   public relatedProducts: Array<Product>;
   selectedImage: string;
-
+  // seleccion:string = "1"
+  public cantidad: string = "1"
   constructor(public appService: AppService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     public formBuilder: UntypedFormBuilder,
     private location: Location,
+    public carroService:CarroService,
     private adminService: AdminService) { }
 
   ngOnInit() {
@@ -93,6 +97,9 @@ export class ProductComponent implements OnInit {
     }
   }
 
+  cambioUnidad(){
+    this.carroService.unidadProductos = this.cantidad;
+  }
   public onMouseLeave(event) {
     this.zoomViewer.nativeElement.children[0].style.display = "none";
   }
