@@ -90,6 +90,7 @@ export class AdminComponent implements OnInit {
     // this.menuService.closeAllSubMenus();
     this.router.navigate(['login-admin']);
     this.sessionStorage.signOut();
+    this.sessionStorage.stopSessionTimer();
   }
 
   verificaSesion(){

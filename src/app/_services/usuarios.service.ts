@@ -4,7 +4,9 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, tap } from 'rxjs';
-@Injectable({
+import jwt_decode from 'jwt-decode';
+
+  @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
@@ -63,11 +65,13 @@ export class UsuariosService {
     return this.http.post<Usuario[]>(`${this.urlAdmin}/loginUsuario`, usuarioLogin, { observe: 'response' }).pipe(
       tap(response => {
         console.log(response)
-        const expiresIn = 300; // tiempo en segundos
-        const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+        // const expiresIn = 300; // tiempo en segundos
         this.token = response.headers.get('Authorization');
+        const expirationDate:any = jwt_decode(this.token);
+
         console.log('Token:', this.token);
-        localStorage.setItem('authTokenExpiration', expirationDate.toISOString());
+        console.log('Decode', expirationDate);
+        localStorage.setItem('authTokenExpiration', expirationDate.exp);
         localStorage.setItem('access_token', this.token);
       }),
       map(response => response.body || [])
