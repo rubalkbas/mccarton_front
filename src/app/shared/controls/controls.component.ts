@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { AdminService } from '../../_services/admins.service';
 import { CarroComprasRequest } from 'src/app/models/carro-compras-request.model';
 import Swal from 'sweetalert2';
+import { CarroService } from 'src/app/_services/carro.service';
 
 @Component({
   selector: 'app-controls',
@@ -26,12 +27,13 @@ export class ControlsComponent implements OnInit {
   constructor(public appService:AppService,
     public adminService:AdminService, 
     public snackBar: MatSnackBar, 
-    public router: Router
+    public router: Router,
+    public carroService: CarroService,
 
      ) { }
 
   ngOnInit() {
-
+    this.carroService.unidadProductos = "1";
       this.idProducto=this.producto.idProducto
 
  
@@ -119,9 +121,9 @@ export class ControlsComponent implements OnInit {
     const carroCompras = new CarroComprasRequest();
     carroCompras.idCliente = idUsuario;
     carroCompras.idProducto = idProducto;
-    carroCompras.cantidad = 1;
+    carroCompras.cantidad =  parseInt(this.carroService.unidadProductos);
 
-
+    console.log(carroCompras)
     this.adminService.agregarProducto(carroCompras).subscribe({
       next:(data:any)=> {
         console.log(data)
