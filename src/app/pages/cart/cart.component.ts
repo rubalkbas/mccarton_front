@@ -5,6 +5,7 @@ import { CarroCompras } from 'src/app/models/carro-compras.model';
 import { Producto } from 'src/app/models/producto.model';
 import Swal from 'sweetalert2';
 import { CarroComprasRequest } from 'src/app/models/carro-compras-request.model';
+import { CarroService } from '../../_services/carro.service';
 
 @Component({
   selector: 'app-cart',
@@ -25,7 +26,7 @@ export class CartComponent implements OnInit {
   grandTotal = 0;
   cartItemCount = [];
   cartItemCountTotal = 0;
-  constructor(public appService: AppService, private adminService: AdminService) { }
+  constructor(public appService: AppService, private adminService: AdminService, public carroService:CarroService) { }
 
 
 
@@ -35,50 +36,52 @@ export class CartComponent implements OnInit {
       // this.grandTotal += product.cartCount*product.newPrice;
       // this.cartItemCount[product.id] = product.cartCount;
       // this.cartItemCountTotal += product.cartCount;
+      this.carroService.listarCarrito()
+
     })
-    this.listarCarrito();
   }
 
-  listarCarrito() {
-    this.cargando = true;
-    const idCliente = parseInt(localStorage.getItem('cliente'));
-    this.adminService.listarCarrito(idCliente).subscribe((data: any) => {
-      console.log(data)
-      console.log("eNTRE SERVICE")
-      if (data.response === null) {
-        this.totalProcuctos = 0;
-        this.carritos = [];
-        this.cargando = false;        
-        return;
-      }
-      this.carritos = data.response.carrito;
-      this.totalProcuctos = this.carritos.length;
-      console.log(this.carritos)
-      this.carritos.forEach(carrito => {
-        console.log(carrito.subtotal);
-        this.totalPrecio = data.response.totalEstimado;      
-        this.adminService.obtenerImagenesProducto(carrito.producto).subscribe({
-          next: data => {
-            console.log(data)
-            //Obtener el ultmo elemento de un arreglo
-            const imagen = data.response[data.response.length - 1];
-            this.imagenesProductos[carrito.producto.idProducto] = `data:image/${imagen.tipoImagen};base64,${imagen.imagenBits}`;
-            this.cargando = false;
-          }
-        })
-      })
-    })
-  }
+  // listarCarrito() {
+  //   this.cargando = true;
+  //   const idCliente = parseInt(localStorage.getItem('cliente'));
+  //   this.adminService.listarCarrito(idCliente).subscribe((data: any) => {
+  //     console.log(data)
+  //     console.log("eNTRE SERVICE")
+  //     if (data.response === null) {
+  //       this.totalProcuctos = 0;
+  //       this.carritos = [];
+  //       this.cargando = false;        
+  //       return;
+  //     }
+  //     this.carritos = data.response.carrito;
+  //     this.totalProcuctos = this.carritos.length;
+  //     console.log(this.carritos)
+  //     this.carritos.forEach(carrito => {
+  //       console.log(carrito.subtotal);
+  //       this.totalPrecio = data.response.totalEstimado;      
+  //       this.adminService.obtenerImagenesProducto(carrito.producto).subscribe({
+  //         next: data => {
+  //           console.log(data)
+  //           //Obtener el ultmo elemento de un arreglo
+  //           const imagen = data.response[data.response.length - 1];
+  //           this.imagenesProductos[carrito.producto.idProducto] = `data:image/${imagen.tipoImagen};base64,${imagen.imagenBits}`;
+  //           this.cargando = false;
+  //         }
+  //       })
+  //     })
+  //   })
+  // }
 
   bytesToImageUrl(bytes: Uint8Array, tipoImagen: string): string {
     return `data:${tipoImagen};base64,${bytes}`;
   }
 
   verificarCantidadProducto(carrito:CarroCompras){
+    console.log(carrito)
     if(carrito.cantidad === null || carrito.cantidad === 0 ){
       carrito.cantidad = 1;
     } 
-    const busquedaCarrito:CarroCompras = this.carritos.find( carritoFiltro => carritoFiltro.idCarroCompra  === carrito.idCarroCompra)
+    const busquedaCarrito:CarroCompras = this.carroService.carritos.find( carritoFiltro => carritoFiltro.idCarroCompra  === carrito.idCarroCompra)
 
     if(carrito.cantidad > busquedaCarrito.producto.stock){
       carrito.cantidad = busquedaCarrito.producto.stock;
@@ -106,7 +109,7 @@ export class CartComponent implements OnInit {
       next: data => {
         this.cargando = false;
         console.log(data)
-        this.listarCarrito();
+        this.carroService.listarCarrito()
       },
       error: data => {
 
@@ -144,6 +147,7 @@ export class CartComponent implements OnInit {
 
 
   decrementar(carrito: CarroCompras) {
+    console.log(carrito)
     this.cargando = true;
     this.verificarCantidadProducto(carrito);
 
@@ -162,7 +166,7 @@ export class CartComponent implements OnInit {
     if (carrito.cantidad <= 0) {
       this.adminService.eliminarProducto(carrito.idCarroCompra).subscribe({
         next: data => {
-          this.listarCarrito();
+          this.carroService.listarCarrito()
           this.cargando = false;
         }
       })
@@ -171,7 +175,7 @@ export class CartComponent implements OnInit {
     this.adminService.actualizarCantidad(carroComprasRequest).subscribe({
       next: data => {
         console.log(data)
-        this.listarCarrito();
+        this.carroService.listarCarrito()
         this.cargando = false;
       },
       error: data => {
@@ -201,14 +205,14 @@ export class CartComponent implements OnInit {
       this.adminService.eliminarProducto(carrito.idCarroCompra).subscribe({
         next: data => {
           this.cargando = false;
-          this.listarCarrito();
+          this.carroService.listarCarrito()
         }
       })
     }
     this.adminService.actualizarCantidad(carroComprasRequest).subscribe({
       next: data => {
         this.cargando = false;
-        this.listarCarrito();
+        this.carroService.listarCarrito()
 
       },
       error: data => {
@@ -244,10 +248,10 @@ export class CartComponent implements OnInit {
       next: (data: any) => {
         console.log(data)
         Swal.fire('', data.mensaje, 'success')
-        this.listarCarrito()
+        this.carroService.listarCarrito()
       },
       error: data => {
-        this.listarCarrito()
+        this.carroService.listarCarrito()
 
         Swal.fire('', data.mensaje, 'error');
       }
