@@ -31,6 +31,7 @@ export class UserMenuComponent implements OnInit {
   cerrarSesion(){
     this.router.navigate(['login-admin']);
     this.sessionStorage.signOut();
+    this.sessionStorage.stopSessionTimer();
   }
 
   bytesToImageUrl(bytes: Uint8Array, tipoImagen:string): string {

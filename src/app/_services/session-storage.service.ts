@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 import { tap } from 'rxjs/operators';
+import { Util } from "../util/util";
 
 
 
@@ -11,8 +13,9 @@ const USER_KEY = "auth-user";
 })
 export class SessionAdminStorageService {
     private dataSubject = new BehaviorSubject<any>(null);
+    private sessionTimeout: any;
 
-  constructor() {
+  constructor(private router: Router) {
     const storedData =JSON.parse(window.localStorage.getItem(USER_KEY))
     if (storedData||storedData!=null) {
       this.dataSubject.next(storedData);
@@ -33,6 +36,24 @@ export class SessionAdminStorageService {
 
   public getUser() {
     return this.dataSubject.asObservable();
+  }
+
+  startSessionTimer() {  
+    const tokenExp =parseInt(localStorage.getItem('authTokenExpiration')); 
+    const now = Math.floor(Date.now() / 1000);
+
+    const timeLeft = tokenExp - now;
+
+    console.log("Tiempo", timeLeft)
+    this.sessionTimeout = setTimeout(() => {
+      this.signOut(); 
+      this.router.navigate(['/login-admin']);
+      Util.errorMessage('Tu sesión ha expirado');
+    }, timeLeft * 1000);
+  }
+
+  stopSessionTimer() {
+    clearTimeout(this.sessionTimeout); 
   }
 
 }

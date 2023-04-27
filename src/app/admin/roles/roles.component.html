@@ -1,14 +1,14 @@
 <div class="p-1">
-    <mat-card class="p-0"> 
+    <mat-card class="p-0">
         <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
-            <h2>Lista de Roles</h2>  
+            <h2>Lista de Roles</h2>
             <button mat-raised-button color="primary" (click)="openRolesDialog(null)">Añadir Rol</button>
             <div class="checkbox">
-                <input id="checkbox1" type="checkbox" class="styled-checkbox1" (click)="filtrarTodos()"/>
+                <input id="checkbox1" type="checkbox" class="styled-checkbox1" (click)="filtrarTodos()" />
                 <label for="checkbox1" class="styled-label1">Ver Todos</label>
             </div>
             <div class="checkbox">
-                <input id="checkbox" type="checkbox" class="styled-checkbox" (click)="filtrarActivos()"/>
+                <input id="checkbox" type="checkbox" class="styled-checkbox" (click)="filtrarActivos()" />
                 <label for="checkbox" class="styled-label">Ver Activos</label>
             </div>
         </div>
@@ -16,7 +16,7 @@
         <div class="mat-table admin-table">
             <div class="mat-header-row">
                 <div class="mat-header-cell" id="columnas">Nombre</div>
-                <div class="mat-header-cell" id="columnas">Descripción</div> 
+                <div class="mat-header-cell" id="columnas">Descripción</div>
                 <div class="mat-header-cell" id="columnas">Estatus</div>
                 <div class="mat-header-cell" id="columnas">Acciones</div>
             </div>
@@ -24,8 +24,8 @@
                 <div class="mat-cell" id="columnas2">{{rol.nombreRol}}</div>
                 <div class="mat-cell" id="columnas2">{{rol.descripcionRol}}</div>
                 <div class="mat-cell" id="columnas2">{{rol.estatus === 1 ? 'Activo' : 'Inactivo'}}</div>
-                <div class="mat-cell" >
-                    <div class="p-1 actions"id="columnas2">          
+                <div class="mat-cell">
+                    <div class="p-1 actions" id="columnas2">
                         <button mat-mini-fab color="primary" matTooltip="Edit" (click)="openRolesDialog(rol)">
                             <mat-icon>edit</mat-icon>
                         </button>
@@ -34,15 +34,16 @@
                         </button>
                     </div>
                 </div>
-                </div>      
             </div>
-        
+        </div>
+
     </mat-card>
 
     <div *ngIf="roles.length > 0" fxLayout="row wrap">
-        <div fxFlex="100"> 
-            <mat-card class="p-0 text-center">           
-                <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
+        <div fxFlex="100">
+            <mat-card class="p-0 text-center">
+                <pagination-controls class="product-pagination" autoHide="true" maxSize="5"
+                    (pageChange)="onPageChanged($event)"></pagination-controls>
             </mat-card>
         </div>
     </div>

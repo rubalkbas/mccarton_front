@@ -52,6 +52,8 @@ export class LoginAdminComponent implements OnInit {
             if (data.ok) {
               this.sessionStorage.saveUser(data.response);
               this.router.navigate(["/admin"]);
+              //Temporizador para cerrar la sesion
+              this.sessionStorage.startSessionTimer();
             } else {
               Util.errorMessage(data.mensaje);
             }
