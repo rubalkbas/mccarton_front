@@ -6,7 +6,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { CheckoutComponent } from './checkout.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatListModule} from '@angular/material/list';
-
+import { NgxPayPalModule } from 'ngx-paypal';
 
 export const routes: Routes = [
   { path: '', component: CheckoutComponent, pathMatch: 'full' }
@@ -21,7 +21,8 @@ export const routes: Routes = [
     MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
-    MatListModule
+    MatListModule,
+    NgxPayPalModule
   ],
   declarations: [
     CheckoutComponent

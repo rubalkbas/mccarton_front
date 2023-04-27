@@ -73,9 +73,9 @@ export class CajasComponent implements AfterViewInit {
     let model: THREE.Object3D;
     let exterior = new THREE.Material;
     const gltfloader = new GLTFLoader();
-    gltfloader.load('assets/images/caja/cajita/CAJA.gltf', function (gltf) {
+    gltfloader.load('assets/images/caja/cajas/cajita.gltf', function (gltf) {
       model = gltf.scene;
-      model.scale.set(0.3, 0.3, 0.3);
+      model.scale.set(0.2, 0.2, 0.2);
 
       // MATERIALES
       model.traverse(function (child) {
@@ -129,8 +129,9 @@ export class CajasComponent implements AfterViewInit {
           action.name = 'Animacion2';
           action.setLoop(THREE.LoopRepeat, 1); // Se repetirá 1 vez
           action.clampWhenFinished = true;
+          action.setEffectiveTimeScale(0.5);
         }
-        if (animation.name === "prueba") {
+        if (animation.name === "Cube.005Action") {
           action.name = 'Animacion3';
           action.setLoop(THREE.LoopRepeat, 1); // Se repetirá 1 vez
           action.clampWhenFinished = true;
@@ -213,7 +214,7 @@ export class CajasComponent implements AfterViewInit {
         if (action) {
           action.reset();
           const clip = action._clip;
-          action.setEffectiveTimeScale(-1);
+          action.setEffectiveTimeScale(-0.5);
           action.setEffectiveWeight(1);
           action.play();
           console.log(clip);
@@ -225,7 +226,7 @@ export class CajasComponent implements AfterViewInit {
         if (action) {
           action.reset();
           const clip = action._clip;
-          action.setEffectiveTimeScale(1);
+          action.setEffectiveTimeScale(0.5);
           action.setEffectiveWeight(2);
           action.play();
           console.log(clip);

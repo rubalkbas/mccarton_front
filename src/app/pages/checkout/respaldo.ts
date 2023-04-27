@@ -1,37 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { MediaChange, MediaObserver } from "@angular/flex-layout";
-import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from "@angular/forms";
-import { MatStep, MatStepper } from "@angular/material/stepper";
-import { filter, map, Subscription } from "rxjs";
-import { AppService } from "../../app.service";
-import { AdminService } from "src/app/_services/admins.service";
-import { error } from "console";
-import { Direccion } from "src/app/models/direccion.model";
-import { CarroCompras } from "src/app/models/carro-compras.model";
-import { OrdenesService } from "src/app/_services/ordenes.service";
-import { CrearOrdenRequest, Ordenes } from "src/app/models/ordenes.model";
-import { Util } from "src/app/util/util";
-import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
-
-const IVA: number = 0.16;
-
-@Component({
-  selector: "app-checkout",
-  templateUrl: "./checkout.component.html",
-  styleUrls: ["./checkout.component.scss"],
-})
-export class CheckoutComponent implements OnInit, OnDestroy {
-
-  @ViewChild("horizontalStepper") horizontalStepper: MatStepper;
-
-  @ViewChild('paymentStep') paymentStep: MatStep;
-
-
-  stepperOrientation: "horizontal" | "vertical" = "horizontal";
+ntation: "horizontal" | "vertical" = "horizontal";
   billingForm: UntypedFormGroup;
   deliveryForm: UntypedFormGroup;
   paymentForm: UntypedFormGroup;
