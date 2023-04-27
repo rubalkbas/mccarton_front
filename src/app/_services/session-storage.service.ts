@@ -51,6 +51,7 @@ export class SessionAdminStorageService {
       if(cliente){
         localStorage.removeItem('cliente');
         localStorage.removeItem('access_token');
+        window.location.reload();
       }else{
         this.router.navigate(['/login-admin']);
         this.signOut(); 
