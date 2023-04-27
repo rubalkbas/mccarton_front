@@ -14,6 +14,7 @@ import { tap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { CarroComprasRequest } from '../models/carro-compras-request.model';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: "root",
@@ -147,18 +148,21 @@ export class AdminService {
     return this.http.post<Cliente[]>(this.urlAdmin + complemento, cliente, { observe: 'response' })
       .pipe(
         tap(response => {
-          const expiresIn = 900; // tiempo en segundos
-          const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+          // const expiresIn = 900; // tiempo en segundos
           this.token = response.headers.get('Authorization');
+          const expirationDate:any = jwt_decode(this.token);
           console.log('Token:', this.token);
-          localStorage.setItem('authTokenExpiration', expirationDate.toISOString());
+          localStorage.setItem('authTokenExpiration', expirationDate.exp);
           localStorage.setItem('access_token', this.token);
+          //Tiempo token
+          const now = Math.floor(Date.now() / 1000);
+          const timeLeft = expirationDate.exp - now;
 
           // Eliminar el token del localStorage cuando expire
           setTimeout(function () {
             localStorage.removeItem('authTokenExpiration');
             localStorage.removeItem('access_token');
-          }, expiresIn * 1000);
+          }, timeLeft * 1000);
         }),
         map(response => response.body || [])
       );

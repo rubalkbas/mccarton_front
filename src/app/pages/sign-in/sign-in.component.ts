@@ -6,6 +6,8 @@ import { emailValidator, matchingPasswords } from '../../theme/utils/app-validat
 import { AdminService } from '../../_services/admins.service';
 import { Cliente } from '../../models/cliente.model';
 import { Util } from '../../util/util';
+import { SessionAdminStorageService } from 'src/app/_services/session-storage.service';
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -23,7 +25,8 @@ export class SignInComponent implements OnInit {
     public formBuilder: FormBuilder,
     private adminService: AdminService,
     public router: Router,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private sessionStorage: SessionAdminStorageService
   ) {
     //inicializador de variables:
     this.cliente.correoElectronico = '';
@@ -62,31 +65,36 @@ export class SignInComponent implements OnInit {
     formData.append('correoElectronico', this.cliente.correoElectronico);
     formData.append('password', this.cliente.password);
 
-    let inactivityTimer: any;
-    function startInactivityTimer() {
-      inactivityTimer = setTimeout(function () {
-        localStorage.removeItem('cliente');
-        localStorage.removeItem('access_token');
-        Util.errorMessage('Tu sesión ha expirado');
-        window.location.reload();
-      });
-    }
+    // let inactivityTimer: any;
+    // function startInactivityTimer() {
+    //   inactivityTimer = setTimeout(function () {
+    //     localStorage.removeItem('cliente');
+    //     localStorage.removeItem('access_token');
+    //     Util.errorMessage('Tu sesión ha expirado');
+    //     window.location.reload();
+    //   });
+    // }
 
 
-    this.adminService.autenticacionCliente(this.cliente.correoElectronico, this.cliente.password).subscribe(
-      response => {
+    this.adminService.autenticacionCliente(this.cliente.correoElectronico, this.cliente.password).subscribe({
+      next:response => {
         this.adminService.loginCliente(this.cliente).subscribe(
           response => {
             Util.successMessage(response.mensaje);
             localStorage.setItem('cliente', response.response.idCliente);
             this.loginForm.reset();
             this.router.navigate(['/account']);
-            setTimeout(function () {
-              startInactivityTimer();
-            }, 10 * 60 * 1000);
+            this.sessionStorage.startSessionTimer();
+            // setTimeout(function () {
+            //   startInactivityTimer();
+            // }, 10 * 60 * 1000);
           }
         )
-      }
+      }, error:error=>{
+        if(error.status==401){
+          Util.errorMessage("El correo electrónico o la contraseña son incorrectos");
+        }
+      }}
     )
 
   }

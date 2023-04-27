@@ -46,8 +46,15 @@ export class SessionAdminStorageService {
 
     console.log("Tiempo", timeLeft)
     this.sessionTimeout = setTimeout(() => {
-      this.signOut(); 
-      this.router.navigate(['/login-admin']);
+      const cliente=localStorage.getItem('cliente');
+      console.log("cliente", cliente);
+      if(cliente){
+        localStorage.removeItem('cliente');
+        localStorage.removeItem('access_token');
+      }else{
+        this.router.navigate(['/login-admin']);
+        this.signOut(); 
+      }
       Util.errorMessage('Tu sesión ha expirado');
     }, timeLeft * 1000);
   }
