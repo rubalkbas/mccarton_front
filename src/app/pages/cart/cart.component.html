@@ -21,12 +21,12 @@
 <mat-spinner class="spinner" *ngIf="cargando" diameter="50" color="primary">
 </mat-spinner>
 
-<div *ngIf="carritos?.length > 0" class="p-0 contenedor">
+<div *ngIf="carroService.carritos?.length > 0" class="p-0 contenedor">
   <!-- <mat-spinner class="spinner" *ngIf="cargando" diameter="50" color="primary">
   </mat-spinner> -->
   <div class="mat-table cart-table">
-    <div *ngFor="let carrito of carritos"  class="mat-row" id="producto">
-      <div class="mat-cell"><img class="img-producto" [src]="imagenesProductos[carrito.producto.idProducto]"></div>
+    <div *ngFor="let carrito of carroService.carritos"  class="mat-row" id="producto">
+      <div class="mat-cell"><img class="img-producto" [src]="carroService.imagenesProductos[carrito.producto.idProducto]"></div>
       <div  class="mat-cell" id="producto-detail">
         <h3 class="mat-cell " id="nombre-producto">{{carrito.producto.nombreProducto}}</h3>
         <p id="medidas">Alto Interior: {{carrito.producto.altoExterior}} Alto interior: {{carrito.producto.altoInterior}} Ancho exterior: {{carrito.producto.anchoExterior}} Ancho Interior: {{carrito.producto.anchoInterior}}</p>
@@ -106,7 +106,7 @@
         <div fxLayout="column" fxLayoutAlign="center start" class="grand-total finalizar">
           <!-- <span >${{ grandTotal | number : '1.2-2'}}</span>
           <span  class="text-muted">15%</span> -->
-          <h3  class="nuevoprecio">${{ totalPrecio | number: '1.2-2'}}</h3>
+          <h3  class="nuevoprecio">${{ carroService.totalPrecio | number: '1.2-2'}}</h3>
           <!-- <h3  class="nuevoprecio">${{ (grandTotal - (grandTotal*0.15)) | number : '1.2-2'}}</h3> -->
         </div>
       </div>

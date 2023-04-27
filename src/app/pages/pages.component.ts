@@ -8,6 +8,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { AdminService } from '../_services/admins.service';
 import { CarroCompras } from '../models/carro-compras.model';
 import Swal from 'sweetalert2';
+import { CarroService } from '../_services/carro.service';
 
 @Component({
   selector: 'app-pages',
@@ -38,6 +39,7 @@ export class PagesComponent implements OnInit {
               public sidenavMenuService:SidenavMenuService,
               public router:Router,
               public adminService:AdminService,
+              public carroService:CarroService,
               @Inject(PLATFORM_ID) private platformId: Object) { 
     this.settings = this.appSettings.settings; 
   }
@@ -48,42 +50,43 @@ export class PagesComponent implements OnInit {
     setTimeout(() => {
       this.settings.theme = 'green'; 
     });
-    setInterval(()=>{
-      this.listarCarrito();
-    },1200)
-    this.listarCarrito();
+    // setInterval(()=>{
+    //   this.listarCarrito();
+    // },1200)
+    // this.listarCarrito();
+    this.carroService.listarCarrito();
     
   } 
 
-  listarCarrito() {
-    // this.cargando = true;
-    const idCliente = parseInt(localStorage.getItem('cliente'));
-    this.adminService.listarCarrito(idCliente).subscribe((data: any) => {
-      // console.log(data)
-      if (data.response === null) {
-        this.totalProductos = 0;
+  // listarCarrito() {
+  //   // this.cargando = true;
+  //   const idCliente = parseInt(localStorage.getItem('cliente'));
+  //   this.adminService.listarCarrito(idCliente).subscribe((data: any) => {
+  //     // console.log(data)
+  //     if (data.response === null) {
+  //       this.totalProductos = 0;
         
-        this.carritos = [];
-        return;
-      }
-      this.carritos = data.response.carrito;
-      this.totalProductos = this.carritos.length;
-      console.log(this.totalProductos)
-      this.carritos.forEach(carrito => {
-        // console.log(carrito.subtotal);
-        this.totalPrecio = data.response.totalEstimado;      
-        this.adminService.obtenerImagenesProducto(carrito.producto).subscribe({
-          next: data => {
-            // console.log(data)
-            //Obtener el ultmo elemento de un arreglo
-            const imagen = data.response[data.response.length - 1];
-            this.imagenesProductos[carrito.producto.idProducto] = `data:image/${imagen.tipoImagen};base64,${imagen.imagenBits}`;
-            // this.cargando = false;
-          }
-        })
-      })
-    })
-  } 
+  //       this.carritos = [];
+  //       return;
+  //     }
+  //     this.carritos = data.response.carrito;
+  //     this.totalProductos = this.carritos.length;
+  //     console.log(this.totalProductos)
+  //     this.carritos.forEach(carrito => {
+  //       // console.log(carrito.subtotal);
+  //       this.totalPrecio = data.response.totalEstimado;      
+  //       this.adminService.obtenerImagenesProducto(carrito.producto).subscribe({
+  //         next: data => {
+  //           // console.log(data)
+  //           //Obtener el ultmo elemento de un arreglo
+  //           const imagen = data.response[data.response.length - 1];
+  //           this.imagenesProductos[carrito.producto.idProducto] = `data:image/${imagen.tipoImagen};base64,${imagen.imagenBits}`;
+  //           // this.cargando = false;
+  //         }
+  //       })
+  //     })
+  //   })
+  // } 
 
 
   public getCategories(){    
@@ -109,10 +112,10 @@ export class PagesComponent implements OnInit {
       next: (data: any) => {
         console.log(data)
         Swal.fire('', data.mensaje, 'success')
-        this.listarCarrito()
+        this.carroService.listarCarrito()
       },
       error: data => {
-        this.listarCarrito()
+        this.carroService.listarCarrito()
 
         Swal.fire('', data.mensaje, 'error');
       }
@@ -129,17 +132,18 @@ export class PagesComponent implements OnInit {
 
   public clear(){
     let ultimo = 0
-    const ultimaPosicion = this.carritos.length - 1; 
-    this.carritos.forEach(data => {
+    const ultimaPosicion = this.carroService.carritos.length - 1; 
+    this.carroService.carritos.forEach(data => {
       this.adminService.eliminarProducto(data.idCarroCompra).subscribe({
         next: (data: any) => {
           
-          
+          this.carroService.listarCarrito()
+
           // console.log(data)
                     
         },
         error: data => {
-          this.listarCarrito()
+          this.carroService.listarCarrito()
   
           Swal.fire('', data.mensaje, 'error');
         }
@@ -147,7 +151,7 @@ export class PagesComponent implements OnInit {
     });
     if(ultimaPosicion){
       Swal.fire('', 'Se elimino el carro por completo', 'success')
-      this.listarCarrito()
+      this.carroService.listarCarrito()
 
     }     
     // this.appService.Data.cartList.forEach(product=>{

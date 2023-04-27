@@ -37,6 +37,7 @@ export class ProductComponent implements OnInit {
   public relatedProducts: Array<Product>;
   selectedImage: string;
   // seleccion:string = "1"
+  public masCantidades:boolean;
   public cantidad: string = "1"
   constructor(public appService: AppService,
     private activatedRoute: ActivatedRoute,
@@ -98,6 +99,9 @@ export class ProductComponent implements OnInit {
   }
 
   cambioUnidad(){
+    if(this.cantidad == "7"){
+      this.masCantidades = true
+    }
     this.carroService.unidadProductos = this.cantidad;
   }
   public onMouseLeave(event) {

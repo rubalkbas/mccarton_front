@@ -128,7 +128,8 @@ export class ControlsComponent implements OnInit {
       next:(data:any)=> {
         console.log(data)
         Swal.fire('',data.mensaje,'success')
-      },
+        this.carroService.listarCarrito();
+      },    
       error: data=>{
 
       }

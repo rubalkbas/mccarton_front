@@ -46,6 +46,24 @@
         </div> -->
         <p class="py-1 text-muted lh descripcion-product1">{{producto?.descripcionBreve}}</p>
 
+        <div>
+
+            <mat-form-field appearance="outline">
+
+                <mat-select [(ngModel)]="cantidad" [value] = "cantidad"(selectionChange)="cambioUnidad()">
+                    <mat-option value="1">1 unidad</mat-option>
+                    <mat-option value="2">2 unidades</mat-option>
+                    <mat-option value="3">3 unidades</mat-option>
+                    <mat-option value="4">4 unidades</mat-option>
+                    <mat-option value="5">5 unidades</mat-option>
+                    <mat-option value="6">6 unidades</mat-option>
+                    <mat-option value="7"> Mas de 6 unidades  
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <input *ngIf="masCantidades" type="text" matInput>
+
+        </div>
         <div class="divider mt-1"></div>
         <div class="py-2">
             <!-- <h3 class="old-price text-muted"><span *ngIf="product?.oldPrice">${{product?.oldPrice | number : '1.2-2'}}</span></h3> -->
