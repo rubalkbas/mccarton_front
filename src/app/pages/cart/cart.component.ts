@@ -44,6 +44,7 @@ export class CartComponent implements OnInit {
     const idCliente = parseInt(localStorage.getItem('cliente'));
     this.adminService.listarCarrito(idCliente).subscribe((data: any) => {
       console.log(data)
+      console.log("eNTRE SERVICE")
       if (data.response === null) {
         this.totalProcuctos = 0;
         this.carritos = [];
