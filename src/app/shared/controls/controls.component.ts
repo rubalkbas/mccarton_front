@@ -117,20 +117,27 @@ export class ControlsComponent implements OnInit {
 
     const idUsuario = parseInt(localStorage.getItem('cliente'));
     const idProducto = producto.idProducto;
+   
 
     const carroCompras = new CarroComprasRequest();
     carroCompras.idCliente = idUsuario;
     carroCompras.idProducto = idProducto;
     carroCompras.cantidad =  parseInt(this.carroService.unidadProductos);
 
+    if( isNaN( carroCompras.cantidad )){
+      Swal.fire('','Ingresa una cantidad valida','warning')
+      return;
+    }
+
     console.log(carroCompras)
     this.adminService.agregarProducto(carroCompras).subscribe({
       next:(data:any)=> {
         console.log(data)
-        Swal.fire('',data.mensaje,'success')
+        Swal.fire('',data.mensaje,'success');
         this.carroService.listarCarrito();
       },    
       error: data=>{
+        Swal.fire('',data.error.mensaje,'warning');
 
       }
     })

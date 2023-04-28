@@ -18,6 +18,7 @@ import { Imagen } from '../../../models/imagen.model';
 import { Buffer } from 'buffer';
 import { CarroService } from '../../../_services/carro.service';
 import { MatSelectChange } from '@angular/material/select';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -38,7 +39,8 @@ export class ProductComponent implements OnInit {
   selectedImage: string;
   // seleccion:string = "1"
   public masCantidades:boolean;
-  public cantidad: string = "1"
+  public cantidad: string = "1";
+  public cantidadInput:string = ""
   constructor(public appService: AppService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
@@ -98,10 +100,14 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  cambioUnidad(){
-    if(this.cantidad == "7"){
-      this.masCantidades = true
+  checarInput(evento){
+    if(evento === ""){
+      Swal.fire('','Ingresa una cantidad valida','warning')
     }
+    this.carroService.unidadProductos = evento;    
+  }
+
+  cambioUnidad(){            
     this.carroService.unidadProductos = this.cantidad;
   }
   public onMouseLeave(event) {
