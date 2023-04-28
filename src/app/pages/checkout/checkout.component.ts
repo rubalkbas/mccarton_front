@@ -165,6 +165,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       },
       onApprove: (data, actions) => {
         this.pagobueno=true;
+        this.realizarOrden();
         console.log('onApprove - transaction was approved, but not authorized', data, actions);
         actions.order.get().then(details => {
           console.log('onApprove - you can get full order details inside onApprove: ', details);
@@ -209,7 +210,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     ordenRequest.idCliente = idCliente;
     ordenRequest.idDireccion = this.billingForm.get('idDireccion').getRawValue();
     ordenRequest.totalProductos = this.totalProductos;
-    ordenRequest.metodoPago = this.metodoPago.get('metodoDePago').getRawValue();
+    // ordenRequest.metodoPago = this.metodoPago.get('metodoDePago').getRawValue();
+    ordenRequest.metodoPago = "PAYPAL"
     ordenRequest.pagoTotal = this.totalPrecio;
     ordenRequest.iva = IVA;
     // return;
