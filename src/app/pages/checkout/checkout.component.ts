@@ -16,6 +16,7 @@ import { OrdenesService } from "src/app/_services/ordenes.service";
 import { CrearOrdenRequest, Ordenes } from "src/app/models/ordenes.model";
 import { Util } from "src/app/util/util";
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+import { CarroService } from "src/app/_services/carro.service";
 
 const IVA: number = 0.16;
 
@@ -70,7 +71,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     public formBuilder: UntypedFormBuilder,
     public mediaObserver: MediaObserver,
     private adminService: AdminService,
-    private ordenesServices: OrdenesService
+    private ordenesServices: OrdenesService,
+    private carroService:CarroService
+
 
   ) {
     this.initConfig();
@@ -218,10 +221,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
     this.ordenesServices.crearOrden(ordenRequest).subscribe({
       next: data => {
-        console.log(data);
         this.paymentStep.completed = true;
         this.horizontalStepper.next();
         this.listarCarrito();
+        this.carroService.listarCarrito();
       }, error: error => {
         Util.errorMessage(error.error.mensaje)
       }
