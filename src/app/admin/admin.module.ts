@@ -31,7 +31,7 @@ export const routes = [
       // { path: 'refund', loadChildren: () => import('./refund/refund.module').then(m => m.RefundModule), data: { breadcrumb: 'Refund' } },
       { path: 'followers', loadChildren: () => import('./followers/followers.module').then(m => m.FollowersModule), data: { breadcrumb: 'Followers' } },
       // { path: 'support', loadChildren: () => import('./support/support.module').then(m => m.SupportModule), data: { breadcrumb: 'Support' } },
-      // { path: 'reviews', loadChildren: () => import('./reviews/reviews.module').then(m => m.ReviewsModule), data: { breadcrumb: 'Reviews' } },  
+      { path: 'reviews', loadChildren: () => import('./reviews/reviews.module').then(m => m.ReviewsModule), data: { breadcrumb: 'Reviews' } },  
       { path: 'banner', loadChildren: () => import('./banner/banner.module').then(m => m.BannerModule), data: { breadcrumb: 'Banner' } },  
       { path: 'ordenes', loadChildren: () => import('./ordenes/ordenes.module').then(m => m.OrdenesModule), data: { breadcrumb: 'Ordenes' } }  
     ]

@@ -10,6 +10,7 @@ export class RatingComponent {
   @Input() ratingsValue:number;
   @Input() direction:string;
   @Input() showText:boolean = true;
+  @Input() reviews:boolean=false;
   avg:number;
   stars:Array<string>;
   constructor() { }
@@ -28,7 +29,11 @@ export class RatingComponent {
   }
 
   calculateAvgValue(){
-    this.avg = this.ratingsValue / this.ratingsCount;
+    if(this.reviews){
+      this.avg=(this.ratingsCount*100)/5
+    }else{
+      this.avg = this.ratingsValue / this.ratingsCount;
+    }
     switch (true) {
       case this.avg > 0 && this.avg < 20 : {
           this.stars = ['star_half', 'star_border', 'star_border', 'star_border', 'star_border'];

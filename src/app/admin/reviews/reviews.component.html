@@ -1,35 +1,35 @@
 <div class="p-1">
     <mat-card class="p-0"> 
         <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
-            <h2>Opciones de la Tienda</h2>   
+            <h2>Opiniones de productos</h2>   
         </div>
         <mat-divider></mat-divider>
         <div class="mat-table admin-table">
             <div class="mat-header-row"> 
-                <div class="mat-header-cell status" id="columnas"></div> 
+                <!-- <div class="mat-header-cell status" id="columnas"></div>  -->
                 <div class="mat-header-cell image" id="columnas">Imagen</div>
                 <div class="mat-header-cell" id="columnas">Autor</div>
                 <div class="mat-header-cell" id="columnas">Comentario</div>
                 <div class="mat-header-cell ratings" id="columnas">Valoración</div> 
-                <div class="mat-header-cell" id="columnas">Tienda</div> 
+                <div class="mat-header-cell" id="columnas">Producto</div> 
                 <div class="mat-header-cell" id="columnas">Fecha</div>
-                <div class="mat-header-cell" id="columnas">Acciones</div>
+                <!-- <div class="mat-header-cell" id="columnas">Acciones</div> -->
             </div>
             <div *ngFor="let review of reviews | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row"> 
-                <div class="mat-cell status">
+                <!-- <div class="mat-cell status">
                     <mat-icon [color]="(review.statusId == 1) ? 'primary' : 'warn'" [matTooltip]="( statuses | filterById : review.statusId )?.name">{{ (review.statusId == 1) ? 'check_circle' : 'access_time' }}</mat-icon>
-                </div> 
+                </div>  -->
                 <div class="mat-cell image">
-                    <img [src]="review.image" alt="" width="50">
+                    <img [src]="'data:'+review.cliente.tipoImagen+';base64,'+review.cliente.bytesImagen" alt="" width="50">
                 </div> 
-                <div class="mat-cell"  id="columnas2">{{review.author}}</div>
-                <div class="mat-cell" id="columnas2">{{review.comment}}</div>
+                <div class="mat-cell"  id="columnas2">{{review.cliente.nombre}}</div>
+                <div class="mat-cell" id="columnas2">{{review.comentarios}}</div>
                 <div class="mat-cell ratings" id="columnas2">
-                    <app-rating [ratingsCount]="review?.ratingsCount" [ratingsValue]="review?.ratingsValue" [showText]="false" [direction]="'row'"></app-rating>
+                    <app-rating [ratingsCount]="review?.valoracion" [ratingsValue]="1" [showText]="false" [direction]="'row'" [reviews]="true"></app-rating>
                 </div> 
-                <div class="mat-cell" id="columnas2">{{ ( stores | filterById : review.storeId )?.name }}</div>  
-                <div class="mat-cell" id="columnas2">{{review.date | date:"dd MMMM, yyyy 'at' HH:mm"}}</div>     
-                <div class="mat-cell" id="columnas2">
+                <div class="mat-cell" id="columnas2">{{ review.producto.nombreProducto }}</div>  
+                <div class="mat-cell" id="columnas2">{{ review.fecha | date:'dd MMMM, yyyy \'a las\' HH:mm':'es' }}</div>     
+                <!-- <div class="mat-cell" id="columnas2">
                     <div class="p-1 actions" id="columnas2">  
                         <button *ngIf="review.statusId == 1" mat-mini-fab color="primary" matTooltip="UnApprove" (click)="unApprove(review)">
                             <mat-icon>undo</mat-icon>
@@ -38,7 +38,7 @@
                             <mat-icon>delete</mat-icon>
                         </button>
                     </div>
-                </div>      
+                </div>       -->
             </div>
         </div>
     </mat-card>
