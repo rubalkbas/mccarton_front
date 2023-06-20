@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UntypedFormBuilder, UntypedFormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,6 +19,7 @@ import { Buffer } from 'buffer';
 import { CarroService } from '../../../_services/carro.service';
 import { MatSelectChange } from '@angular/material/select';
 import Swal from 'sweetalert2';
+import { V } from '@angular/cdk/keycodes';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -49,6 +50,19 @@ export class ProductComponent implements OnInit {
     public carroService:CarroService,
     private adminService: AdminService) { }
 
+
+    //Mostrar cajas
+    public mostrarCaja1: boolean=false;
+    public mostrarCaja2: boolean=false;
+    public mostrarCaja3: boolean=false;
+    public mostrarCaja4: boolean=false;
+    public mostrarCaja5: boolean=false;
+    public mostrarCaja6: boolean=false;
+    public mostrarCaja7: boolean=false;
+    public mostrarCaja8: boolean=false;
+    public mostrarCaja9: boolean=false;
+    public mostrarCaja10: boolean=false;
+
   ngOnInit() {
     this.sub = this.activatedRoute.params.subscribe(params => {
       this.getProductById(params['id']); 
@@ -59,6 +73,8 @@ export class ProductComponent implements OnInit {
       'name': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
       'email': [null, Validators.compose([Validators.required, emailValidator])]
     });
+
+
   }
 
   ngAfterViewInit() {
@@ -152,6 +168,7 @@ export class ProductComponent implements OnInit {
             this.image = this.producto.imagenes[0].imagen;
             this.zoomImage = this.getDataUrlAsFileUrl(this.producto.imagenes[0].imagen.toString());
 
+            this.mostrarCajas(this.producto.nombreProducto);
             //console.log(this.zoomImage);
 
             setTimeout(() => {
@@ -194,6 +211,40 @@ export class ProductComponent implements OnInit {
   public onSubmit(values: Object): void {
     if (this.form.valid) {
       //email sent
+    }
+  }
+
+  mostrarCajas(nombreCaja:string){
+
+    if(nombreCaja=="Caja 1"){
+      this.mostrarCaja1 = true;
+    }
+    if(nombreCaja=="Caja 2"){
+      this.mostrarCaja2 = true;
+    }
+    if(nombreCaja=="Caja 3"){
+      this.mostrarCaja3 = true;
+    }
+    if(nombreCaja=="Caja 4"){
+      this.mostrarCaja4 = true;
+    }
+    if(nombreCaja=="Caja 5"){
+      this.mostrarCaja5 = true;
+    }
+    if(nombreCaja=="Caja 6"){
+      this.mostrarCaja6 = true;
+    }
+    if(nombreCaja=="Caja 7"){
+      this.mostrarCaja7 = true;
+    }
+    if(nombreCaja=="Caja 8"){
+      this.mostrarCaja8 = true;
+    }
+    if(nombreCaja=="Caja 9"){
+      this.mostrarCaja9 = true;
+    }
+    if(nombreCaja=="Caja 10"){
+      this.mostrarCaja10 = true;
     }
   }
 
